@@ -12,5 +12,7 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["src/**/*.test.ts", "tests/**/*.test.ts"],
+    // next-intl 的 ESM 用 "next/server"（沒有副檔名），交給 Vite 解析。
+    server: { deps: { inline: ["next-intl"] } },
   },
 });

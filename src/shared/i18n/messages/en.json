@@ -1,0 +1,30 @@
+{
+  "common": {
+    "siteName": "傻媽萬事通"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "zh-TW": "繁體中文",
+    "en": "English"
+  },
+  "notFound": {
+    "title": "找不到這個頁面",
+    "backHome": "回首頁"
+  },
+  "devI18n": {
+    "title": "多語系範例",
+    "description": "切換語言後，文字、金額、日期都會跟著改變。這一頁只在開發和預覽環境出現。",
+    "textSection": "文字",
+    "greeting": "你好，歡迎使用傻媽萬事通。",
+    "moneySection": "金額",
+    "videoFee": "視訊平台費",
+    "largeAmount": "大金額",
+    "euroWhole": "歐元（整數）",
+    "euroCents": "歐元（有小數）",
+    "decimalSum": "0.1 + 0.2（歐元）",
+    "dateSection": "日期與時間",
+    "sourceUtc": "資料庫存的 UTC 時間",
+    "taipei": "台灣時間（Asia/Taipei）",
+    "berlin": "歐洲時間（Europe/Berlin）"
+  }
+}

@@ -19,9 +19,14 @@ export function getAppEnv(): AppEnv {
   return parseAppEnv(process.env.APP_ENV);
 }
 
+/** 開發用的頁面（/health、/[語言]/dev/...）只在開發和 PR 預覽環境開啟。 */
+export function isDevToolsEnabled(appEnv: AppEnv = getAppEnv()): boolean {
+  return appEnv === "development" || appEnv === "preview";
+}
+
 /** `/health` 只在開發和 PR 預覽環境開啟。 */
 export function isHealthCheckEnabled(appEnv: AppEnv = getAppEnv()): boolean {
-  return appEnv === "development" || appEnv === "preview";
+  return isDevToolsEnabled(appEnv);
 }
 
 function required(name: string, value: string | undefined): string {

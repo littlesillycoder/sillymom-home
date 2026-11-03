@@ -1,4 +1,9 @@
+# 套件的安裝腳本預設不執行（資安：避免供應鏈攻擊）。這裡列出的都明確拒絕；
+# 要允許任何一個，先確認用途並在 PR 說明原因。
+# @parcel/watcher、@swc/core：next-intl 的文字擷取工具用，本專案沒有使用。
 allowBuilds:
+  "@parcel/watcher": false
+  "@swc/core": false
   sharp: false
   unrs-resolver: false
 minimumReleaseAgeExclude:
