@@ -721,6 +721,14 @@
         "之後討論"
       ],
       "body": "### 說明\n把網站包成 App 上架 App Store 和 Google Play；連結可以設定成有 App 就開 App。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜每個模組用各自的資料庫角色（資料表隔離）",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 背景\n目前伺服器端程式都用同一把 Supabase secret key，資料庫本身不會阻止 A 模組讀寫 B 模組的資料表，只能靠 ESLint 模組邊界檢查和 code review 防範（#3 討論時記下的已知限制）。\n\n### 要討論\n- 每個模組建立自己的 PostgreSQL 角色，只授權自己的資料表；伺服器端依模組切換角色連線。\n- 對效能、連線數、Supabase 方案的影響。\n- 什麼時候值得做（例如正式上線前、或有工程師加入時）。\n\n參考：`CLAUDE.md`、`docs/架構說明.md`"
     }
   ]
 }
