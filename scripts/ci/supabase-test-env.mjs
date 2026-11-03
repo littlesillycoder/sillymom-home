@@ -14,5 +14,6 @@ const lines = [
   `SUPABASE_TEST_URL=${pick("API_URL", "api_url")}`,
   `SUPABASE_TEST_PUBLISHABLE_KEY=${pick("PUBLISHABLE_KEY", "ANON_KEY", "anon_key")}`,
   `SUPABASE_TEST_SECRET_KEY=${pick("SECRET_KEY", "SERVICE_ROLE_KEY", "service_role_key")}`,
+  `SUPABASE_TEST_DB_URL=${pick("DB_URL", "db_url")}`,
 ];
 process.stdout.write(lines.join("\n") + "\n");

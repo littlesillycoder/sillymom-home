@@ -23,3 +23,7 @@ minimumReleaseAgeExclude:
   - "@supabase/cli-windows-arm64@3.0.0"
   - "@supabase/cli-windows-x64@3.0.0"
   - supabase@3.0.0
+  - "@boundaries/config@1.0.0"
+  - "@boundaries/elements@3.3.1"
+  - "@boundaries/policies@1.0.0"
+  - eslint-plugin-boundaries@7.4.1

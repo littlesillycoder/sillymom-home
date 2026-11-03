@@ -42,6 +42,9 @@ jobs:
         run: pnpm exec supabase start
       - name: 設定測試用連線
         run: pnpm exec supabase status -o json | node scripts/ci/supabase-test-env.mjs >> "$GITHUB_ENV"
-      - run: pnpm exec vitest run tests/db
+      - name: 建立測試專用的範例資料表（不在 migrations，不會推到雲端）
+        run: psql "$SUPABASE_TEST_DB_URL" -v ON_ERROR_STOP=1 -f tests/fixtures/sql/example_modules.sql
+      - name: 資料庫測試（一次跑一個檔案，避免互相干擾）
+        run: pnpm exec vitest run tests/db --no-file-parallelism
       - if: always()
         run: pnpm exec supabase stop --no-backup
