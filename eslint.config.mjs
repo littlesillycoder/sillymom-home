@@ -73,11 +73,34 @@ const boundaryRules = {
   },
 };
 
+/**
+ * 多語系與 XSS：
+ * - .tsx 裡不能直接寫中文（含全形標點），畫面文字要放語言檔 src/shared/i18n/messages/。
+ *   註解不受影響；真的需要時用 // eslint-disable-next-line no-restricted-syntax 並寫原因。
+ * - 禁止 dangerouslySetInnerHTML；需要粗體、連結的文字用 next-intl 的 t.rich()。
+ */
+const CJK = "[\\u3000-\\u303f\\u3400-\\u9fff\\uf900-\\ufaff\\uff00-\\uffef]";
+const NO_CJK_MESSAGE = "畫面文字要放在語言檔（src/shared/i18n/messages/），不能直接寫中文";
+const i18nRules = {
+  files: ["src/**/*.tsx"],
+  ignores: ["src/**/*.test.tsx"],
+  rules: {
+    "no-restricted-syntax": [
+      "error",
+      { selector: `JSXText[value=/${CJK}/]`, message: NO_CJK_MESSAGE },
+      { selector: `Literal[value=/${CJK}/]`, message: NO_CJK_MESSAGE },
+      { selector: `TemplateElement[value.raw=/${CJK}/]`, message: NO_CJK_MESSAGE },
+    ],
+    "react/no-danger": "error",
+  },
+};
+
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   prettier,
   boundaryRules,
+  i18nRules,
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

@@ -39,14 +39,16 @@
    - 接收者要寫成「執行兩次結果一樣」，在 `src/event-handlers.ts` 註冊。
 3. **外部服務**：金流、發票、簡訊、通知只能透過 `src/shared/providers/` 的介面呼叫，不能直接呼叫綠界、EVERY8D、LINE 的程式。
 4. **不寫死**：
-   - 畫面文字放在語言檔（繁中、英文）。
-   - 金額用共用的格式化工具，資料存「數字＋幣別代碼」。
-   - 時間存 UTC，顯示時轉成地區時區。
+   - 畫面文字放在語言檔 `src/shared/i18n/messages/`（繁中、英文，兩邊項目要一樣）。`.tsx` 裡直接寫中文，lint 會擋下。站內連結用 `@/shared/i18n` 的 `Link`（自動帶語言）。
+   - **金額**：資料庫存 `numeric(12,2)`（例如 `150.50`）＋另一欄幣別代碼（`TWD`、`EUR`）。程式裡用 `Money` 型別，加減、比較只能用 `@/shared/i18n` 的 `addMoney`、`subtractMoney`、`compareMoney` 等工具，**不能直接對金額做 `+`、`-`**；顯示用 `formatMoney`。台幣不能有小數。
+   - **時間**：存 UTC（`timestamptz`），顯示用 `formatDate`、`formatTime`、`formatDateTime`，時區照 `src/shared/config/regions.ts`，24 小時制。沒有時區的時間文字會被擋下。
    - 收費金額和保存天數從平台設定讀，不寫在程式裡。
 5. **資安**：
    - 每張新資料表都要有 Row Level Security，並寫測試證明別人讀不到。
    - 金鑰只放環境變數，`.env*` 不進 git。
    - 錄影、證件用短效連結；不在 log 裡印出個資（手機、地址、證件號碼）。
+   - 禁止 `dangerouslySetInnerHTML`（lint 會擋）；需要粗體、連結的文字用 next-intl 的 `t.rich()`。
+   - 開發用頁面（`/health`、`/[語言]/dev/...`）只在 development、preview 開啟（`isDevToolsEnabled()`）。
 6. **設計**：顏色、字級、間距、圓角照設計稿；共用樣式做成 `src/shared/ui` 的元件，不逐頁複製 CSS。
    - 卡片圓角 16、卡片裡的小框 12。
    - 單獨一行的文字連結靠右；「← 回…」返回連結靠左上。
