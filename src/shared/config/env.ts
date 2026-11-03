@@ -46,3 +46,12 @@ export function getSupabasePublicConfig() {
 export function getSupabaseSecretKey(): string {
   return required("SUPABASE_SECRET_KEY", process.env.SUPABASE_SECRET_KEY);
 }
+
+/** 補處理網址的密碼至少要這麼長，太短當成沒設定。 */
+export const MIN_CRON_SECRET_LENGTH = 32;
+
+/** 補處理網址 /internal/events/process 的密碼。沒設定或太短回傳 null（網址會回 404）。 */
+export function getEventsCronSecret(): string | null {
+  const value = process.env.EVENTS_CRON_SECRET;
+  return value && value.length >= MIN_CRON_SECRET_LENGTH ? value : null;
+}

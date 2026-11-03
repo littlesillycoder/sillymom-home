@@ -1,6 +1,6 @@
 import { connection } from "next/server";
 import { getAppEnv, isHealthCheckEnabled } from "@/shared/config/env";
-import { createAdminClient } from "@/shared/supabase/admin";
+import { checkDatabase } from "@/shared/health/check";
 
 /**
  * 工程檢查用：確認網站能讀寫 Supabase。
@@ -16,41 +16,24 @@ export async function GET() {
   }
 
   const startedAt = Date.now();
-  const checkedAt = new Date().toISOString();
+  const result = await checkDatabase(new Date().toISOString());
 
-  try {
-    const supabase = createAdminClient();
-
-    const write = await supabase
-      .from("health_check")
-      .upsert({ id: 1, checked_at: checkedAt })
-      .select("checked_at")
-      .single();
-    if (write.error) throw new Error(`write: ${write.error.message}`);
-
-    const read = await supabase.from("health_check").select("checked_at").eq("id", 1).single();
-    if (read.error) throw new Error(`read: ${read.error.message}`);
-
-    return Response.json({
-      status: "ok",
-      appEnv,
-      supabase: {
-        host: new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").host,
-        write: "ok",
-        read: "ok",
-        lastCheckedAt: read.data.checked_at,
-      },
-      elapsedMs: Date.now() - startedAt,
-    });
-  } catch (error) {
+  if (!result.ok) {
     return Response.json(
-      {
-        status: "error",
-        appEnv,
-        error: error instanceof Error ? error.message : "unknown error",
-        elapsedMs: Date.now() - startedAt,
-      },
+      { status: "error", appEnv, error: result.error, elapsedMs: Date.now() - startedAt },
       { status: 503 },
     );
   }
+
+  return Response.json({
+    status: "ok",
+    appEnv,
+    supabase: {
+      host: new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").host,
+      write: "ok",
+      read: "ok",
+      lastCheckedAt: result.lastCheckedAt,
+    },
+    elapsedMs: Date.now() - startedAt,
+  });
 }

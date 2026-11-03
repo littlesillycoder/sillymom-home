@@ -8,6 +8,7 @@ export const testDb = {
   url: process.env.SUPABASE_TEST_URL,
   publishableKey: process.env.SUPABASE_TEST_PUBLISHABLE_KEY,
   secretKey: process.env.SUPABASE_TEST_SECRET_KEY,
+  dbUrl: process.env.SUPABASE_TEST_DB_URL,
 };
 
 export const hasTestDb = Boolean(testDb.url && testDb.publishableKey && testDb.secretKey);

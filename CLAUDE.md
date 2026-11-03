@@ -30,22 +30,32 @@
 ## 一定要遵守
 
 1. **模組化**：程式放在 `src/modules/<模組>/`；跨模組只能 import `modules/<模組>/index.ts`，或用事件。不能直接讀寫別的模組的資料表。
-2. **外部服務**：金流、發票、簡訊、通知只能透過 `src/shared/providers/` 的介面呼叫，不能直接呼叫綠界、EVERY8D、LINE 的程式。
-3. **不寫死**：
+   - `shared/` 不能 import 任何模組；`app/` 只能 import 模組的 `index.ts` 和 `shared/`。`pnpm lint` 會自動檢查（`eslint-plugin-boundaries`）。
+   - `shared/supabase/admin.ts`（略過 RLS 的連線）只有模組的 `server/`、`shared/events/`、`shared/health/` 可以 import。畫面元件和頁面不能用。
+   - 新模組照 `tests/fixtures/modules/` 的範例寫，`README.md` 寫清楚負責什麼、公開介面、資料表、發出和接收的事件。
+2. **事件**（`src/shared/events/`，說明見 `docs/架構說明.md` 第 4 節）：
+   - 名稱 `<模組>.<過去式>`；內容只放編號、數字、狀態，**不放個資**（程式和資料庫都會擋）。
+   - **跟錢、權限、後台操作紀錄、申訴有關的事件，一定要用資料庫函式 `public.emit_event()`**，和業務資料寫在同一個交易。其他事件可以用 `emitEvent()`（寫完資料後發出）。
+   - 接收者要寫成「執行兩次結果一樣」，在 `src/event-handlers.ts` 註冊。
+3. **外部服務**：金流、發票、簡訊、通知只能透過 `src/shared/providers/` 的介面呼叫，不能直接呼叫綠界、EVERY8D、LINE 的程式。
+4. **不寫死**：
    - 畫面文字放在語言檔（繁中、英文）。
    - 金額用共用的格式化工具，資料存「數字＋幣別代碼」。
    - 時間存 UTC，顯示時轉成地區時區。
    - 收費金額和保存天數從平台設定讀，不寫在程式裡。
-4. **資安**：
+5. **資安**：
    - 每張新資料表都要有 Row Level Security，並寫測試證明別人讀不到。
    - 金鑰只放環境變數，`.env*` 不進 git。
    - 錄影、證件用短效連結；不在 log 裡印出個資（手機、地址、證件號碼）。
-5. **設計**：顏色、字級、間距、圓角照設計稿；共用樣式做成 `src/shared/ui` 的元件，不逐頁複製 CSS。
+6. **設計**：顏色、字級、間距、圓角照設計稿；共用樣式做成 `src/shared/ui` 的元件，不逐頁複製 CSS。
    - 卡片圓角 16、卡片裡的小框 12。
    - 單獨一行的文字連結靠右；「← 回…」返回連結靠左上。
    - 中文詞不從中間斷開（`word-break: keep-all`），段落用 `word-break: normal`。
    - 網站上不使用 emoji。
-6. **資料庫**：只用標準 PostgreSQL 功能；資料表變更一律寫 migration（`supabase/migrations/`）。
+7. **資料庫**：只用標準 PostgreSQL 功能；資料表變更一律寫 migration（`supabase/migrations/`）。
+   - 已經推上雲端的 migration 不能修改，要改就寫新的 migration。
+   - **可能含個資的資料表，不用 check constraint 做檢查**：失敗時錯誤明細會附上整筆資料（含個資），會進錯誤訊息和 log。改用觸發程序自己丟錯誤，只寫規則和欄位名稱，不寫值（範例：`events_validate`）。
+   - 測試專用的資料表放 `tests/fixtures/sql/`，不放 migrations。
 
 ## 指令
 
