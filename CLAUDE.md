@@ -47,10 +47,14 @@
    - 網站上不使用 emoji。
 6. **資料庫**：只用標準 PostgreSQL 功能；資料表變更一律寫 migration（`supabase/migrations/`）。
 
-## 指令（建立專案後補上）
+## 指令
 
-- 安裝：
-- 本機開發：
-- 測試：
-- 檢查（lint、型別、模組邊界）：
-- 部署：
+套件管理用 pnpm（`corepack enable pnpm`）。Node 24 以上。
+
+- 安裝：`pnpm install`
+- 本機開發：`cp .env.example .env.local` 並填入值，然後 `pnpm dev`，打開 http://localhost:3000
+- 測試：`pnpm test`（需要資料庫的測試在本機沒有 Docker 時會自動略過，GitHub Actions 會跑）
+- 檢查（lint、格式、型別、測試）：`pnpm check`；自動排版：`pnpm format`
+- 資料庫：新增 migration `pnpm db:new <名稱>`；推到雲端開發專案 `pnpm db:push`（第一次要先 `pnpm exec supabase login` 和 `pnpm exec supabase link`）
+- 工程檢查：開發和 PR 預覽環境打開 `/health`，會回傳資料庫讀寫狀態（JSON）
+- 部署：（#83 補上）
