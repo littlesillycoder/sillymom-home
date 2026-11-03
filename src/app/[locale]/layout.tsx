@@ -1,10 +1,11 @@
-import "../globals.css";
+import "@/shared/ui/base.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/shared/i18n/routing";
+import { notoSansTC } from "@/shared/ui/fonts";
 
 const HTML_LANG = { "zh-TW": "zh-Hant-TW", en: "en" } as const;
 
@@ -32,7 +33,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   setRequestLocale(locale);
 
   return (
-    <html lang={HTML_LANG[locale]}>
+    <html lang={HTML_LANG[locale]} className={notoSansTC.variable}>
       <body>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

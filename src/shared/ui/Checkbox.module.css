@@ -1,0 +1,52 @@
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+/* 勾選框：22px、圓角 6、勾選後牛仔藍底白勾 */
+.box {
+  appearance: none;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin: 2px 0 0;
+  border: 1.5px solid var(--color-border-input);
+  border-radius: 6px;
+  background: var(--color-surface);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.box:checked {
+  background: var(--color-denim);
+  border-color: var(--color-denim);
+}
+
+.box:checked::after {
+  content: "";
+  width: 12px;
+  height: 7px;
+  border: solid var(--color-text-on-color);
+  border-width: 0 0 2px 2px;
+  transform: translateY(-1px) rotate(-45deg);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  font-weight: var(--weight-bold);
+}
+
+.description {
+  /* 說明是段落：正常換行 */
+  word-break: normal;
+  color: var(--color-text-secondary);
+}

@@ -50,6 +50,11 @@
    - 禁止 `dangerouslySetInnerHTML`（lint 會擋）；需要粗體、連結的文字用 next-intl 的 `t.rich()`。
    - 開發用頁面（`/health`、`/[語言]/dev/...`）只在 development、preview 開啟（`isDevToolsEnabled()`）。
 6. **設計**：顏色、字級、間距、圓角照設計稿；共用樣式做成 `src/shared/ui` 的元件，不逐頁複製 CSS。
+   - 樣式寫法：**CSS 變數 + CSS Modules**（不用 Tailwind）。設計規範在 `src/shared/ui/tokens.css`，元件和頁面一律用 `var(--...)`，不直接寫色碼；全站規則在 `src/shared/ui/base.css`。
+   - 先用 `@/shared/ui` 現有的元件（按鈕、標籤、卡片、輸入框、勾選框、開關、分頁籤、對話框、步驟列、提示框、圖示、文字連結），展示在 `/[語言]/dev/ui`。不裝元件庫、圖示套件。
+   - 圖示只用設計稿有的（`Icon`），新圖示先跟設計確認。
+   - 字型 Noto Sans TC 用 `next/font`（使用者瀏覽時不連到 Google）。
+   - 提示內容、說明文字這類段落用 `word-break: normal`（正常換行），標題、按鈕、標籤不斷詞。
    - 卡片圓角 16、卡片裡的小框 12。
    - 單獨一行的文字連結靠右；「← 回…」返回連結靠左上。
    - 中文詞不從中間斷開（`word-break: keep-all`），段落用 `word-break: normal`。

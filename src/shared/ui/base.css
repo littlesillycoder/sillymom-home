@@ -1,0 +1,100 @@
+/* 全站基本規則（設計稿手機版、電腦版 <style> 的定案標準） */
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  /* 頁面不能左右滑 */
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  background: var(--color-bg);
+  color: var(--color-text);
+  /* 中文詞不從中間斷開（在標點、空白處換行）；段落正常換行 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+p {
+  word-break: normal;
+}
+
+p,
+li,
+span,
+div,
+a,
+label,
+h1,
+h2,
+h3,
+summary,
+button {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--color-link);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+h1 {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  color: var(--color-denim);
+}
+
+/* 區塊標題統一 18px */
+h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-black);
+  line-height: 1.4;
+  color: var(--color-denim);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-denim);
+  outline-offset: 2px;
+}
+
+/* 視覺上隱藏、螢幕閱讀器讀得到 */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
