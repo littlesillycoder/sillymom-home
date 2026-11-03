@@ -53,6 +53,9 @@
    - 中文詞不從中間斷開（`word-break: keep-all`），段落用 `word-break: normal`。
    - 網站上不使用 emoji。
 7. **資料庫**：只用標準 PostgreSQL 功能；資料表變更一律寫 migration（`supabase/migrations/`）。
+   - 已經推上雲端的 migration 不能修改，要改就寫新的 migration。
+   - **可能含個資的資料表，不用 check constraint 做檢查**：失敗時錯誤明細會附上整筆資料（含個資），會進錯誤訊息和 log。改用觸發程序自己丟錯誤，只寫規則和欄位名稱，不寫值（範例：`events_validate`）。
+   - 測試專用的資料表放 `tests/fixtures/sql/`，不放 migrations。
 
 ## 指令
 

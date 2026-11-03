@@ -1,6 +1,6 @@
 /**
  * 事件內容不能有個資。和 supabase/migrations/*_events.sql 的
- * event_key_is_forbidden() 規則相同；資料庫也會再擋一次。
+ * event_key_is_forbidden() 規則相同；資料庫的 events_validate 觸發程序也會再擋一次。
  *
  * 欄位名稱拆成單字（底線或駝峰），任何一個單字在禁止清單就擋下。
  * 規則刻意寬：事件內容應該只有編號（xxxId）、數字、狀態。
