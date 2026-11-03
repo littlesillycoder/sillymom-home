@@ -57,6 +57,11 @@
       "name": "之後討論",
       "color": "D4C5F9",
       "description": "先記下來，之後再決定要不要做"
+    },
+    {
+      "name": "Verified",
+      "color": "0E8A16",
+      "description": "使用者驗證完成，可以關閉"
     }
   ],
   "issues": [
