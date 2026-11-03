@@ -61,20 +61,52 @@
   ],
   "issues": [
     {
-      "title": "你要做的｜開立開發用帳號：Cloudflare、Supabase、LiveKit、網域",
+      "title": "你要做的｜開 Supabase 帳號（開發用、展示用兩個專案）",
       "milestone": "投資人展示版",
       "labels": [
         "你要做的"
       ],
-      "body": "### 背景\n投資人展示版需要這幾個帳號。全部用公司信箱（小傻瓜創意國際顧問有限公司）和公司信用卡開，之後報帳或轉讓給買方比較方便。開發期間都用免費方案。\n\n### 要做\n- Cloudflare：註冊帳號；在「Domain Registration」買 `sillymomhome.com`，打開自動續約。\n- Supabase：註冊帳號，建立專案 `sillymom-home`，區域選 **Northeast Asia (Tokyo)**，方案先用 Free。\n- LiveKit：到 cloud.livekit.io 註冊，建立專案，方案先用 Build（免費）。\n- GitHub：在 repo 的 Settings → Secrets and variables → Actions，之後依「基礎｜建立專案」的說明放入金鑰（Claude Code 會告訴你要放哪些）。\n- 把各服務的金鑰交給開發用的電腦（放在 `.env.local`，不要傳到 GitHub 或貼在 issue 裡）。\n\n### 完成標準\n- [ ] 四個帳號都建好，網域已購買。\n- [ ] 金鑰已放到本機 `.env.local` 和 GitHub Secrets。\n\n### 這次不做\n- 不用申請綠界、EVERY8D、LINE（Milestone 3 才需要）。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+      "body": "### 背景\n開發和展示都需要資料庫。用公司信箱（小傻瓜創意國際顧問有限公司）和公司信用卡開，之後報帳或轉讓給買方比較方便。開發期間用免費方案。（原本的 #1 拆成四個帳號 issue，這是其中之一。）\n\n### 要做\n- 到 supabase.com 註冊，建立 Organization，方案選 **Free**。\n- 建立專案 `sillymom-home-dev`（開發用）：區域選 **Northeast Asia (Tokyo)**；資料庫密碼用「Generate a password」產生，馬上存到密碼管理工具。\n- 建立專案 `sillymom-home`（展示用，給投資人看）：設定同上。可以等到要上線展示前再建。\n- 注意：免費方案的專案連續 7 天沒有使用會自動暫停，到 Supabase 後台按一下就會恢復。\n- 金鑰先不用複製。等 Claude Code 在 `.env.example` 列出需要哪些值，再由你自己放進本機的 `.env.local` 和 GitHub 的 Settings → Secrets and variables → Actions。**不要貼在 issue、PR 或對話裡。**\n\n### 完成標準\n- [ ] 開發用專案 `sillymom-home-dev` 建好（東京）。\n- [ ] 展示用專案 `sillymom-home` 建好（東京），最晚在展示網站上線前。\n- [ ] 金鑰已放到本機 `.env.local` 和 GitHub Secrets。\n\n### 這次不做\n- 不用升級 Pro（正式上線前才需要）。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`"
     },
     {
-      "title": "基礎｜建立專案：Next.js、Cloudflare 部署、Supabase 東京",
+      "title": "你要做的｜開 Cloudflare 帳號",
+      "milestone": "投資人展示版",
+      "labels": [
+        "你要做的"
+      ],
+      "body": "### 背景\n網站要部署在 Cloudflare Workers。用公司信箱（小傻瓜創意國際顧問有限公司）和公司信用卡開，之後報帳或轉讓給買方比較方便。開發期間用免費方案。（原本的 #1 拆成四個帳號 issue，這是其中之一。）\n\n### 要做\n- 到 cloudflare.com 註冊帳號，方案用 Free。\n- 金鑰先不用複製。等 Claude Code 在 `.env.example` 列出需要哪些值，再由你自己放進本機的 `.env.local` 和 GitHub 的 Settings → Secrets and variables → Actions。**不要貼在 issue、PR 或對話裡。**\n\n### 完成標準\n- [ ] Cloudflare 帳號建好。\n- [ ] 金鑰已放到 GitHub Secrets。\n\n### 這次不做\n- 不買網域（另一個 issue）。\n- 不升級 Workers 付費版（正式上線前才需要）。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`"
+    },
+    {
+      "title": "你要做的｜開 LiveKit 帳號",
+      "milestone": "投資人展示版",
+      "labels": [
+        "你要做的"
+      ],
+      "body": "### 背景\n客戶和師傅的視訊診斷用 LiveKit。用公司信箱（小傻瓜創意國際顧問有限公司）和公司信用卡開，之後報帳或轉讓給買方比較方便。開發期間用免費方案。（原本的 #1 拆成四個帳號 issue，這是其中之一。）\n\n### 要做\n- 到 cloud.livekit.io 註冊，建立專案，方案用 **Build**（免費）。\n- 金鑰先不用複製。等 Claude Code 在 `.env.example` 列出需要哪些值，再由你自己放進本機的 `.env.local` 和 GitHub 的 Settings → Secrets and variables → Actions。**不要貼在 issue、PR 或對話裡。**\n\n### 完成標準\n- [ ] LiveKit 專案建好。\n- [ ] 金鑰已放到本機 `.env.local` 和 GitHub Secrets。\n\n### 這次不做\n- 不開錄影（Milestone 3）。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`"
+    },
+    {
+      "title": "你要做的｜買網域 sillymomhome.com",
+      "milestone": "投資人展示版",
+      "labels": [
+        "你要做的"
+      ],
+      "body": "### 背景\n展示網站和正式網站用 `sillymomhome.com`。在 Cloudflare 買，DNS 和主機在同一個帳號。（原本的 #1 拆成四個帳號 issue，這是其中之一。）\n\n部署不一定要等網域：沒有網域時，Cloudflare 會先給一個 `xxx.workers.dev` 網址可以用。\n\n### 要做\n- 在 Cloudflare 後台的「Domain Registration」買 `sillymomhome.com`，用公司信用卡付款。\n- 打開自動續約。\n- 註冊人資料用公司名稱。\n\n### 完成標準\n- [ ] 網域已購買，自動續約已打開。\n\n### 這次不做\n- 不用自己設定 DNS（展示網站上線的 issue 會處理）。\n\n### 要先完成\n- {{dep:你要做的｜開 Cloudflare 帳號}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`"
+    },
+    {
+      "title": "基礎｜建立專案：Next.js、Supabase 東京、自動檢查",
       "milestone": "投資人展示版",
       "labels": [
         "基礎"
       ],
-      "body": "### 背景\n建立整個專案的骨架，並在第一步就確認 Next.js 能部署到 Cloudflare、能讀寫 Supabase。之後所有 issue 都建在這個骨架上。\n\n### 要做\n- 用 Next.js（App Router、TypeScript strict）建立專案，套件管理用 pnpm。\n- 用 OpenNext 的 Cloudflare 轉接（`@opennextjs/cloudflare`）部署到 Cloudflare Workers；設定 `wrangler`。\n- 接上 Supabase（`@supabase/supabase-js`、`@supabase/ssr`）；本機用 Supabase CLI（`supabase start`），`supabase/migrations/` 管理資料表。\n- 做一頁驗證頁 `/health`：讀寫一張測試資料表、顯示 Supabase 和部署環境資訊，確認在 Cloudflare 上正常。\n- 設定 ESLint、Prettier、TypeScript 檢查、Vitest；GitHub Actions：每個 PR 跑檢查和測試，main 分支自動部署。\n- 每個 PR 自動部署預覽網址（Cloudflare 的 preview deployment）。\n- 環境變數範本 `.env.example`；`.gitignore` 排除 `.env*`（`.env.example` 除外）。\n- 把 `CLAUDE.md` 最下面的「指令」補齊。\n- 在 `docs/技術決定.md` 加一節「部署注意事項」，記錄 OpenNext 遇到的限制。\n\n### 完成標準\n- [ ] `/health` 在本機和 Cloudflare 上都能讀寫資料庫。\n- [ ] 推到 main 會自動部署；PR 會有預覽網址。\n- [ ] `.env.example` 列出所有需要的變數，沒有任何金鑰進 git。\n- [ ] 如果遇到 Next.js 在 Cloudflare 上的嚴重相容問題，在 issue 留言說明，並評估先改用 Vercel 免費版做展示（不要自己決定，先問）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做任何業務頁面。\n- 不做登入。\n\n### 要先完成\n- {{dep:你要做的｜開立開發用帳號：Cloudflare、Supabase、LiveKit、網域}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+      "body": "### 背景\n建立整個專案的骨架，並確認 Next.js 能讀寫 Supabase。之後所有 issue 都建在這個骨架上。部署到 Cloudflare 拆到另一個 issue（要等 Cloudflare 帳號）。\n\n### 要做\n- 用 Next.js（App Router、TypeScript strict）建立專案，套件管理用 pnpm。\n- 接上 Supabase（`@supabase/supabase-js`、`@supabase/ssr`）。開發時連開發用雲端專案 `sillymom-home-dev`，不需要在電腦上裝 Docker。\n- 用 Supabase CLI 管理資料表：`supabase/migrations/` 放 migration，用 `supabase db push` 推到雲端專案。\n- 會碰資料庫的測試（例如 Row Level Security）：GitHub Actions 上用 `supabase start` 開一份暫時的資料庫來跑，不碰雲端專案的資料。\n- 做一頁驗證頁 `/health`：讀寫一張測試資料表、顯示 Supabase 和環境資訊。\n- 設定 ESLint、Prettier、TypeScript 檢查、Vitest；GitHub Actions：每個 PR 跑檢查和測試。\n- 環境變數範本 `.env.example`；`.gitignore` 排除 `.env*`（`.env.example` 除外）和 `.DS_Store`。\n- 把 `CLAUDE.md` 最下面的「指令」補齊（「部署」留給部署的 issue）。\n\n### 完成標準\n- [ ] `/health` 在本機能讀寫開發用雲端資料庫。\n- [ ] 每個 PR 會自動跑檢查和測試，測試用的是 GitHub Actions 上的暫時資料庫。\n- [ ] `.env.example` 列出所有需要的變數，沒有任何金鑰進 git。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不部署到 Cloudflare（另一個 issue：{{dep:基礎｜部署到 Cloudflare：main 自動部署、PR 預覽網址}}）。\n- 不做任何業務頁面。\n- 不做登入。\n\n### 要先完成\n- {{dep:你要做的｜開 Supabase 帳號（開發用、展示用兩個專案）}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`"
+    },
+    {
+      "title": "基礎｜部署到 Cloudflare：main 自動部署、PR 預覽網址",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n從「建立專案」拆出來的部署部分：要等 Cloudflare 帳號開好才能做。做完之後，每個 PR 都有預覽網址可以看。\n\n### 要做\n- 用 OpenNext 的 Cloudflare 轉接（`@opennextjs/cloudflare`）部署到 Cloudflare Workers；設定 `wrangler`。\n- GitHub Actions：main 分支自動部署；每個 PR 自動部署預覽網址（Cloudflare 的 preview deployment）。\n- 部署環境連到開發用 Supabase 專案，確認 `/health` 在 Cloudflare 上能讀寫資料庫。\n- 先用 Cloudflare 給的 `workers.dev` 網址，不用等網域。\n- `.env.example` 補上部署需要的變數，告訴使用者要在 GitHub Secrets 放哪些值。\n- 在 `docs/技術決定.md` 加一節「部署注意事項」，記錄 OpenNext 遇到的限制。\n- 把 `CLAUDE.md` 最下面「指令」的「部署」補齊。\n\n### 完成標準\n- [ ] `/health` 在 Cloudflare 上能讀寫資料庫。\n- [ ] 推到 main 會自動部署；PR 會有預覽網址。\n- [ ] 沒有任何金鑰進 git。\n- [ ] 如果遇到 Next.js 在 Cloudflare 上的嚴重相容問題，在 issue 留言說明，並評估先改用 Vercel 免費版做展示（不要自己決定，先問）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不接正式網域（展示網站上線的 issue 會處理）。\n- 不做任何業務頁面。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Supabase 東京、自動檢查}}\n- {{dep:你要做的｜開 Cloudflare 帳號}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`"
     },
     {
       "title": "基礎｜模組化架構與規則",
@@ -82,7 +114,7 @@
       "labels": [
         "基礎"
       ],
-      "body": "### 背景\n照 `docs/架構說明.md` 建立模組資料夾、事件機制和自動檢查。這條規則很重要：Claude Code 每次只看一部分程式，沒有自動檢查，模組邊界一定會被破壞。\n\n### 要做\n- 建立 `src/modules/`、`src/shared/` 結構（照 `docs/架構說明.md` 第 2 節），先放空的模組資料夾和各自的 `README.md` 範本。\n- 模組間的規則：只能 import `modules/<模組>/index.ts`；用 ESLint 規則（例如 `eslint-plugin-boundaries`）自動檢查，CI 會擋。\n- 事件機制：定義事件型別、發出事件、訂閱事件；第一版用資料庫事件表 + 同程式內處理（含重試與處理紀錄）。\n- 做一個範例：模組 A 發出事件，模組 B 收到並寫入一筆紀錄（含測試）。\n- 把架構規則摘要寫進 `CLAUDE.md`（已經有初版，照實作補充細節）。\n\n### 完成標準\n- [ ] 範例事件可以從 A 送到 B，有測試。\n- [ ] 故意寫一段跨模組 import 內部檔案的程式，lint 會失敗（在 PR 說明裡示範後刪除）。\n- [ ] 每個模組資料夾都有 `README.md`：負責什麼、公開介面、發出和接收的事件。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不寫任何實際業務功能。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Cloudflare 部署、Supabase 東京}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+      "body": "### 背景\n照 `docs/架構說明.md` 建立模組資料夾、事件機制和自動檢查。這條規則很重要：Claude Code 每次只看一部分程式，沒有自動檢查，模組邊界一定會被破壞。\n\n### 要做\n- 建立 `src/modules/`、`src/shared/` 結構（照 `docs/架構說明.md` 第 2 節），先放空的模組資料夾和各自的 `README.md` 範本。\n- 模組間的規則：只能 import `modules/<模組>/index.ts`；用 ESLint 規則（例如 `eslint-plugin-boundaries`）自動檢查，CI 會擋。\n- 事件機制：定義事件型別、發出事件、訂閱事件；第一版用資料庫事件表 + 同程式內處理（含重試與處理紀錄）。\n- 做一個範例：模組 A 發出事件，模組 B 收到並寫入一筆紀錄（含測試）。\n- 把架構規則摘要寫進 `CLAUDE.md`（已經有初版，照實作補充細節）。\n\n### 完成標準\n- [ ] 範例事件可以從 A 送到 B，有測試。\n- [ ] 故意寫一段跨模組 import 內部檔案的程式，lint 會失敗（在 PR 說明裡示範後刪除）。\n- [ ] 每個模組資料夾都有 `README.md`：負責什麼、公開介面、發出和接收的事件。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不寫任何實際業務功能。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Supabase 東京、自動檢查}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
     },
     {
       "title": "基礎｜外部服務替換介面：金流、發票、簡訊、通知",
@@ -98,7 +130,7 @@
       "labels": [
         "基礎"
       ],
-      "body": "### 背景\n網站要中英切換，之後也可能賣到其他國家。文字、金額、時間如果寫死在程式裡，之後要改很花時間。\n\n### 要做\n- 架好多語系（例如 `next-intl`）：繁體中文（預設）和英文；網址帶語言，例如 `/zh-TW/`、`/en/`；頁首加語言切換。\n- 所有畫面文字從語言檔讀取；英文先用繁中內容占位，之後由「內容｜英文翻譯」補上。\n- 共用格式化工具：金額（資料存「數字＋幣別代碼」，例如 `150` + `TWD`，顯示為 NT$150；`EUR` 顯示 €150）、日期、時間（存 UTC，顯示時轉地區時區，台灣是 Asia/Taipei）。\n- 加一條 lint 檢查：`.tsx` 裡直接寫中文字串會提醒。\n\n### 完成標準\n- [ ] 切換語言後，範例頁的文字、金額、日期都會跟著改變。\n- [ ] 有測試確認 NT$ 和 € 格式、台灣和歐洲時區都正確。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不翻譯整站英文內容。\n- 不做歐洲的金流或發票。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Cloudflare 部署、Supabase 東京}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+      "body": "### 背景\n網站要中英切換，之後也可能賣到其他國家。文字、金額、時間如果寫死在程式裡，之後要改很花時間。\n\n### 要做\n- 架好多語系（例如 `next-intl`）：繁體中文（預設）和英文；網址帶語言，例如 `/zh-TW/`、`/en/`；頁首加語言切換。\n- 所有畫面文字從語言檔讀取；英文先用繁中內容占位，之後由「內容｜英文翻譯」補上。\n- 共用格式化工具：金額（資料存「數字＋幣別代碼」，例如 `150` + `TWD`，顯示為 NT$150；`EUR` 顯示 €150）、日期、時間（存 UTC，顯示時轉地區時區，台灣是 Asia/Taipei）。\n- 加一條 lint 檢查：`.tsx` 裡直接寫中文字串會提醒。\n\n### 完成標準\n- [ ] 切換語言後，範例頁的文字、金額、日期都會跟著改變。\n- [ ] 有測試確認 NT$ 和 € 格式、台灣和歐洲時區都正確。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不翻譯整站英文內容。\n- 不做歐洲的金流或發票。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Supabase 東京、自動檢查}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
     },
     {
       "title": "基礎｜資安基本設定",
@@ -106,7 +138,7 @@
       "labels": [
         "基礎"
       ],
-      "body": "### 背景\n網站有客戶和師傅的個資，資安從一開始就要設好。\n\n### 要做\n- 安全標頭：Content-Security-Policy、HSTS、X-Frame-Options、Referrer-Policy、Permissions-Policy（允許攝影機、麥克風給視訊頁使用）。\n- Cloudflare Turnstile（防機器人）：做成共用元件和伺服器端驗證函式，給註冊、登入、送出驗證碼使用。\n- 限制請求次數的共用工具（例如同一手機號碼、同一 IP 送驗證碼的次數），用 Cloudflare 或資料庫實作。\n- GitHub Dependabot（套件漏洞與更新）、GitHub secret scanning。\n- log 工具：自動遮蔽手機、地址、證件號碼、email 等個資。\n- 寫 `docs/資安檢查清單.md`：之後每個 issue 和上線前都照這份檢查。\n\n### 完成標準\n- [ ] 用安全標頭檢查工具（例如 securityheaders.com）檢查預覽網址，沒有紅色項目。\n- [ ] Turnstile 和限制次數工具都有測試。\n- [ ] log 遮蔽有測試。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做管理員兩步驟驗證（在 Milestone 3）。\n- 不做檔案加密（在 Milestone 3）。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Cloudflare 部署、Supabase 東京}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+      "body": "### 背景\n網站有客戶和師傅的個資，資安從一開始就要設好。\n\n### 要做\n- 安全標頭：Content-Security-Policy、HSTS、X-Frame-Options、Referrer-Policy、Permissions-Policy（允許攝影機、麥克風給視訊頁使用）。\n- Cloudflare Turnstile（防機器人）：做成共用元件和伺服器端驗證函式，給註冊、登入、送出驗證碼使用。\n- 限制請求次數的共用工具（例如同一手機號碼、同一 IP 送驗證碼的次數），用 Cloudflare 或資料庫實作。\n- GitHub Dependabot（套件漏洞與更新）、GitHub secret scanning。\n- log 工具：自動遮蔽手機、地址、證件號碼、email 等個資。\n- 寫 `docs/資安檢查清單.md`：之後每個 issue 和上線前都照這份檢查。\n\n### 完成標準\n- [ ] 用安全標頭檢查工具（例如 securityheaders.com）檢查預覽網址，沒有紅色項目。\n- [ ] Turnstile 和限制次數工具都有測試。\n- [ ] log 遮蔽有測試。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做管理員兩步驟驗證（在 Milestone 3）。\n- 不做檔案加密（在 Milestone 3）。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Supabase 東京、自動檢查}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
     },
     {
       "title": "基礎｜設計規範與共用元件",
@@ -194,7 +226,7 @@
       "labels": [
         "後端"
       ],
-      "body": "### 背景\n客戶和師傅的視訊診斷是平台的核心。展示版要能真的視訊，但先不錄影。\n\n### 要做\n- 建立 `video` 模組：依視訊預約建立 LiveKit 房間；伺服器端產生加入房間的 token（只有該案件的客戶和師傅能加入）。\n- 計時：記錄雙方進入、離開時間，計算通話長度。\n- 通話結束發出 `video.ended` 事件（含通話秒數），帳務之後依「滿 3 分鐘」規則處理（展示版先只記錄）。\n- LiveKit 金鑰只在伺服器端使用。\n\n### 完成標準\n- [ ] 示範客戶和示範師傅用兩台裝置（或兩個瀏覽器）可以互相視訊。\n- [ ] 非案件當事人拿不到 token（有測試）。\n- [ ] 通話長度正確寫入資料庫。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不錄影（Milestone 3）。\n- 不做缺席判定和收費。\n\n### 要先完成\n- {{dep:前端｜求助：確認與付款（假金流）}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+      "body": "### 背景\n客戶和師傅的視訊診斷是平台的核心。展示版要能真的視訊，但先不錄影。\n\n### 要做\n- 建立 `video` 模組：依視訊預約建立 LiveKit 房間；伺服器端產生加入房間的 token（只有該案件的客戶和師傅能加入）。\n- 計時：記錄雙方進入、離開時間，計算通話長度。\n- 通話結束發出 `video.ended` 事件（含通話秒數），帳務之後依「滿 3 分鐘」規則處理（展示版先只記錄）。\n- LiveKit 金鑰只在伺服器端使用。\n\n### 完成標準\n- [ ] 示範客戶和示範師傅用兩台裝置（或兩個瀏覽器）可以互相視訊。\n- [ ] 非案件當事人拿不到 token（有測試）。\n- [ ] 通話長度正確寫入資料庫。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不錄影（Milestone 3）。\n- 不做缺席判定和收費。\n\n### 要先完成\n- {{dep:你要做的｜開 LiveKit 帳號}}\n- {{dep:前端｜求助：確認與付款（假金流）}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
     },
     {
       "title": "前端｜求助：視訊等待室、視訊室、諮詢結束",
@@ -226,7 +258,7 @@
       "labels": [
         "部署"
       ],
-      "body": "### 背景\n把投資人展示版部署到正式網址，並加上示範導覽，讓投資人不會迷路。\n\n### 要做\n- 部署到 `sillymomhome.com`（或先用 `demo.sillymomhome.com`），連到展示環境的資料庫。\n- 示範導覽：畫面角落一個按鈕，列出主要流程（客戶求助到視訊、師傅接案、後台），點了可以一鍵用示範帳號登入並跳到起點。只在展示環境顯示。\n- 頁面最上方顯示一條細的提示「示範版本，資料皆為示意」。\n- 寫 `docs/展示操作說明.md`：怎麼示範視訊（兩台裝置）、常見問題。\n\n### 完成標準\n- [ ] 用手機和電腦打開網址都能走完主要流程。\n- [ ] 示範導覽只在展示環境出現。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不開放真實註冊（展示環境可以關閉一般註冊，只留示範帳號）。\n\n### 要先完成\n- {{dep:前端｜公開首頁}}\n- {{dep:前端｜求助：視訊等待室、視訊室、諮詢結束}}\n- {{dep:前端｜師傅：今日後台與視訊室}}\n- {{dep:前端｜後台：首頁}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+      "body": "### 背景\n把投資人展示版部署到正式網址，並加上示範導覽，讓投資人不會迷路。\n\n### 要做\n- 部署到 `sillymomhome.com`（或先用 `demo.sillymomhome.com`），連到展示環境的資料庫。\n- 示範導覽：畫面角落一個按鈕，列出主要流程（客戶求助到視訊、師傅接案、後台），點了可以一鍵用示範帳號登入並跳到起點。只在展示環境顯示。\n- 頁面最上方顯示一條細的提示「示範版本，資料皆為示意」。\n- 寫 `docs/展示操作說明.md`：怎麼示範視訊（兩台裝置）、常見問題。\n\n### 完成標準\n- [ ] 用手機和電腦打開網址都能走完主要流程。\n- [ ] 示範導覽只在展示環境出現。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不開放真實註冊（展示環境可以關閉一般註冊，只留示範帳號）。\n\n### 要先完成\n- {{dep:基礎｜部署到 Cloudflare：main 自動部署、PR 預覽網址}}\n- {{dep:你要做的｜買網域 sillymomhome.com}}\n- {{dep:前端｜公開首頁}}\n- {{dep:前端｜求助：視訊等待室、視訊室、諮詢結束}}\n- {{dep:前端｜師傅：今日後台與視訊室}}\n- {{dep:前端｜後台：首頁}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
     },
     {
       "title": "前端｜服務項目與服務分類頁",
