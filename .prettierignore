@@ -1,0 +1,7 @@
+design/
+issues/
+docs/
+pnpm-lock.yaml
+.next/
+supabase/.temp/
+*.md

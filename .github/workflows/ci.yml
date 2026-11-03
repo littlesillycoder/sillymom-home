@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: lint、格式、型別、測試、建置
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: corepack enable pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+  db-test:
+    name: 資料庫測試（暫時資料庫）
+    runs-on: ubuntu-latest
+    env:
+      # 在這裡一定要有測試資料庫，缺少就讓測試失敗，而不是略過。
+      REQUIRE_TEST_DB: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: corepack enable pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: 開暫時資料庫並套用 migration
+        run: pnpm exec supabase start
+      - name: 設定測試用連線
+        run: pnpm exec supabase status -o json | node scripts/ci/supabase-test-env.mjs >> "$GITHUB_ENV"
+      - run: pnpm exec vitest run tests/db
+      - if: always()
+        run: pnpm exec supabase stop --no-backup
