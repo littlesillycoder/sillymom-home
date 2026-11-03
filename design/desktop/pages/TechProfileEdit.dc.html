@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 編輯師傅個人頁</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1300px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<div style="display: flex; align-items: center; gap: 56px">
+<a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<nav style="display: flex; gap: 36px; font-size: 18px"><a href="TechHome.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">今日</a><a href="TechSchedule.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">案件與排班</a><a href="TechEarnings.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">收入與費用</a><a href="TechProfileEdit.dc.html" aria-current="page" style="color: #23262E; text-decoration: none; font-weight: 700; padding-bottom: 6px; border-bottom: 3px solid {{accent}}">我的個人頁</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 16px">
+<a href="TechMessages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg></a>
+<a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林師傅</span></a>
+</div>
+</header>
+<div style="padding: 40px 80px 0; display: flex; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">我的個人頁</h1><p style="margin: 0; font-size: 18px; color: #4E525C">客戶在推薦和師傅列表裡看到的就是這些資料。</p></div>
+<a href="Tech.dc.html" style="@GHOST@">預覽客戶看到的樣子</a>
+</div>
+<div style="flex-grow: 1; padding: 28px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: start">
+<form style="grid-column: span 8; display: flex; flex-direction: column; gap: 20px">
+<div role="tablist" aria-label="編輯步驟" style="display: flex; gap: 10px"><sc-for list="{{steps}}" as="s" hint-placeholder-count="3"><button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}" style="flex: 1 1 0; min-height: 56px; padding: 0 16px; border-radius: 14px; border: {{s.border}}; background: {{s.bg}}; color: {{s.fg}}; font-family: inherit; font-size: 16px; font-weight: {{s.weight}}; display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; flex-shrink: 0; border-radius: 50%; background: {{s.dot}}; color: {{s.dotFg}}; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900">{{s.n}}</span>{{s.t}}</button></sc-for></div>
+<sc-if value="{{t0}}" hint-placeholder-val="{{ true }}"><div style="display: flex; flex-direction: column; gap: 20px"><section style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 18px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">基本資料</h2>
+<div style="display: flex; gap: 20px; align-items: center">
+<div style="width: 96px; height: 96px; flex-shrink: 0; border-radius: 50%; background: #E4EAF4; color: #26406E; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 900">林</div>
+<span style="display: flex; flex-direction: column; gap: 6px"><a href="#" style="font-size: 16px">更換大頭照</a><span style="font-size: 13px; color: #62666F">請用清楚的正面照，客戶會在開門前比對</span></span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 700">顯示名稱<input type="text" value="林師傅" style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 700">一句話介紹<input type="text" value="冷氣安裝、保養、漏水排除" style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400"></label>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 700">關於我<textarea rows="4" style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400; padding: 12px 14px; line-height: 1.8; resize: none">[師傅自我介紹：從業經歷、擅長處理的問題。建議 100–200 字。]</textarea></label>
+</section>
+<section style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; align-items: center; justify-content: space-between; gap: 20px">
+<span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 18px; font-weight: 900; color: {{denim}}">自我介紹影片</span><span style="font-size: 16px; color: #4E525C">[0:45] · 上傳於 [日期] · 有影片的師傅被選中的機會較高</span></span>
+<span style="display: flex; gap: 10px"><a href="TechApplySteps.dc.html" style="@GHOST@">重新錄製</a></span>
+</section></div></sc-if>
+<sc-if value="{{t1}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 20px"><section style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 14px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">專長與服務</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><sc-for list="{{skills}}" as="s" hint-placeholder-count="8"><button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: {{s.border}}; background: {{s.bg}}; color: #23262E; font-family: inherit; font-size: 16px; font-weight: {{s.weight}}">{{s.t}}</button></sc-for></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 700">服務地區<select style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400"><option>[縣市] · [行政區] 等 [N] 區</option></select></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 700">到府出車費（固定金額，上限 NT$500）<input type="text" value="NT$[XXX]" style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400"></label>
+</div>
+<span style="font-size: 16px; color: #8E2E1F">出車費越高，客戶下單意願越低。</span>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 16px; font-weight: 700">常用說明（點一下就會加入個人頁）</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{presets}}" as="p" hint-placeholder-count="4"><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px dashed #B9B3A6; background: #F6F3EC; color: #23262E; font-family: inherit; font-size: 14px">＋ {{p}}</button></sc-for></div></div>
+<label style="display: flex; align-items: center; gap: 10px; font-size: 16px"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 0; accent-color: {{denim}}">接受直接到府（沒有先視訊）的預約</label>
+</section></div></sc-if>
+<sc-if value="{{t2}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 20px"><section style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 14px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">證照（可以新增多張）</h2>
+<sc-for list="{{certs}}" as="c" hint-placeholder-count="2"><div style="padding: 14px 16px; border-radius: 12px; background: #F6F3EC; display: flex; align-items: center; justify-content: space-between; gap: 12px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 700">{{c.t}}</span><span style="font-size: 16px; color: #4E525C">證號 {{c.no}} · {{c.d}}</span></span><span style="padding: 3px 10px; border-radius: 999px; background: {{c.bg}}; color: {{c.fg}}; font-size: 14px; font-weight: 700">{{c.st}}</span></div></sc-for>
+<div style="padding: 16px; border-radius: 12px; border: 1.5px dashed #B9B3A6; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 16px; font-weight: 700">新增證照</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 700">證照名稱<select style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400"><option>冷凍空調技術士</option><option>室內配線技術士</option><option>自來水管配管技術士</option><option>其他（自行填寫）</option></select></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 700">證號<input type="text" placeholder="[證號]" style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 700">發證日期<input type="text" placeholder="[日期]" style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400"></label>
+</div>
+<div style="display: flex; gap: 10px; align-items: center"><button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px">＋ 上傳證照照片</button><button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: none; background: {{denim}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">送出審核</button><span style="font-size: 13px; color: #62666F">平台人工審核通過後，才會顯示在個人頁</span></div>
+</div>
+</section></div></sc-if>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span><sc-if value="{{hasPrev}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{prev}}" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-size: 16px; font-family: inherit; font-family: inherit">上一步</button></sc-if></span><span style="display: flex; gap: 12px"><a href="TechHome.dc.html" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-size: 16px; font-family: inherit">取消</a><sc-if value="{{hasNext}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{next}}" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit; border: none; font-family: inherit">{{nextLabel}}</button></sc-if><sc-if value="{{isLast}}" hint-placeholder-val="{{ false }}"><a href="TechHome.dc.html" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">儲存</a></sc-if></span></div>
+</form>
+<aside style="grid-column: span 4; display: flex; flex-direction: column; gap: 20px">
+<div style="padding: 24px; border-radius: 20px; background: #E4F0EA; color: #245443; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 18px; font-weight: 700">平台審核</span>
+<sc-for list="{{checks}}" as="c" hint-placeholder-count="3"><div style="display: flex; justify-content: space-between; font-size: 16px"><span>{{c.t}}</span><span style="font-weight: 700">{{c.st}}</span></div></sc-for>
+<span style="font-size: 16px; line-height: 1.6">性別由平台審核，不能自行修改；證照可以在左邊新增，審核通過才顯示。</span>
+</div>
+<div style="padding: 20px 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #62666F">積分</span><span style="font-size: 24px; font-weight: 900; color: {{denim}}">86</span></span><span style="width: 1px; align-self: stretch; background: #E2DDD2"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #62666F">評價</span><span style="font-size: 24px; font-weight: 900; color: {{denim}}">4.8<span style="font-size: 13px; font-weight: 500; color: #62666F"> / 5</span></span></span><span style="width: 1px; align-self: stretch; background: #E2DDD2"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #62666F">抵用金</span><span style="font-size: 24px; font-weight: 900; color: {{denim}}">NT$150</span></span></div>
+<span style="font-size: 16px; font-weight: 700">積分紀錄（近 90 天）</span>
+<sc-for list="{{scoreLog}}" as="l" hint-placeholder-count="4"><div style="display: flex; justify-content: space-between; gap: 10px; font-size: 16px; line-height: 1.6"><span style="color: #4E525C">{{l.d}} · {{l.t}}</span><span style="flex-shrink: 0; font-weight: 700; color: {{l.fg}}">{{l.v}}</span></div></sc-for>
+<span style="font-size: 13px; line-height: 1.6; color: #62666F">起始 80 分、上限 100 分；每一筆 90 天後失效。低於 70 分會通知你，不會停權。</span>
+<a href="Reviews.dc.html" style="align-self: flex-end; text-align: right; font-size: 16px">看全部評價並回覆 →</a>
+</div>
+<div style="padding: 24px; border-radius: 20px; background: #FDF3D7; color: #6B4A00; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 18px; font-weight: 700">接案規則提醒</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B4A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>出車費上限 NT$500。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B4A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>會晚到，請事先在平台通知客戶。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B4A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>沒通知、晚到「超過 30 分鐘」，客戶決定繼續等：你的出車費減半。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B4A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>要照線上報價施工，加價要客戶同意。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B4A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>保固天數由你自行提供並負責。</span></li></ul>
+<a href="TechTerms.dc.html" style="align-self: flex-end; text-align: right; font-size: 16px; color: #6B4A00; font-weight: 700">看完整師傅條款 →</a>
+</div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { sk: [true, true, true, false, true, true, false, false], step: 0 }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const names = ['冷氣漏水', '排水管清潔', '冷氣不冷', '冷氣安裝', '定期保養', '異音檢查', '洗衣機', '熱水器'];
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      skills: names.map((t, i) => { const v = this.state.sk[i]; return { t: t, pressed: v ? 'true' : 'false', border: v ? '2px solid ' + denim : '1px solid #D8D2C4', bg: v ? '#E4EAF4' : '#FFFFFF', weight: v ? '700' : '400', pick: () => { const sk = this.state.sk.slice(); sk[i] = !sk[i]; this.setState({ sk: sk }); } }; }),
+      presets: ['材料由我準備', '可開立收據', '週末可到府'],
+      t0: this.state.step === 0, t1: this.state.step === 1, t2: this.state.step === 2,
+      hasPrev: this.state.step > 0, hasNext: this.state.step < 2, isLast: this.state.step === 2,
+      prev: () => this.setState({ step: this.state.step - 1 }), next: () => this.setState({ step: this.state.step + 1 }),
+      nextLabel: '下一步：' + ['', '專長與服務', '證照'][this.state.step + 1 > 2 ? 0 : this.state.step + 1],
+      steps: ['基本資料', '專長與服務', '證照'].map((t, i) => { const cur = i === this.state.step; const done = i < this.state.step; return { t: t, n: String(i + 1), pressed: cur ? 'true' : 'false', border: cur ? '2px solid ' + denim : '1px solid #D8D2C4', bg: cur ? '#E4EAF4' : '#FFFFFF', fg: '#23262E', weight: cur ? '700' : '400', dot: cur ? denim : (done ? '#E4F0EA' : '#EEEAE1'), dotFg: cur ? '#FFFFFF' : (done ? '#245443' : '#62666F'), pick: () => this.setState({ step: i }) }; }),
+      checks: [{ t: '身分實名認證', st: '已通過' }, { t: '冷凍空調技術士', st: '已通過' }, { t: '良民證（選填）', st: '[日期] 到期' }],
+      certs: [{ t: '冷凍空調技術士', no: '[號碼]', d: '[日期] 發證', st: '已通過', bg: '#E4F0EA', fg: '#245443' }, { t: '室內配線技術士', no: '[號碼]', d: '[日期] 發證', st: '審核中', bg: '#FDF3D7', fg: '#6B4A00' }],
+      scoreLog: [{ d: '[日期]', t: '準時完成到府', v: '+2', fg: '#245443' }, { d: '[日期]', t: '準時完成到府', v: '+2', fg: '#245443' }, { d: '[日期]', t: '沒通知晚到超過 30 分鐘', v: '−5', fg: '#B42318' }, { d: '[日期]', t: '準時完成到府', v: '+2', fg: '#245443' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

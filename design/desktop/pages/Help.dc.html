@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 客服中心</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<div style="display: flex; align-items: center; gap: 12px">
+<a href="Main.dc.html" style="padding: 12px 16px; font-size: 16px; color: #4E525C; text-decoration: none">回首頁</a>
+<a href="Login.dc.html" style="padding: 12px 20px; font-size: 16px; color: #23262E; text-decoration: none">登入</a>
+<a href="Login.dc.html" style="padding: 12px 24px; border-radius: 999px; border: 1.5px solid {{denim}}; color: {{denim}}; text-decoration: none; font-size: 16px; font-weight: 500">免費註冊</a>
+</div>
+</header>
+<div style="padding: 48px 80px 0; display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">客服中心</h1>
+<label for="q" style="font-size: 18px; color: #4E525C">有什麼問題？輸入關鍵字找答案</label>
+<input id="q" type="search" placeholder="例如：取消預約、退款、師傅沒來" style="width: 640px; min-height: 56px; box-sizing: border-box; padding: 0 20px; border-radius: 999px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 18px; color: #23262E">
+</div>
+<div style="padding: 24px 80px 0; display: flex; gap: 8px; justify-content: center"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: {{t.border}}; background: {{t.bg}}; color: #23262E; font-family: inherit; font-size: 16px; font-weight: {{t.weight}}">{{t.t}}</button></sc-for></div>
+<div style="flex-grow: 1; padding: 28px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: start">
+<section style="grid-column: span 8; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 4px">
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="5">
+<details style="padding: 18px 0; border-bottom: 1px solid #ECE7DC"><summary style="font-size: 18px; font-weight: 700; cursor: pointer">{{f.q}}</summary><p style="margin: 12px 0 0; font-size: 16px; line-height: 1.8; color: #4E525C">{{f.a.pre}}<sc-if value="{{f.a.has}}" hint-placeholder-val="{{ false }}"><a href="{{f.a.href}}">{{f.a.link}}</a></sc-if>{{f.a.post}}</p></details>
+</sc-for>
+<a href="Legal.dc.html" style="align-self: flex-end; text-align: right; margin-top: 14px; font-size: 16px">看完整的扣款與取消規則 →</a>
+</section>
+<aside style="grid-column: span 4; display: flex; flex-direction: column; gap: 20px">
+<div style="padding: 24px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 18px; font-weight: 900; color: {{denim}}">聯絡客服</span>
+<span style="font-size: 16px; line-height: 1.7; color: #4E525C">登入後用平台訊息聯絡客服，對話會留下紀錄。服務時間 [每日 09:00–21:00]。</span>
+<a href="Messages.dc.html" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">傳訊息給客服</a>
+<a href="Report.dc.html" style="align-self: flex-end; text-align: right; font-size: 16px">要申訴師傅或案件？到回報與申訴</a>
+</div>
+<div style="padding: 20px 22px; border-radius: 20px; background: #F8DCD4; color: #8E2E1F; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 18px; font-weight: 900">平台不提供緊急救援</span>
+<span style="font-size: 16px; line-height: 1.7">遇到危險請直接撥 110；瓦斯外洩、冒煙或觸電請先離開現場，撥 119。</span>
+</div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 0 }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const on = '2px solid ' + denim; const off = '1px solid #D8D2C4';
+    const tabs = (names, key) => names.map((t, i) => ({ t: t, pressed: i === this.state[key] ? 'true' : 'false', border: i === this.state[key] ? on : off, bg: i === this.state[key] ? '#E4EAF4' : '#FFFFFF', weight: i === this.state[key] ? '700' : '400', pick: () => this.setState({ [key]: i }) }));
+    const L = (s) => { const m = String(s).match(/^(.*?)\[\[(.+?)\|(.+?)\]\](.*)$/); return m ? { pre: m[1], has: true, link: m[2], href: m[3] + '.dc.html', post: m[4] } : { pre: s, has: false, link: '', href: '#', post: '' }; };
+    const all = [
+      [{ q: '視訊診斷估價怎麼收費？', a: '每個求助 NT$100，含 2 次視訊，第 1 次視訊後「24 小時」內有效，第 2 次可以找同一位或換一位師傅。第 2 次視訊結束、你選擇「不用了」，或「24 小時」到期時才扣款；視訊不滿「3 分鐘」不收費。' }, { q: '師傅一直沒上線怎麼辦？', a: '師傅超過「5 分鐘」沒上線，這次視訊會取消，你不用付費，這次不算次數，有效期限延長「24 小時」。我們會通知你並推薦其他師傅。' }, { q: '我可以取消或改期嗎？', a: '視訊「前 2 小時以上」、到府「前 12 小時以上」，可以免費取消或改期。到府「前 12 小時內」取消，收逾時費（臨時取消）NT$100；「12 小時」內改期，收逾時費（臨時改期）NT$50。每一筆費用都可以在「[[維修紀錄|Records]]」查看。' }, { q: '付款方式有哪些？可以開發票嗎？', a: '只收信用卡。平台費由平台開立電子發票，可以填統一編號或載具；出車費和維修費的發票或收據請向師傅索取。' }, { q: '退款會退到哪裡？', a: '一律退回你原本的信用卡。' }],
+      [{ q: '到府時怎麼確認是本人？', a: '師傅抵達時，雙方手機會顯示同一組 4 位數核對碼，號碼正確再開門。號碼不對請不要開門，按「號碼不對」，可以免費取消並回報平台。' }, { q: '可以只要女師傅嗎？', a: '可以。在「[[我的家與安全設定|Safety]]」打開「只要女師傅」，推薦與到府都只會是女師傅。' }, { q: '師傅現場要加價怎麼辦？', a: '加價必須由師傅在平台上提出，你同意後才能施工；你不同意，就照原本的報價。' }, { q: '師傅到府遲到怎麼辦？', a: '師傅在到府「前 2 小時以上」事先通知會晚到、你也同意新時間，費用照原本報價。師傅沒通知又「超過」約定時段 30 分鐘還沒到，你可以決定取消，出車費和維修費都不用付。' }, { q: '急件怎麼預約？', a: '預約到府時勾選「急件」，只能選「12 小時內」的時段，另加平台費（急件）NT$100。師傅會在「30 分鐘」內回覆，沒回覆就自動取消、不收費；預約成立「1 小時內」可以免費取消，「1 小時後」取消收逾時費（臨時取消）NT$100。' }, { q: '師傅遲到又沒通知，最後還是到了怎麼辦？', a: '你決定繼續等，讓師傅照常施工：出車費減半，平台會自動從應付金額扣除；也可以直接取消，全部不用付。師傅會被扣積分。' }, { q: '到府要付多少車馬費？', a: '出車費由師傅自訂，上限 NT$500，預約前就會顯示。現場決定不修，只付出車費。' }],
+      [{ q: '錄影誰看得到？', a: '只有你和這次的師傅（申訴調閱或依法要求時除外）。' }, { q: '視訊時師傅要我加 LINE 怎麼辦？', a: '視訊時不可以交換 LINE 或電話，照片和影片可以直接在平台訊息傳。視訊時師傅要求加 LINE 或留電話，請按「回報」。預約到府之後要不要交換聯絡方式，由你自己決定；私下交易不在錄影、評價和申訴的保障範圍內。' }, { q: '視訊時師傅會教我自己修嗎？', a: '不會。視訊只做診斷與報價，你只需要拿著手機讓師傅看。師傅可能提醒說明書上的一般操作，但不會指導拆裝或碰觸電線、瓦斯。' }, { q: '可以刪除錄影嗎？', a: '可以，在[[維修紀錄|Records]]的錄影頁按「刪除錄影」。' }],
+      [{ q: '怎麼成為師傅？', a: '在首頁按「[[申請成為師傅|TechJoin]]」，先看成為師傅的好處和收費方式，再按「申請成為師傅」開始申請，完成身分驗證和證照上傳即可。良民證為選填，有提供會在個人頁標示。' }, { q: '師傅要付什麼費用？', a: '上架審核費 NT$300，審核通過才扣款。每次視訊滿「3 分鐘」收平台服務費 NT$150，新師傅第 1 次免費；沒拿到這個案子會退 NT$50 抵用金。直接預約到府的案件，核對碼確認時收 NT$150。出車費和維修費全部歸你。' }, { q: '積分是什麼？', a: '起始 80 分、上限 100 分。準時完成到府且沒有申訴 +2 分；缺席、臨時取消、沒通知遲到會扣分。每一筆加減分「90 天」後失效，低於 70 分會通知你，不會停權。' }]
+    ];
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      tabs: tabs(['費用取消', '到府安全', '錄影隱私', '師傅相關'], 'tab'),
+      faq: all[this.state.tab].map((f) => ({ q: f.q, a: L(f.a) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

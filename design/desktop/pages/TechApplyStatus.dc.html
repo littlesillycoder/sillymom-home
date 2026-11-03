@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 申請結果</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<div style="display: flex; align-items: center; gap: 56px">
+<a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<nav style="display: flex; gap: 36px; font-size: 18px"><a href="TechHome.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">今日</a><a href="TechSchedule.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">案件與排班</a><a href="TechEarnings.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">收入與費用</a><a href="TechProfileEdit.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">我的個人頁</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 16px">
+<a href="TechMessages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg></a>
+<a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林師傅</span></a>
+</div>
+</header>
+<div style="flex-grow: 1; padding: 48px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: start">
+<section style="grid-column: span 7; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 40px 44px; display: flex; flex-direction: column; gap: 20px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: {{tagBg}}; color: {{tagFg}}; font-size: 16px; font-weight: 700">{{tag}}</span>
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; color: {{denim}}">{{title}}</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #4E525C">{{desc}}</p>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{items}}" as="i" hint-placeholder-count="4"><div style="padding: 16px 18px; border-radius: 14px; background: #F6F3EC; display: flex; align-items: center; justify-content: space-between; gap: 16px"><span style="font-size: 16px; font-weight: 700">{{i.t}}</span><span style="font-size: 16px; font-weight: 700; color: {{i.fg}}">{{i.st}}</span></div></sc-for>
+</div>
+<div style="display: flex; gap: 12px"><a href="{{ctaHref}}" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">{{cta}}</a><a href="Help.dc.html" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-size: 16px; font-family: inherit">聯絡客服</a></div>
+</section>
+<aside style="grid-column: span 5; padding: 24px; border-radius: 20px; background: #E4EAF4; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 18px; font-weight: 700; color: #26406E">平台怎麼收費</span>
+<sc-for list="{{rules}}" as="r" hint-placeholder-count="3"><div style="display: flex; gap: 10px; font-size: 16px; line-height: 1.7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>{{r}}</span></div></sc-for>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"status":{"editor":"enum","options":["審核中","需要補件","已通過","未通過"],"default":"需要補件"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.props.status ?? '審核中';
+    const ok = { st: '已通過', fg: '#245443' }; const wait = { st: '審核中', fg: '#62666F' }; const need = { st: '需要補件', fg: '#B42318' }; const no = { st: '未通過', fg: '#B42318' };
+    const base = ['身分實名認證', '良民證（選填）', '專業證照（選填）', '自我介紹影片'];
+    const m = {
+      '審核中': { tag: '審核中', tagBg: '#EEEAE1', tagFg: '#4E525C', title: '資料已送出，審核中', desc: '資料齊全後約 [N] 個工作天完成，結果會用訊息和簡訊通知你。', s: [ok, wait, wait, ok], cta: '回首頁', ctaHref: 'Main.dc.html' },
+      '需要補件': { tag: '需要補件', tagBg: '#F8DCD4', tagFg: '#8E2E1F', title: '還差一份資料', desc: '良民證照片看不清楚，請重新上傳。其他資料已經通過。', s: [ok, need, ok, ok], cta: '重新上傳', ctaHref: 'TechApply.dc.html' },
+      '已通過': { tag: '已通過', tagBg: '#E4F0EA', tagFg: '#245443', title: '歡迎加入，可以開始接案了', desc: '你的個人頁已經上線。打開「上線接案」，附近的客戶就看得到你。', s: [ok, ok, ok, ok], cta: '開始接案', ctaHref: 'TechHome.dc.html' },
+      '未通過': { tag: '未通過', tagBg: '#F8DCD4', tagFg: '#8E2E1F', title: '這次申請沒有通過', desc: '原因：[未通過原因]。你可以在 [N] 天後重新申請；對結果有疑問，可以聯絡客服。', s: [ok, no, wait, ok], cta: '回首頁', ctaHref: 'Main.dc.html' }
+    }[st] || {};
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      tag: m.tag, tagBg: m.tagBg, tagFg: m.tagFg, title: m.title, desc: m.desc, cta: m.cta, ctaHref: m.ctaHref,
+      items: base.map((t, i) => Object.assign({ t: t }, m.s[i])),
+      rules: ['上架審核費 NT$300，審核通過才扣款，只收一次', '平台服務費：每次視訊滿 3 分鐘收 NT$150；新師傅第 1 次視訊免費', '沒拿到這個案子（客戶選了別人或沒有成交），退 NT$50 抵用金', '出車費和維修費全部歸你，自己定價']
+    };
+  }
+}
+</script>
+</body>
+</html>

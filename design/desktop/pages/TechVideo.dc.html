@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 師傅視訊</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1040px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 68px; box-sizing: border-box; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #2C2F37; background: #16181D; color: #FFFFFF">
+<div style="display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 700">視訊診斷估價 · 林小姐</span><span style="font-size: 13px; color: #A8ABB3">冷氣 · 室內機滴水 · [行政區]</span></div>
+<div style="display: flex; align-items: center; gap: 20px"><span style="display: flex; align-items: center; gap: 8px; font-size: 16px; color: #D5D7DC"><span style="width: 10px; height: 10px; border-radius: 50%; background: #E5484D"></span>錄影中</span><span style="padding: 6px 14px; border-radius: 999px; background: #F5C542; color: #23262E; font-size: 14px; font-weight: 700">2 位客戶在等你</span><span style="padding: 6px 14px; border-radius: 999px; background: #2C2F37; font-size: 16px; font-weight: 700">[04:12] / 10:00</span></div>
+</header>
+<div style="flex-grow: 1; display: flex; min-height: 0; background: #16181D; color: #FFFFFF">
+<div style="flex-grow: 1; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="flex-grow: 1; position: relative; border-radius: 20px; background: #2A2D35; overflow: hidden">
+<div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; color: #8B8F99; font-size: 18px">[客戶的後鏡頭畫面：冷氣室內機右下角]</div>
+<svg width="900" height="560" viewBox="0 0 900 560" aria-hidden="true" style="position: absolute; left: 0; top: 0"><ellipse cx="560" cy="380" rx="90" ry="60" fill="none" stroke="#F5C542" stroke-width="5"></ellipse></svg>
+<span style="position: absolute; left: 20px; top: 20px; padding: 8px 14px; border-radius: 10px; background: rgba(22, 24, 29, 0.85); font-size: 16px">在畫面上畫圈，客戶那邊會同步看到</span>
+<div style="position: absolute; right: 20px; top: 20px; width: 200px; height: 130px; border-radius: 12px; background: #3A3E48; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #D5D7DC">[你的鏡頭]</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: center; gap: 12px">
+<sc-for list="{{tools}}" as="t" hint-placeholder-count="5"><button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="width: 84px; min-height: 64px; border-radius: 14px; border: none; background: {{t.bg}}; color: {{t.fg}}; font-family: inherit; font-size: 13px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"></path></svg>{{t.t}}</button></sc-for>
+<a href="TechHome.dc.html" style="width: 110px; min-height: 64px; border-radius: 14px; background: #D92D20; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center">結束視訊</a>
+</div>
+</div>
+<aside style="width: 400px; flex-shrink: 0; box-sizing: border-box; border-left: 1px solid #2C2F37; background: #1D2026; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 16px; font-weight: 700">客戶的求助</span><span style="font-size: 16px; line-height: 1.6; color: #D5D7DC">開冷氣半小時後開始滴水，上個月清過濾網。</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 16px; font-weight: 700">請客戶拍的位置</span><span style="font-size: 13px; line-height: 1.6; color: #A8ABB3">視訊中不得索取或交換電話、LINE。客戶只拿鏡頭。不可指導拆裝、碰觸電線或瓦斯管線；說明書上的一般操作可以口頭提醒。</span>
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="3"><div style="padding: 10px 12px; border-radius: 10px; background: #2C2F37; font-size: 16px; display: flex; justify-content: space-between; gap: 10px"><span>{{s.t}}</span><span style="color: {{s.fg}}">{{s.st}}</span></div></sc-for>
+<button type="button" style="min-height: 40px; border-radius: 10px; border: 1px dashed #5A5E68; background: transparent; color: #D5D7DC; font-family: inherit; font-size: 16px">＋ 新增位置</button>
+</div>
+<div style="padding: 16px; border-radius: 14px; background: #2C2F37; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 16px; font-weight: 700">診斷單（視訊結束後 30 分鐘內送出）</span><div style="display: flex; justify-content: space-between; font-size: 16px; color: #D5D7DC"><span>類別</span><span>冷氣 &gt; 室內機滴水</span></div><div style="display: flex; justify-content: space-between; font-size: 16px; color: #D5D7DC"><span>原因</span><span>排水管疑似破損</span></div><div style="display: flex; justify-content: space-between; font-size: 16px; color: #D5D7DC"><span>建議</span><span>到府維修</span></div>
+<div style="display: flex; justify-content: space-between; font-size: 16px; color: #D5D7DC"><span>維修費（含材料）</span><span>[NT$XXX]</span></div>
+<div style="display: flex; justify-content: space-between; font-size: 16px; color: #D5D7DC"><span>出車費（固定，上限 NT$500）</span><span>[NT$XXX]</span></div><div style="display: flex; justify-content: space-between; font-size: 16px; color: #D5D7DC"><span>預計維修所需時間</span><span>約 [N] 小時</span></div><div style="display: flex; justify-content: space-between; font-size: 16px; color: #D5D7DC"><span>保固</span><span>[N] 天</span></div><div style="font-size: 13px; line-height: 1.6; color: #A8ABB3">備註：更換排水管一條。建議可選：問題已在視訊中解決／到府維修／需到府檢查才能報價／建議換新</div>
+<a href="TechDiagnosis.dc.html" style="min-height: 40px; border-radius: 10px; background: #F5C542; color: #23262E; text-decoration: none; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center">開始填寫診斷單</a><span style="font-size: 13px; line-height: 1.6; color: #A8ABB3; text-align: center">視訊結束後「30 分鐘」內送出即可，可以先存草稿</span>
+</div>
+<div style="margin-top: auto; padding: 12px 14px; border-radius: 12px; background: #3A2A1C; color: #F5C542; font-size: 13px; line-height: 1.6">發現瓦斯味、冒煙或觸電風險，請立即請客戶關閉總開關、離開現場並撥打 119。</div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":1040}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tool: 0 }; }
+  renderVals() {
+    const names = [['M12 4a8 8 0 110 16 8 8 0 010-16', '畫圈'], ['M5 19L19 5M19 5h-7M19 5v7', '箭頭'], ['M6 5h12M12 5v14', '文字'], ['M13 2L5 14h6l-1 8 8-12h-6z', '請開手電筒'], ['M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3', '截圖']];
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      tools: names.map((n, i) => ({ d: n[0], t: n[1], pressed: i === this.state.tool ? 'true' : 'false', bg: i === this.state.tool ? '#F5C542' : '#2C2F37', fg: i === this.state.tool ? '#23262E' : '#FFFFFF', pick: () => this.setState({ tool: i }) })),
+      steps: [{ t: '室內機正面', st: '已看', fg: '#5FD39A' }, { t: '右下角排水口', st: '目前', fg: '#F5C542' }, { t: '室外機與排水管', st: '待拍', fg: '#A8ABB3' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

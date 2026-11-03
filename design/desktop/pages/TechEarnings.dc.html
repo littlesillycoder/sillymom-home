@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 收入與費用</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1260px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<div style="display: flex; align-items: center; gap: 56px">
+<a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<nav style="display: flex; gap: 36px; font-size: 18px"><a href="TechHome.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">今日</a><a href="TechSchedule.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">案件與排班</a><a href="TechEarnings.dc.html" aria-current="page" style="color: #23262E; text-decoration: none; font-weight: 700; padding-bottom: 6px; border-bottom: 3px solid {{accent}}">收入與費用</a><a href="TechProfileEdit.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">我的個人頁</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 16px">
+<a href="TechMessages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg></a>
+<a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林師傅</span></a>
+</div>
+</header>
+<div style="padding: 40px 80px 0; display: flex; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">收入與費用</h1><p style="margin: 0; font-size: 18px; line-height: 1.7; color: #4E525C">到府收入是你自己收的，這裡只統計你在平台按過「已收款」的金額。平台服務費每次視訊 NT$150，沒拿到案退 NT$50 抵用金。</p></div>
+<label style="display: flex; align-items: center; gap: 10px; font-size: 16px; color: #4E525C">月份<select style="min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E"><option>[年] [月]</option></select></label>
+</div>
+<div style="padding: 28px 80px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+<sc-for list="{{kpis}}" as="k" hint-placeholder-count="4"><div style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 20px 24px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 16px; color: #4E525C">{{k.k}}</span><span style="font-size: 24px; font-weight: 900; color: {{denim}}">{{k.v}}</span></div></sc-for>
+</div>
+<div style="flex-grow: 1; padding: 24px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: start">
+<section style="grid-column: span 8; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 8px 0; display: flex; flex-direction: column">
+<div style="padding: 12px 28px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; font-size: 13px; color: #62666F; border-bottom: 1px solid #E2DDD2"><span style="grid-column: span 2">日期</span><span style="grid-column: span 4">案件</span><span style="grid-column: span 2">類型</span><span style="grid-column: span 2; text-align: right">平台費</span><span style="grid-column: span 2; text-align: right">到府收入</span></div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="6"><div style="padding: 14px 28px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; font-size: 16px; border-bottom: 1px solid #ECE7DC"><span style="grid-column: span 2; color: #4E525C">{{r.d}}</span><span style="grid-column: span 4">{{r.t}}</span><span style="grid-column: span 2; color: #4E525C">{{r.k}}</span><span style="grid-column: span 2; text-align: right">{{r.fee}}</span><span style="grid-column: span 2; text-align: right">{{r.inc}}</span></div></sc-for>
+</section>
+<aside style="grid-column: span 4; display: flex; flex-direction: column; gap: 20px">
+<div style="padding: 18px 22px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; align-items: center; justify-content: space-between; gap: 12px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #62666F">積分</span><span style="font-size: 24px; font-weight: 900; color: {{denim}}">86</span></span><span style="width: 1px; align-self: stretch; background: #E2DDD2"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #62666F">評價</span><span style="font-size: 24px; font-weight: 900; color: {{denim}}">4.8<span style="font-size: 16px; font-weight: 500; color: #62666F"> / 5</span></span></span><span style="width: 1px; align-self: stretch; background: #E2DDD2"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; color: #62666F">抵用金</span><span style="font-size: 24px; font-weight: 900; color: {{denim}}">NT$150</span></span></div>
+<a href="TechTerms.dc.html" style="padding: 16px 20px; border-radius: 16px; background: #E4EAF4; color: #26406E; text-decoration: none; font-size: 16px; font-weight: 700; display: flex; justify-content: space-between">看收費、積分與抵用金規則<span>→</span></a>
+<div style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 24px; display: flex; flex-direction: column; gap: 10px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">抵用金</h2><span style="font-size: 16px">NT$150 · 最早一筆 [日期] 到期</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">只能折抵平台服務費，不能換現金，有效期限 3 個月。</span></div>
+<div style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 24px; display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">付款方式</h2><span style="font-size: 16px">信用卡 •••• [末四碼]</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">平台服務費在視訊滿 3 分鐘、或直接到府核對碼確認時扣款；有抵用金會先折抵。</span><a href="TechApplySteps.dc.html" style="align-self: flex-end; text-align: right; font-size: 16px">更換卡片</a></div>
+<div style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 24px; display: flex; flex-direction: column; gap: 10px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">發票</h2><span style="font-size: 16px; line-height: 1.6; color: #4E525C">每次扣款都會自動開立一張電子發票，寄到你的信箱。抵用金折抵的部分不開發票。</span><a href="#" style="align-self: flex-end; text-align: right; font-size: 16px">查看本月發票</a></div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":1260}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      kpis: [{ k: '完成案件', v: '[N]' }, { k: '平台服務費', v: 'NT$[N]' }, { k: '到府收入（已按「已收款」）', v: 'NT$[N]' }, { k: '視訊轉到府', v: '[N]%' }],
+      rows: [
+        { d: '[日期]', t: '冷氣室內機滴水 · 林小姐', k: '視訊（沒拿到案）', fee: 'NT$150 · 退抵用金 50', inc: '—' },
+        { d: '[日期]', t: '洗衣機不排水 · 王小姐', k: '視訊 + 到府', fee: 'NT$150', inc: '[NT$XXX]' },
+        { d: '[日期]', t: '燈具一直閃 · 陳小姐', k: '直接到府', fee: 'NT$150', inc: '[NT$XXX]' },
+        { d: '[日期]', t: '馬桶一直流水 · 張小姐', k: '視訊（新師傅免費）', fee: 'NT$0', inc: '—' },
+        { d: '[日期]', t: '客戶 12 小時內取消 · 李小姐', k: '到府', fee: '抵用金 +NT$50', inc: '—' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

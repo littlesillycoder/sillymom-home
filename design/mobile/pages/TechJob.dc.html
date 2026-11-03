@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 到府作業（手機）</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 手機版共用規則（每個畫板在自己的頁面裡顯示，所以不用加前綴）
+   1. 一般橫排可換行；開頭是圖示或頭像的橫排，圖示和文字固定同一行，第三個以後的元素換到下一行
+   2. 按鈕、標籤、日期這類短文字不斷開；段落裡的連結整段一起換行 */
+*{box-sizing:border-box}
+[style*="display: flex"]:not([style*="flex-direction: column"]){flex-wrap:wrap}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(2){flex:1 1 180px;min-width:0}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(n+3){margin-left:auto}
+header,header *,[data-mbar] *{flex-wrap:nowrap!important}
+button,a[style*="display: flex"],a[style*="display: inline-flex"],[style*="border-radius: 999px"],[style*="border-radius: 6px"],[role="tab"]{white-space:nowrap}
+a:not([style*="display"]){display:inline-block}
+img,video{max-width:100%}
+/* 10-27：不可以左右滑；打勾一律綠色；勾選框旁的文字不跑到下面；按鈕文字置中、15px、不超出 */
+html,body{overflow-x:hidden}
+/* 10-27 第 3 輪：格狀排版不把多出的高度分給每一塊（避免內容中間出現空白）；區塊最後的文字連結靠左；區塊標題統一 18px */
+[style*="display: grid"]{align-content:start}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([style*="align-self"]){align-self:flex-start}
+h2{font-size:18px!important;line-height:1.4}
+/* 不斷行的文字裡面的小段落也不斷行（text-wrap 規則會讓裡面的 span 自己斷行） */
+[style*="white-space: nowrap"] *{white-space:nowrap}
+#dc-root > div,x-dc > div{max-width:100%}
+svg:not([data-keep]):has(> path[d="M5 12l5 5L20 7"]){stroke:#2E7D5B}
+label:has(> input[type="checkbox"]),label:has(> input[type="radio"]){flex-wrap:nowrap!important}
+label > input[type="checkbox"],label > input[type="radio"]{flex-shrink:0}
+:is(a,button)[style*="min-height: 4"][style*="border-radius: 1"],[data-mbar] :is(a,button){justify-content:center;text-align:center;font-size:15px!important;white-space:nowrap;min-width:0;padding-left:10px!important;padding-right:10px!important}
+table{width:100%}
+
+/* 10-28 第 5 輪定案的標準
+   按鈕：大 48px（底部固定、頁面主要動作）／中 44px（卡片裡）／小 36px（列表裡），字一律 15px 粗體
+   輸入框 44px、字 16px（驗證碼 48px、搜尋 40px）；標籤 14px 粗體、上下 2px、左右 10px
+   卡片：開頭或結尾是文字的卡片內距 16px；行距 8px；資料列最後一列下面不留空 */
+:is(a,button)[style*="min-height: 52px"],:is(a,button)[style*="min-height: 56px"]{min-height:48px!important;font-size:15px!important}
+input:not([type="checkbox"]):not([type="radio"]):not([type="search"]),select{min-height:44px!important;height:44px!important;font-size:16px!important}
+input[type="search"]{min-height:40px!important;height:40px!important;font-size:16px!important}
+input[style*="text-align: center"][style*="font-size: 24px"],input[style*="text-align: center"][style*="font-weight: 900"]{min-height:48px!important;height:48px!important;font-size:22px!important}
+span[style*="border-radius: 999px"]:is([style*="padding: 3px 10px"],[style*="padding: 6px 12px"],[style*="padding: 2px 8px"],[style*="padding: 4px 12px"],[style*="padding: 3px 10px 3px 10px"],[style*="padding: 6px 12px 6px 12px"],[style*="padding: 2px 8px 2px 8px"]):not(header *){padding:2px 10px!important;font-size:14px!important;font-weight:700!important}
+[style*="padding: 20px 16px 20px 16px"][style*="border-radius: 2"]:not(section[style*="background: #E4EAF4"]):not([data-keep-pad]){padding:16px!important}
+[style*="border-top: 1px solid #ECE7DC"]:last-child{padding-bottom:0!important}
+span:empty[style*="border-radius: 999px"],b:empty,span:empty[data-avail]{display:none}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([data-back]):not([style*="align-self"]){align-self:flex-end;text-align:right}
+a[data-back]{align-self:flex-start}
+
+/* 10-28 第 6 輪：空的狀態標籤不顯示；巢狀的滿版區塊第一塊上面、最後一塊下面不再多留空 */
+span:empty[style*="max-width: 96px"]{display:none}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):first-child{padding-top:0!important}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):last-child{padding-bottom:0!important}
+
+/* 10-29 第 7 輪：設計稿裡不顯示捲軸（手機的捲軸不佔位置，卡片才會置中） */
+html,body,[data-mscroll]{scrollbar-width:none}
+::-webkit-scrollbar{display:none}
+
+/* 10-28 第 6 輪：卡片上下動態內距 */
+[data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"]{padding-top:11px!important}
+[data-vt="13"][data-vt="13"][data-vt="13"][data-vt="13"][data-vt="13"][data-vt="13"]{padding-top:13px!important}
+[data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"]{padding-top:15px!important}
+[data-vb="7"][data-vb="7"][data-vb="7"][data-vb="7"][data-vb="7"][data-vb="7"]{padding-bottom:7px!important}
+[data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"]{padding-bottom:8px!important}
+[data-vb="9"][data-vb="9"][data-vb="9"][data-vb="9"][data-vb="9"][data-vb="9"]{padding-bottom:9px!important}
+[data-vb="13"][data-vb="13"][data-vb="13"][data-vb="13"][data-vb="13"][data-vb="13"]{padding-bottom:13px!important}
+[data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"]{padding-bottom:15px!important}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 390px; height: 1307px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4; border-bottom: 1px solid #E2DDD2"><a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="font-size: 18px; font-weight: 900">傻媽萬事通</span><span style="padding: 2px 8px; border-radius: 999px; background: {{denim}}; color: #FFFFFF; font-size: 13px; font-weight: 700">師傅</span></a><span style="display: flex; align-items: center; gap: 8px"><a href="TechMessages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; color: #23262E; display: flex; align-items: center; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg><span style="position: absolute; top: 8px; right: 7px; width: 9px; height: 9px; border-radius: 50%; background: #C8412C"></span></a><a href="TechMenu.dc.html" aria-label="選單" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #23262E"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></a></span></header>
+<div style="padding: 20px 16px 0; display: flex; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 style="margin: 0; font-size: 24px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">到府作業</h1><span style="font-size: 18px; color: #4E525C">王小姐 · 洗衣機不排水 · 今天 16:00–17:00</span></div>
+<span style="display: flex; gap: 10px"><a href="TechMessages.dc.html" style="min-height: 44px; padding: 0 16px; display: flex; align-items: center; border-radius: 12px; border: 1px solid #D8D2C4; color: #23262E; text-decoration: none; font-size: 16px">傳訊息給客戶</a></span>
+</div>
+<div style="flex-grow: 1; padding: 16px 16px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start">
+<section style="grid-column: auto; padding: 16px 16px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 18px">
+<ol aria-label="到府進度" style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{stages}}" as="s" hint-placeholder-count="4"><li style="display: flex"><button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}" style="flex-grow: 1; padding: 12px; border-radius: 12px; border: none; background: {{s.bg}}; color: {{s.fg}}; font-family: inherit; font-size: 16px; font-weight: {{s.weight}}; text-align: center">{{s.t}}</button></li></sc-for>
+</ol>
+<span style="margin-top: -8px; font-size: 13px; color: #62666F">點上方的階段可以切換查看（示意）</span>
+<sc-if value="{{s0}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 12px"><span style="font-size: 18px; font-weight: 900">準備出發</span><span style="font-size: 16px; color: #4E525C">按下出發後，客戶會收到你的照片和預計抵達時間。地址：[完整地址]</span><div style="padding: 14px 16px; border-radius: 12px; background: #FDF3D7; color: #6B4A00; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 16px; font-weight: 700">會晚到，請在到府「前 2 小時以上」按「通知客戶我會晚到」</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 16px; line-height: 1.6; text-align: left"><li style="display: flex; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>到府「前 2 小時以上」在平台事先通知、客戶同意新時間：不算遲到<span style="margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 14px; font-weight: 700; white-space: nowrap">不扣分</span></span></li><li style="display: flex; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>沒通知、晚到「超過 30 分鐘」，客戶決定繼續等：<strong>你的出車費減半</strong><span style="margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: #F8DCD4; color: #B42318; font-size: 14px; font-weight: 700; white-space: nowrap">−5 分</span></span></li><li style="display: flex; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>沒通知、晚到「超過 30 分鐘」，客戶決定取消、不想等：<strong>平台服務費 NT$150 不退</strong>，客戶不用付錢<span style="margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: #F8DCD4; color: #B42318; font-size: 14px; font-weight: 700; white-space: nowrap">−10 分</span></span></li><li style="display: flex; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>到府「前 12 小時內」你取消：<strong>平台服務費 NT$150 不退</strong><span style="margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: #F8DCD4; color: #B42318; font-size: 14px; font-weight: 700; white-space: nowrap">−10 分</span></span></li></ul></div><button type="button" onClick="{{next}}" style="align-self: flex-start; min-height: 48px; padding: 0 16px; border-radius: 12px; border: none; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">我出發了</button><button type="button" style="align-self: flex-start; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #B42318; background: #FFFFFF; color: #B42318; font-family: inherit; font-size: 16px; font-weight: 700">通知客戶我會晚到</button></div></sc-if>
+<sc-if value="{{s1}}" hint-placeholder-val="{{ true }}"><div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><span style="font-size: 18px; font-weight: 900">到門口了，請念出核對碼</span><span style="font-size: 16px; color: #4E525C">客戶的手機也會顯示這組號碼，對了才會開門。</span><div style="display: flex; gap: 10px"><sc-for list="{{code}}" as="c" hint-placeholder-count="4"><span style="width: 64px; height: 76px; border-radius: 12px; background: #E4EAF4; color: #26406E; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 900">{{c}}</span></sc-for></div><button type="button" onClick="{{next}}" style="min-height: 48px; padding: 0 16px; border-radius: 12px; border: none; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">核對完成，開始施工</button>
+<div style="align-self: stretch; padding: 16px; border-radius: 14px; border: 1.5px dashed #B9B3A6; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 16px; font-weight: 700">到場沒人開門？</span>
+<sc-if value="{{w0}}" hint-placeholder-val="{{ true }}"><ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 16px; line-height: 1.6; color: #4E525C"><li>按「開始等候」，系統記錄你的定位</li><li>等候 15 分鐘（平台會倒數，期間會自動通知客戶）</li><li>拍一張門牌照片送出</li></ol><button type="button" onClick="{{startWait}}" style="align-self: flex-start; min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-family: inherit; font-size: 16px">開始等候 15 分鐘</button></sc-if>
+<sc-if value="{{w1}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 16px; color: #4E525C">已記錄定位 · 已通知客戶</span><span style="font-size: 24px; font-weight: 900; color: #B42318">[12:34]</span><span style="font-size: 16px; color: #4E525C">等候時間到之後，請拍一張門牌照片。</span><div style="display: flex; gap: 10px"><button type="button" onClick="{{doneWait}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: none; background: {{denim}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">拍門牌照片並送出（示意）</button><button type="button" onClick="{{resetWait}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-family: inherit; font-size: 16px">客戶開門了</button></div></div></sc-if>
+<sc-if value="{{w2}}" hint-placeholder-val="{{ false }}"><div style="padding: 12px 14px; border-radius: 12px; background: #E4F0EA; color: #245443; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; font-weight: 700">等候完成，已送出門牌照片</span><span style="font-size: 16px; line-height: 1.6">你得到抵用金 NT$100，這件案件結束。</span></div></sc-if>
+</div>
+<div style="align-self: stretch; padding: 12px 14px; border-radius: 12px; background: #F8DCD4; color: #8E2E1F; font-size: 16px; line-height: 1.6; text-align: left">客戶按「號碼不對」時，這裡會顯示「案件暫停，請勿進入，平台客服會聯絡你」。</div></div></sc-if>
+<sc-if value="{{s2}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 14px"><span style="font-size: 18px; font-weight: 900">施工中</span><div style="display: flex; justify-content: space-between; font-size: 16px"><span>線上報價（客戶已同意）</span><span style="font-weight: 700">[NT$XXX]</span></div><div style="padding: 16px; border-radius: 14px; border: 1.5px dashed #B9B3A6; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 16px; font-weight: 700">需要加價？</span><span style="font-size: 16px; color: #4E525C">送出後客戶要在手機上按同意，才能繼續施工。請附原因和照片。客戶不同意時，就照原本的報價。</span><div style="display: flex; gap: 10px"><input type="text" value="排水馬達更換" aria-label="加價項目" style="flex-grow: 1; min-height: 46px; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; font-family: inherit; font-size: 16px"><input type="text" value="[NT$XXX]" aria-label="加價金額" style="width: 140px; min-height: 46px; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; font-family: inherit; font-size: 16px"><button type="button" style="min-height: 46px; padding: 0 16px; border-radius: 10px; border: none; background: {{denim}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">送出給客戶</button></div></div><button type="button" onClick="{{next}}" style="align-self: flex-start; min-height: 48px; padding: 0 16px; border-radius: 12px; border: none; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">施工完成</button></div></sc-if>
+<sc-if value="{{s3}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 12px"><span style="font-size: 18px; font-weight: 900">向客戶收款</span><div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 900"><span>應收</span><span>[NT$XXX]</span></div><span style="font-size: 16px; color: #4E525C">客戶付現金或轉帳給你。收到後按確認，雙方都會留下紀錄。</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">結案後請<a href="TechRateCustomer.dc.html">評價這位客戶</a>（準時、溝通、現場環境）。評價不公開，只給平台和其他師傅參考。</span><a href="TechRateCustomer.dc.html" style="align-self: flex-start; min-height: 48px; padding: 0 16px; display: flex; align-items: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700">已收款，結案</a></div></sc-if>
+</section>
+<aside style="grid-column: auto; display: flex; flex-direction: column; gap: 20px">
+<div style="padding: 16px 16px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 16px; display: flex; flex-direction: column; gap: 10px"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">客戶資料</h2><span style="font-size: 16px">王小姐 · 手機已驗證 · 已先視訊</span><span style="font-size: 16px; color: #4E525C">備註：大樓需先在管理室登記</span></div>
+<div style="padding: 20px; border-radius: 16px; background: #E4EAF4; color: #26406E; font-size: 16px; line-height: 1.7">這次到府的行程已分享給客戶的緊急聯絡人。全程照規定操作，對雙方都比較有保護。</div>
+<a href="Report.dc.html" style="font-size: 16px; color: #4E525C">現場遇到問題？回報給平台</a>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":390,"height":1307}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { stage: 1, wait: 0 }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const cur = this.state.stage;
+    const names = ['出發', '抵達核對', '施工', '收款結案'];
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      s0: cur === 0, s1: cur === 1, s2: cur === 2, s3: cur === 3,
+      w0: this.state.wait === 0, w1: this.state.wait === 1, w2: this.state.wait === 2,
+      startWait: () => this.setState({ wait: 1 }), doneWait: () => this.setState({ wait: 2 }), resetWait: () => this.setState({ wait: 0 }),
+      next: () => this.setState({ stage: (cur + 1) % 4 }),
+      code: ['4', '8', '2', '7'],
+      stages: names.map((t, i) => ({ t: t, pressed: i === cur ? 'true' : 'false', pick: () => this.setState({ stage: i }), bg: i === cur ? denim : (i < cur ? '#E4F0EA' : '#F6F3EC'), fg: i === cur ? '#FFFFFF' : (i < cur ? '#245443' : '#62666F'), weight: i === cur ? '700' : '400' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

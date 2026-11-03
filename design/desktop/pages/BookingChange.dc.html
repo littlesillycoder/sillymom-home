@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 改期或取消</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<div style="display: flex; align-items: center; gap: 56px">
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<nav style="display: flex; gap: 36px; font-size: 18px"><a href="Dashboard.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">首頁</a><a href="TechList.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">找師傅</a><a href="Records.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">維修紀錄</a><a href="Safety.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">我的家</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 16px"><a href="Notifications.dc.html" aria-label="通知" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0"></path></svg><span style="position: absolute; top: 8px; right: 9px; width: 9px; height: 9px; border-radius: 50%; background: #C8412C"></span></a>
+
+<a href="Messages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg></a>
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林小姐</span></a>
+</div>
+</header>
+<div style="padding: 40px 80px 0; display: flex; flex-direction: column; gap: 8px"><a href="HomeTrack.dc.html" style="font-size: 16px; text-decoration: none">← 回到府行程</a><div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">{{heading}}</h1><span style="padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: {{dlBg}}; color: {{dlFg}}">{{tagT}}</span></div><span style="font-size: 18px; line-height: 1.6; color: #4E525C"><sc-if value="{{late}}" hint-placeholder-val="{{ false }}">已在到府前 12 小時內</sc-if><sc-if value="{{early}}" hint-placeholder-val="{{ true }}">免費期限還有 <strong style="font-size: 22px; color: #2F4F86">[N]</strong> 小時 <strong style="font-size: 22px; color: #2F4F86">[N]</strong> 分（到府前 12 小時）</sc-if></span></div>
+<div style="flex-grow: 1; padding: 28px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: start">
+<div style="grid-column: span 8; display: flex; flex-direction: column; gap: 20px">
+<sc-if value="{{resched}}" hint-placeholder-val="{{ true }}">
+<section style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 16px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">選新的時間</h2>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="5"><button type="button" aria-pressed="{{d.pressed}}" onClick="{{d.pick}}" style="min-height: 64px; border-radius: 12px; border: {{d.border}}; background: {{d.bg}}; color: #23262E; font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px"><span style="font-size: 13px; color: #62666F">{{d.w}}</span><span style="font-size: 16px; font-weight: 700">[日期]</span></button></sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="8"><button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}" style="min-height: 52px; border-radius: 10px; border: {{s.border}}; background: {{s.bg}}; color: #23262E; font-family: inherit; font-size: 16px; font-weight: {{s.weight}}">{{s.t}}</button></sc-for>
+</div>
+<span style="font-size: 16px; color: #62666F">只顯示林師傅有空的時段。送出後要等林師傅確認，確認前原本的時間仍然有效。</span>
+</section>
+</sc-if>
+<sc-if value="{{cancel}}" hint-placeholder-val="{{ false }}">
+<section style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">取消的原因</h2>
+<sc-for list="{{reasons}}" as="r" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{r.pressed}}" onClick="{{r.pick}}" style="min-height: 52px; padding: 0 16px; border-radius: 12px; border: {{r.border}}; background: {{r.bg}}; color: #23262E; font-family: inherit; font-size: 16px; text-align: left; font-weight: {{r.weight}}">{{r.t}}</button></sc-for>
+<label for="note" style="font-size: 16px; color: #4E525C">想補充的話（選填，林師傅看得到）</label>
+<input id="note" type="text" style="min-height: 50px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400">
+</section>
+</sc-if>
+</div>
+<aside style="grid-column: span 4; padding: 28px; border-radius: 24px; background: #FFFFFF; border: 2px solid {{denim}}; display: flex; flex-direction: column; gap: 16px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">原本的預約</h2>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 16px">
+<div style="display: flex; justify-content: space-between"><span style="color: #4E525C">服務</span><span style="font-weight: 700">到府 · 冷氣滴水</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #4E525C">師傅</span><span style="font-weight: 700">林師傅</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #4E525C">時間</span><span style="font-weight: 700">明天 14:00–15:00</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #4E525C">已付</span><span style="font-weight: 700">平台費（求助）NT$100</span></div>
+<span style="margin-top: -6px; font-size: 13px; line-height: 1.6; color: #62666F">視訊時已付，{{verb}}不會退還</span>
+<div style="padding-top: 12px; border-top: 1px solid #E2DDD2; display: flex; justify-content: space-between"><span style="color: #4E525C">這次要付</span><span style="font-weight: 900; font-size: 18px; color: {{feeColor}}">{{feeShow}}</span></div>
+</div>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{send}}" style="width: 100%; min-height: 52px; border-radius: 12px; border: none; font-family: inherit; font-size: 16px; font-weight: 700; color: #FFFFFF; background: {{ctaBg}}">{{cta}}</button></sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}"><div style="padding: 14px 16px; border-radius: 12px; background: #E4F0EA; color: #245443; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 16px; font-weight: 700">{{sentT}}</span><span style="font-size: 16px; line-height: 1.6">{{sentB}}</span><a href="HomeTrack.dc.html" style="font-size: 16px; color: #245443; font-weight: 700">回到府行程 →</a></div></sc-if>
+<a href="Legal.dc.html" style="align-self: flex-end; text-align: right; font-size: 16px">扣款與取消規則</a>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"action":{"editor":"enum","options":["改期","取消"],"default":"改期"},"timing":{"editor":"enum","options":["12 小時以上","不到 12 小時"],"default":"12 小時以上"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { day: 2, slot: 1, reason: 0, sent: false }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const accent = this.props.accent ?? '#C8412C';
+    const resched = (this.props.action ?? '改期') === '改期';
+    const late = (this.props.timing ?? '12 小時以上') === '不到 12 小時';
+    const on = '2px solid ' + denim; const off = '1px solid #D8D2C4';
+    const pick = (list, key, extra) => list.map((x, i) => Object.assign({ pressed: i === this.state[key] ? 'true' : 'false', border: i === this.state[key] ? on : off, bg: i === this.state[key] ? '#E4EAF4' : '#FFFFFF', weight: i === this.state[key] ? '700' : '400', pick: () => this.setState({ [key]: i }) }, typeof x === 'string' ? { t: x } : x));
+    return {
+      tagT: late ? (resched ? '臨時改期收 NT$50' : '臨時取消收 NT$100') : (resched ? '現在改期免費' : '現在取消免費'),
+      accent: accent, denim: denim,
+      resched: resched, cancel: !resched,
+      heading: resched ? '改期' : '取消預約',
+      early: !late, late: late, verb: resched ? '改期' : '取消',
+      sent: this.state.sent, notSent: !this.state.sent, send: () => this.setState({ sent: true }),
+      sentT: resched ? '改期申請已送出' : '已取消預約',
+      sentB: resched ? '等林師傅確認新時間；確認前，原本的時間仍然有效。' : '林師傅會收到通知。' + (late ? '逾時費會從你的信用卡扣款。' : '這次不收費。'),
+      feeColor: late ? '#23262E' : '#B42318',
+      feeShow: late ? (resched ? '逾時費（臨時改期）NT$50' : '逾時費（臨時取消）NT$100') : '免費',
+      dlBg: late ? '#F8DCD4' : '#E4F0EA', dlFg: late ? '#8E2E1F' : '#245443',
+      feeLabel: resched ? '改期費用' : '取消費用',
+      fee: resched ? '逾時費（臨時改期）NT$50' : '逾時費（臨時取消）NT$100',
+      cta: resched ? '送出改期申請' : '確認取消',
+      ctaBg: resched ? accent : '#B42318',
+      days: pick([{ w: '今天' }, { w: '明天' }, { w: '[週六]' }, { w: '[週日]' }, { w: '[週一]' }, { w: '[週二]' }], 'day'),
+      slots: pick(['09:00–10:00', '09:30–10:30', '11:00–12:00', '14:00–15:00', '15:30–16:30', '17:00–18:00', '19:30–20:30', '20:30–21:30'], 'slot'),
+      reasons: pick(['問題已經自己解決了', '時間臨時不方便', '想換其他師傅', '其他原因'], 'reason')
+    };
+  }
+}
+</script>
+</body>
+</html>

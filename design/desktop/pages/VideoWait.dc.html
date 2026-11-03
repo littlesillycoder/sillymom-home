@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 視訊等待室</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<div style="display: flex; align-items: center; gap: 56px">
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<nav style="display: flex; gap: 36px; font-size: 18px"><a href="Dashboard.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">首頁</a><a href="TechList.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">找師傅</a><a href="Records.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">維修紀錄</a><a href="Safety.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">我的家</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 16px"><a href="Notifications.dc.html" aria-label="通知" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0"></path></svg><span style="position: absolute; top: 8px; right: 9px; width: 9px; height: 9px; border-radius: 50%; background: #C8412C"></span></a>
+
+<a href="Messages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg></a>
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林小姐</span></a>
+</div>
+</header>
+<div style="flex-grow: 1; padding: 48px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: start">
+<section style="grid-column: span 7; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 40px 44px; display: flex; flex-direction: column; gap: 22px">
+<sc-if value="{{queue}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<sc-if value="{{inLine}}" hint-placeholder-val="{{ true }}"><div style="display: flex; flex-direction: column; gap: 18px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #FDF3D7; color: #6B4A00; font-size: 16px; font-weight: 700">已設定通知</span>
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; color: {{denim}}">周師傅正在視訊中</h1>
+<div style="display: flex; align-items: baseline; gap: 10px"><span style="font-size: 16px; color: #4E525C">預計</span><span style="font-size: 40px; font-weight: 900; color: #2F4F86">[N]</span><span style="font-size: 16px; color: #4E525C">分鐘後有空</span></div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6; color: #4E525C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>周師傅結束視訊時，我們會用 LINE 通知你。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6; color: #4E525C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>通知會同時發給其他在等的客戶，誰先按「立即視訊」誰先開始。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6; color: #4E525C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>你可以先離開這頁，不收費。</span></li></ul>
+<div style="display: flex; gap: 12px; flex-wrap: wrap"><button type="button" onClick="{{toTurn}}" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit; border: none; font-family: inherit">示意：周師傅有空了</button><a href="Tech.dc.html" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-family: inherit; border: 1.5px solid {{accent}}; background: #FFFFFF; color: {{accent}}; font-weight: 700">改成預約視訊</a><a href="Match.dc.html" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-family: inherit; border: none; background: #EEEAE1; color: #23262E; font-weight: 700">取消通知</a></div>
+</div></sc-if>
+<sc-if value="{{turn}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 18px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 16px; font-weight: 700">周師傅有空了</span>
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; color: {{denim}}">現在可以視訊</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #4E525C">其他客戶也收到通知，先按「立即視訊」的人先開始。如果周師傅已經開始別人的視訊，會再通知你一次。</p>
+<div style="display: flex; gap: 12px; flex-wrap: wrap"><a href="VideoRoom.dc.html" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">立即視訊</a><button type="button" onClick="{{toLine}}" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-size: 16px; font-family: inherit; font-family: inherit">晚一點再說</button></div>
+</div></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{waiting}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 16px; font-weight: 700">等待林師傅上線 · 第 1 次視訊（共 2 次）</span>
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; color: {{denim}}">林師傅馬上就到</h1>
+<div style="display: flex; align-items: baseline; gap: 14px"><span style="font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: #B42318">[02:41]</span><span style="font-size: 16px; color: #4E525C">已等待</span></div>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #4E525C">雙方都上線後才開始計時 10 分鐘。林師傅超過 5 分鐘沒上線，這次視訊會自動取消，你不用付費。</p>
+<a href="VideoRoom.dc.html" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">林師傅已上線，進入視訊（示意）</a>
+</div>
+</sc-if>
+<sc-if value="{{cancelled}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #F8DCD4; color: #8E2E1F; font-size: 16px; font-weight: 700">視訊已取消</span>
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; color: {{denim}}">林師傅超過 5 分鐘沒有上線</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #4E525C">這次你不用付費，也不會扣款。你的求助內容都還在，可以馬上找其他師傅。</p>
+<div style="display: flex; gap: 12px"><a href="Match.dc.html" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">看其他在線師傅</a><a href="Tech.dc.html" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-family: inherit; border: 1.5px solid {{accent}}; background: #FFFFFF; color: {{accent}}; font-weight: 700">重新預約林師傅</a></div>
+</div>
+</sc-if>
+<sc-if value="{{timeup}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 16px; font-weight: 700">視訊已結束</span>
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; color: {{denim}}">第 1 次視訊的 10 分鐘到了</h1>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6; color: #4E525C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>林師傅會在 <strong style="color: #B42318; font-size: 18px">30 分鐘內</strong>送出診斷單和報價，最晚 [時間]。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6; color: #4E525C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>報價送出後會通知你，也會出現在諮詢結束頁。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6; color: #4E525C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>還想跟林師傅多談？可以用第 2 次視訊（這個求助還剩 1 次）。</span></li></ul>
+<div style="display: flex; gap: 12px; flex-wrap: wrap"><a href="Summary.dc.html" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">看諮詢結束頁</a><a href="Checkout.dc.html" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-family: inherit; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700">用第 2 次視訊，繼續跟林師傅談</a><a href="Match.dc.html" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-family: inherit; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700">換一位師傅</a></div>
+</div>
+</sc-if>
+</section>
+<aside style="grid-column: span 5; display: flex; flex-direction: column; gap: 20px">
+<div style="height: 260px; border-radius: 20px; background: #23262E; color: #D5D7DC; display: flex; align-items: center; justify-content: center; font-size: 16px">[你的鏡頭預覽]</div>
+<div style="padding: 22px 24px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 18px; font-weight: 700">等待時先確認</span>
+<sc-for list="{{checks}}" as="c" hint-placeholder-count="3"><div style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>{{c}}</span></div></sc-for>
+</div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"state":{"editor":"enum","options":["等待通知","等待對方上線","對方遲到取消","時間到"],"default":"等待對方上線"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { turn: false }; }
+  renderVals() {
+    const st = this.props.state ?? '等待對方上線';
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      queue: st === '等待通知', inLine: !this.state.turn, turn: !!this.state.turn, toTurn: () => this.setState({ turn: true }), toLine: () => this.setState({ turn: false }),
+      waiting: st === '等待對方上線', cancelled: st === '對方遲到取消', timeup: st === '時間到',
+      checks: ['麥克風和鏡頭都已開啟', '站到故障的東西旁邊，後鏡頭拍得到問題', '進入視訊時雙方會再確認一次同意錄影']
+    };
+  }
+}
+</script>
+</body>
+</html>

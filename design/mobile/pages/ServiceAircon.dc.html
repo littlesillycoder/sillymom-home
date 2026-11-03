@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 冷氣維修（手機）</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 手機版共用規則（每個畫板在自己的頁面裡顯示，所以不用加前綴）
+   1. 一般橫排可換行；開頭是圖示或頭像的橫排，圖示和文字固定同一行，第三個以後的元素換到下一行
+   2. 按鈕、標籤、日期這類短文字不斷開；段落裡的連結整段一起換行 */
+*{box-sizing:border-box}
+[style*="display: flex"]:not([style*="flex-direction: column"]){flex-wrap:wrap}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(2){flex:1 1 180px;min-width:0}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(n+3){margin-left:auto}
+header,header *,[data-mbar] *{flex-wrap:nowrap!important}
+button,a[style*="display: flex"],a[style*="display: inline-flex"],[style*="border-radius: 999px"],[style*="border-radius: 6px"],[role="tab"]{white-space:nowrap}
+a:not([style*="display"]){display:inline-block}
+img,video{max-width:100%}
+/* 10-27：不可以左右滑；打勾一律綠色；勾選框旁的文字不跑到下面；按鈕文字置中、15px、不超出 */
+html,body{overflow-x:hidden}
+/* 10-27 第 3 輪：格狀排版不把多出的高度分給每一塊（避免內容中間出現空白）；區塊最後的文字連結靠左；區塊標題統一 18px */
+[style*="display: grid"]{align-content:start}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([style*="align-self"]){align-self:flex-start}
+h2{font-size:18px!important;line-height:1.4}
+/* 不斷行的文字裡面的小段落也不斷行（text-wrap 規則會讓裡面的 span 自己斷行） */
+[style*="white-space: nowrap"] *{white-space:nowrap}
+#dc-root > div,x-dc > div{max-width:100%}
+svg:not([data-keep]):has(> path[d="M5 12l5 5L20 7"]){stroke:#2E7D5B}
+label:has(> input[type="checkbox"]),label:has(> input[type="radio"]){flex-wrap:nowrap!important}
+label > input[type="checkbox"],label > input[type="radio"]{flex-shrink:0}
+:is(a,button)[style*="min-height: 4"][style*="border-radius: 1"],[data-mbar] :is(a,button){justify-content:center;text-align:center;font-size:15px!important;white-space:nowrap;min-width:0;padding-left:10px!important;padding-right:10px!important}
+table{width:100%}
+
+/* 10-28 第 5 輪定案的標準
+   按鈕：大 48px（底部固定、頁面主要動作）／中 44px（卡片裡）／小 36px（列表裡），字一律 15px 粗體
+   輸入框 44px、字 16px（驗證碼 48px、搜尋 40px）；標籤 14px 粗體、上下 2px、左右 10px
+   卡片：開頭或結尾是文字的卡片內距 16px；行距 8px；資料列最後一列下面不留空 */
+:is(a,button)[style*="min-height: 52px"],:is(a,button)[style*="min-height: 56px"]{min-height:48px!important;font-size:15px!important}
+input:not([type="checkbox"]):not([type="radio"]):not([type="search"]),select{min-height:44px!important;height:44px!important;font-size:16px!important}
+input[type="search"]{min-height:40px!important;height:40px!important;font-size:16px!important}
+input[style*="text-align: center"][style*="font-size: 24px"],input[style*="text-align: center"][style*="font-weight: 900"]{min-height:48px!important;height:48px!important;font-size:22px!important}
+span[style*="border-radius: 999px"]:is([style*="padding: 3px 10px"],[style*="padding: 6px 12px"],[style*="padding: 2px 8px"],[style*="padding: 4px 12px"],[style*="padding: 3px 10px 3px 10px"],[style*="padding: 6px 12px 6px 12px"],[style*="padding: 2px 8px 2px 8px"]):not(header *){padding:2px 10px!important;font-size:14px!important;font-weight:700!important}
+[style*="padding: 20px 16px 20px 16px"][style*="border-radius: 2"]:not(section[style*="background: #E4EAF4"]):not([data-keep-pad]){padding:16px!important}
+[style*="border-top: 1px solid #ECE7DC"]:last-child{padding-bottom:0!important}
+span:empty[style*="border-radius: 999px"],b:empty,span:empty[data-avail]{display:none}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([data-back]):not([style*="align-self"]){align-self:flex-end;text-align:right}
+a[data-back]{align-self:flex-start}
+
+/* 10-28 第 6 輪：空的狀態標籤不顯示；巢狀的滿版區塊第一塊上面、最後一塊下面不再多留空 */
+span:empty[style*="max-width: 96px"]{display:none}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):first-child{padding-top:0!important}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):last-child{padding-bottom:0!important}
+
+/* 10-29 第 7 輪：設計稿裡不顯示捲軸（手機的捲軸不佔位置，卡片才會置中） */
+html,body,[data-mscroll]{scrollbar-width:none}
+::-webkit-scrollbar{display:none}
+
+/* 10-28 第 6 輪：卡片上下動態內距 */
+[data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"]{padding-top:10px!important}
+[data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"]{padding-bottom:10px!important}
+[data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"]{padding-bottom:15px!important}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 390px; height: 2238px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: space-between; background: #F6F3EC; border-bottom: 1px solid #E2DDD2">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="font-size: 18px; font-weight: 900">傻媽萬事通</span></a>
+<span style="display: flex; align-items: center; gap: 8px"><a href="Login.dc.html" style="min-height: 36px; padding: 0 14px 0 14px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 700; display: flex; align-items: center">免費註冊</a><a href="MenuGuest.dc.html" aria-label="選單" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #23262E"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></a></span>
+</header>
+<nav aria-label="麵包屑" style="padding: 20px 16px 0 16px; font-size: 16px; color: #62666F; display: flex; gap: 8px"><a href="Services.dc.html">服務項目</a><span>›</span><span>冷氣</span></nav>
+<section style="padding: 20px 16px 20px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: center">
+<div style="grid-column: auto; display: flex; flex-direction: column; gap: 16px"><h1 style="margin: 0; font-size: 24px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">冷氣維修與保養</h1><p style="margin: 0; font-size: 18px; line-height: 1.8; color: #4E525C">滴水、不冷、有異音？先跟師傅視訊，知道原因和報價再決定要不要到府。</p><div style="display: flex; gap: 12px"><a href="RequestGuest.dc.html" style="min-height: 52px; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">找冷氣師傅</a><a href="TechList.dc.html" style="min-height: 52px; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; text-decoration: none; font-size: 15px; font-weight: 700; font-family: inherit">看全部冷氣師傅</a></div></div>
+<details style="padding: 16px 0 16px 0; border-bottom: 1px solid #E2DDD2"><summary style="font-size: 18px; font-weight: 700; cursor: pointer">費用怎麼算</summary><div data-vt="10" data-vb="10" style="margin-top: 8px; padding: 14px 16px; border-radius: 14px; background: #E4EAF4; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{fees}}" as="f" hint-placeholder-count="3"><div style="display: flex; justify-content: space-between; gap: 12px; font-size: 16px; flex-direction: column; gap: 0; align-items: flex-start; padding-bottom: 6px"><span style="color: #4E525C; white-space: nowrap">{{f.k}}</span><span style="font-weight: 700; text-align: right">{{f.v}}</span></div></sc-for>
+<span style="font-size: 16px; color: #62666F">維修費由師傅在視訊後報價，你同意才開工；除了上面列的，沒有其他費用。</span></div></details>
+</section>
+<section style="padding: 0 16px 20px 16px; display: flex; flex-direction: column; gap: 16px"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">常見的冷氣問題</h2><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px"><div data-keep-pad style="padding: 16px 12px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #E4F0EA; color: #245443">先視訊</span><span style="font-size: 18px; font-weight: 900">室內機滴水</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">通常可以先視訊判斷</span><a href="RequestGuest.dc.html" style="margin-top: auto; font-size: 15px">描述我的問題 →</a></div><div data-keep-pad style="padding: 16px 12px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #E4F0EA; color: #245443">先視訊</span><span style="font-size: 18px; font-weight: 900">冷氣不冷</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">可能是冷媒、濾網或壓縮機，先視訊判斷</span><a href="RequestGuest.dc.html" style="margin-top: auto; font-size: 15px">描述我的問題 →</a></div><div data-keep-pad style="padding: 16px 12px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #E4F0EA; color: #245443">先視訊</span><span style="font-size: 18px; font-weight: 900">異音異味</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">先視訊聽聲音、看狀況</span><a href="RequestGuest.dc.html" style="margin-top: auto; font-size: 15px">描述我的問題 →</a></div><div data-keep-pad style="padding: 16px 12px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #F8DCD4; color: #8E2E1F">到府</span><span style="font-size: 18px; font-weight: 900">清洗保養</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">需要到府</span><a href="RequestGuest.dc.html" style="margin-top: auto; font-size: 15px">描述我的問題 →</a></div><div data-keep-pad style="padding: 16px 12px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #F8DCD4; color: #8E2E1F">到府</span><span style="font-size: 18px; font-weight: 900">安裝移機</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">需要到府，建議先視訊確認現場</span><a href="RequestGuest.dc.html" style="margin-top: auto; font-size: 15px">描述我的問題 →</a></div></div></section>
+<section style="padding: 0 16px 20px 16px; display: flex; flex-direction: column; gap: 16px"><div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">推薦的冷氣師傅</h2><a href="TechList.dc.html" style="font-size: 16px">看全部 →</a></div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px"><sc-for list="{{techs}}" as="p" hint-placeholder-count="3"><div data-vb="15" data-keep-pad style="padding: 0 16px 16px; border-radius: 16px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 0"><div style="margin: 0 -16px 12px; padding: 8px 16px; background: {{p.barBg}}; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: nowrap"><span style="display: inline-flex; align-items: center; gap: 6px; min-width: 0; font-size: 14px; font-weight: 700; color: {{p.barFg}}; white-space: nowrap"><sc-if value="{{p.live}}" hint-placeholder-val="{{ true }}"><span style="display: inline-block; width: 9px; height: 9px; border-radius: 5px; background: {{p.barFg}}"></span></sc-if>{{p.barT}}</span><span style="flex-shrink: 0; font-size: 14px; font-weight: 700; color: {{p.barFg}}; white-space: nowrap">{{p.resp}}</span></div><div style="display: flex; gap: 12px; align-items: center; flex-wrap: nowrap"><a href="TechGuest.dc.html" aria-label="看個人頁" style="flex-shrink: 0; text-decoration: none"><span style="position: relative; width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%; background: #E4EAF4; color: #26406E; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900">{{p.i}}</span></a><span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: nowrap"><span style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; min-width: 0"><a href="TechGuest.dc.html" style="font-size: 18px; font-weight: 900; white-space: nowrap; color: #23262E; text-decoration: none">{{p.n}}</a><span style="padding: 2px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: {{p.gBg}}; color: {{p.gFg}}">{{p.g}}</span></span><span style="flex-shrink: 0; padding: 2px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: #E4EAF4; color: #26406E">[N] 次服務</span></span><span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: nowrap"><span style="font-size: 14px; color: #62666F; white-space: nowrap">★ [N.N] · [N] 則評價</span></span></span></div><div style="height: 1px; background: #E8E3D8; margin: 12px 0"></div><div style="display: flex; flex-direction: column; gap: 8px"><div style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{p.badges}}" as="bd" hint-placeholder-count="3"><span style="padding: 2px 10px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 14px; font-weight: 700; white-space: nowrap">{{bd}}</span></sc-for></div><span style="font-size: 15px; line-height: 1.6; color: #4E525C">{{p.s}}</span><span style="font-size: 15px; line-height: 1.6; color: #4E525C">{{p.ct}}</span><div style="display: flex; gap: 8px; margin-top: 4px; flex-wrap: nowrap"><a href="TechGuest.dc.html" style="flex: 1; min-height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 15px; font-weight: 700; white-space: nowrap; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}">看個人頁</a><a href="Login.dc.html" style="flex: 1; min-height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 15px; font-weight: 700; white-space: nowrap; border: none; background: {{accent}}; color: #FFFFFF">預約視訊</a></div></div></div></sc-for></div></section>
+<section style="padding: 0 16px 20px 16px; display: flex; flex-direction: column; gap: 4px; max-width: 900px"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">常見問題</h2>
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="3"><details style="padding: 16px 0 16px 0; border-bottom: 1px solid #E2DDD2"><summary style="font-size: 18px; font-weight: 700; cursor: pointer">{{f.q}}</summary><p style="margin: 10px 0 0 0; font-size: 16px; line-height: 1.8; color: #4E525C">{{f.a}}</p></details></sc-for>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":390,"height":2238}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const fem = { g: '女師傅', gBg: '#9C3D6B', gFg: '#FFFFFF' }; const male = { g: '男師傅', gBg: '#3A5A94', gFg: '#FFFFFF' };
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      fees: [{ k: '平台費（求助）', v: 'NT$100，含 2 次視訊' }, { k: '平台費（直接預約到府）', v: 'NT$100' }, { k: '平台費（急件）', v: 'NT$100，「12 小時內」到府' }, { k: '到府出車費', v: '師傅自訂，最高 NT$500' }, { k: '維修費', v: '師傅報價，含工資與材料' }, { k: '逾時費（臨時取消）', v: 'NT$100，到府前 12 小時內取消' }, { k: '逾時費（臨時改期）', v: 'NT$50，到府前 12 小時內改期' }, { k: '逾時費（沒人開門）', v: 'NT$100，師傅等 15 分鐘沒人開門' }],
+      techs: [Object.assign({ i: '林', n: '林師傅', s: '冷氣安裝、保養、漏水排除', ct: '冷凍空調技術士 [N] 年 · 另有 [N] 張證照', status: '在線中', avail: '', stBg: '#E4F0EA', stFg: '#245443', badges: ['身分驗證', '良民證', '證照'] }, fem), Object.assign({ i: '周', n: '周師傅', s: '冷氣清洗、保養', ct: '冷凍空調技術士 [N] 年', status: '今晚可視訊', stBg: '#EEEAE1', stFg: '#4E525C', badges: ['身分驗證', '良民證', '證照'] }, fem), Object.assign({ i: '王', n: '王師傅', s: '冷氣、家電維修', ct: '冷凍空調技術士 [N] 年 · 另有 [N] 張證照', status: '明天可視訊', stBg: '#EEEAE1', stFg: '#4E525C', badges: ['身分驗證', '證照'] }, male)].map((t) => Object.assign({ resp: t.status === '在線中' ? '平均 2 分鐘回應' : '平均 [N] 分鐘回應', avail: '' }, t, { avail: t.avail || '' })).map((t) => Object.assign({}, t, { barT: [t.status, t.avail].filter(Boolean).join('・'), live: t.status === '在線中', barBg: t.status === '在線中' ? '#E4F0EA' : (t.status === '視訊中' ? '#FDF3D7' : '#E4EAF4'), barFg: t.status === '在線中' ? '#245443' : (t.status === '視訊中' ? '#6B4A00' : '#26406E') })),
+      faq: [{ q: '冷氣滴水一定要到府嗎？', a: '不一定。先視訊讓師傅看排水口和室外機，很多情況可以先判斷原因；需要到府時，師傅會給你報價。' }, { q: '視訊時要自己動手嗎？', a: '不用。你只需要拿著手機讓師傅看，師傅不會指導你拆裝或碰電線。' }, { q: '冷氣清洗要多少錢？', a: '每位師傅的出車費（上限 NT$500）和清洗費不同，可以先看師傅個人頁的介紹，或先視訊讓師傅估價。' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

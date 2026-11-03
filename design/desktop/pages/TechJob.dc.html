@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 到府作業</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1000px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<div style="display: flex; align-items: center; gap: 56px">
+<a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<nav style="display: flex; gap: 36px; font-size: 18px"><a href="TechHome.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">今日</a><a href="TechSchedule.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">案件與排班</a><a href="TechEarnings.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">收入與費用</a><a href="TechProfileEdit.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">我的個人頁</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 16px">
+<a href="TechMessages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg></a>
+<a href="TechHome.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林師傅</span></a>
+</div>
+</header>
+<div style="padding: 40px 80px 0; display: flex; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">到府作業</h1><span style="font-size: 18px; color: #4E525C">王小姐 · 洗衣機不排水 · 今天 16:00–17:00</span></div>
+<span style="display: flex; gap: 10px"><a href="TechMessages.dc.html" style="min-height: 44px; padding: 0 16px; display: flex; align-items: center; border-radius: 12px; border: 1px solid #D8D2C4; color: #23262E; text-decoration: none; font-size: 16px">傳訊息給客戶</a></span>
+</div>
+<div style="flex-grow: 1; padding: 28px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: start">
+<section style="grid-column: span 8; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 18px">
+<ol aria-label="到府進度" style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{stages}}" as="s" hint-placeholder-count="4"><li style="display: flex"><button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}" style="flex-grow: 1; padding: 12px; border-radius: 12px; border: none; background: {{s.bg}}; color: {{s.fg}}; font-family: inherit; font-size: 16px; font-weight: {{s.weight}}; text-align: center">{{s.t}}</button></li></sc-for>
+</ol>
+<span style="margin-top: -8px; font-size: 13px; color: #62666F">點上方的階段可以切換查看（示意）</span>
+<sc-if value="{{s0}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 12px"><span style="font-size: 20px; font-weight: 900">準備出發</span><span style="font-size: 16px; color: #4E525C">按下出發後，客戶會收到你的照片和預計抵達時間。地址：[完整地址]</span><div style="padding: 14px 16px; border-radius: 12px; background: #FDF3D7; color: #6B4A00; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 16px; font-weight: 700">會晚到，請在到府「前 2 小時以上」按「通知客戶我會晚到」</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 16px; line-height: 1.6; text-align: left"><li style="display: flex; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>到府「前 2 小時以上」在平台事先通知、客戶同意新時間：不算遲到<span style="margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 14px; font-weight: 700; white-space: nowrap">不扣分</span></span></li><li style="display: flex; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>沒通知、晚到「超過 30 分鐘」，客戶決定繼續等：<strong>你的出車費減半</strong><span style="margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: #F8DCD4; color: #B42318; font-size: 14px; font-weight: 700; white-space: nowrap">−5 分</span></span></li><li style="display: flex; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>沒通知、晚到「超過 30 分鐘」，客戶決定取消、不想等：<strong>平台服務費 NT$150 不退</strong>，客戶不用付錢<span style="margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: #F8DCD4; color: #B42318; font-size: 14px; font-weight: 700; white-space: nowrap">−10 分</span></span></li><li style="display: flex; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>到府「前 12 小時內」你取消：<strong>平台服務費 NT$150 不退</strong><span style="margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: #F8DCD4; color: #B42318; font-size: 14px; font-weight: 700; white-space: nowrap">−10 分</span></span></li></ul></div><button type="button" onClick="{{next}}" style="align-self: flex-start; min-height: 52px; padding: 0 24px; border-radius: 12px; border: none; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">我出發了</button><button type="button" style="align-self: flex-start; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #B42318; background: #FFFFFF; color: #B42318; font-family: inherit; font-size: 16px; font-weight: 700">通知客戶我會晚到</button></div></sc-if>
+<sc-if value="{{s1}}" hint-placeholder-val="{{ true }}"><div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><span style="font-size: 20px; font-weight: 900">到門口了，請念出核對碼</span><span style="font-size: 16px; color: #4E525C">客戶的手機也會顯示這組號碼，對了才會開門。</span><div style="display: flex; gap: 10px"><sc-for list="{{code}}" as="c" hint-placeholder-count="4"><span style="width: 64px; height: 76px; border-radius: 12px; background: #E4EAF4; color: #26406E; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 900">{{c}}</span></sc-for></div><button type="button" onClick="{{next}}" style="min-height: 52px; padding: 0 24px; border-radius: 12px; border: none; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">核對完成，開始施工</button>
+<div style="align-self: stretch; padding: 16px; border-radius: 14px; border: 1.5px dashed #B9B3A6; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 16px; font-weight: 700">到場沒人開門？</span>
+<sc-if value="{{w0}}" hint-placeholder-val="{{ true }}"><ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 16px; line-height: 1.6; color: #4E525C"><li>按「開始等候」，系統記錄你的定位</li><li>等候 15 分鐘（平台會倒數，期間會自動通知客戶）</li><li>拍一張門牌照片送出</li></ol><button type="button" onClick="{{startWait}}" style="align-self: flex-start; min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; font-family: inherit; font-size: 16px">開始等候 15 分鐘</button></sc-if>
+<sc-if value="{{w1}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 16px; color: #4E525C">已記錄定位 · 已通知客戶</span><span style="font-size: 40px; font-weight: 900; color: #B42318">[12:34]</span><span style="font-size: 16px; color: #4E525C">等候時間到之後，請拍一張門牌照片。</span><div style="display: flex; gap: 10px"><button type="button" onClick="{{doneWait}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: none; background: {{denim}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">拍門牌照片並送出（示意）</button><button type="button" onClick="{{resetWait}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; font-family: inherit; font-size: 16px">客戶開門了</button></div></div></sc-if>
+<sc-if value="{{w2}}" hint-placeholder-val="{{ false }}"><div style="padding: 12px 14px; border-radius: 12px; background: #E4F0EA; color: #245443; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; font-weight: 700">等候完成，已送出門牌照片</span><span style="font-size: 16px; line-height: 1.6">你得到抵用金 NT$100，這件案件結束。</span></div></sc-if>
+</div>
+<div style="align-self: stretch; padding: 12px 14px; border-radius: 12px; background: #F8DCD4; color: #8E2E1F; font-size: 16px; line-height: 1.6; text-align: left">客戶按「號碼不對」時，這裡會顯示「案件暫停，請勿進入，平台客服會聯絡你」。</div></div></sc-if>
+<sc-if value="{{s2}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 14px"><span style="font-size: 20px; font-weight: 900">施工中</span><div style="display: flex; justify-content: space-between; font-size: 16px"><span>線上報價（客戶已同意）</span><span style="font-weight: 700">[NT$XXX]</span></div><div style="padding: 16px; border-radius: 14px; border: 1.5px dashed #B9B3A6; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 16px; font-weight: 700">需要加價？</span><span style="font-size: 16px; color: #4E525C">送出後客戶要在手機上按同意，才能繼續施工。請附原因和照片。客戶不同意時，就照原本的報價。</span><div style="display: flex; gap: 10px"><input type="text" value="排水馬達更換" aria-label="加價項目" style="flex-grow: 1; min-height: 46px; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; font-family: inherit; font-size: 16px"><input type="text" value="[NT$XXX]" aria-label="加價金額" style="width: 140px; min-height: 46px; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; font-family: inherit; font-size: 16px"><button type="button" style="min-height: 46px; padding: 0 16px; border-radius: 10px; border: none; background: {{denim}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">送出給客戶</button></div></div><button type="button" onClick="{{next}}" style="align-self: flex-start; min-height: 52px; padding: 0 24px; border-radius: 12px; border: none; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">施工完成</button></div></sc-if>
+<sc-if value="{{s3}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 12px"><span style="font-size: 20px; font-weight: 900">向客戶收款</span><div style="display: flex; justify-content: space-between; font-size: 20px; font-weight: 900"><span>應收</span><span>[NT$XXX]</span></div><span style="font-size: 16px; color: #4E525C">客戶付現金或轉帳給你。收到後按確認，雙方都會留下紀錄。</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">結案後請評價這位客戶（準時、溝通、現場環境）。評價不公開，只給平台和其他師傅參考。</span><a href="TechRateCustomer.dc.html" style="align-self: flex-start; min-height: 52px; padding: 0 24px; display: flex; align-items: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700">已收款，結案</a></div></sc-if>
+</section>
+<aside style="grid-column: span 4; display: flex; flex-direction: column; gap: 20px">
+<div style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 24px; display: flex; flex-direction: column; gap: 10px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">客戶資料</h2><span style="font-size: 16px">王小姐 · 手機已驗證 · 已先視訊</span><span style="font-size: 16px; color: #4E525C">備註：大樓需先在管理室登記</span></div>
+<div style="padding: 20px; border-radius: 16px; background: #E4EAF4; color: #26406E; font-size: 16px; line-height: 1.7">這次到府的行程已分享給客戶的緊急聯絡人。全程照規定操作，對雙方都比較有保護。</div>
+<a href="Report.dc.html" style="align-self: flex-end; text-align: right; font-size: 16px; color: #4E525C">現場遇到問題？回報給平台</a>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { stage: 1, wait: 0 }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const cur = this.state.stage;
+    const names = ['出發', '抵達核對', '施工', '收款結案'];
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      s0: cur === 0, s1: cur === 1, s2: cur === 2, s3: cur === 3,
+      w0: this.state.wait === 0, w1: this.state.wait === 1, w2: this.state.wait === 2,
+      startWait: () => this.setState({ wait: 1 }), doneWait: () => this.setState({ wait: 2 }), resetWait: () => this.setState({ wait: 0 }),
+      next: () => this.setState({ stage: (cur + 1) % 4 }),
+      code: ['4', '8', '2', '7'],
+      stages: names.map((t, i) => ({ t: t, pressed: i === cur ? 'true' : 'false', pick: () => this.setState({ stage: i }), bg: i === cur ? denim : (i < cur ? '#E4F0EA' : '#F6F3EC'), fg: i === cur ? '#FFFFFF' : (i < cur ? '#245443' : '#62666F'), weight: i === cur ? '700' : '400' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

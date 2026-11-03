@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 手機驗證（手機）</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- m-fixed -->
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 手機版共用規則（每個畫板在自己的頁面裡顯示，所以不用加前綴）
+   1. 一般橫排可換行；開頭是圖示或頭像的橫排，圖示和文字固定同一行，第三個以後的元素換到下一行
+   2. 按鈕、標籤、日期這類短文字不斷開；段落裡的連結整段一起換行 */
+*{box-sizing:border-box}
+[style*="display: flex"]:not([style*="flex-direction: column"]){flex-wrap:wrap}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(2){flex:1 1 180px;min-width:0}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(n+3){margin-left:auto}
+header,header *,[data-mbar] *{flex-wrap:nowrap!important}
+button,a[style*="display: flex"],a[style*="display: inline-flex"],[style*="border-radius: 999px"],[style*="border-radius: 6px"],[role="tab"]{white-space:nowrap}
+a:not([style*="display"]){display:inline-block}
+img,video{max-width:100%}
+/* 10-27：不可以左右滑；打勾一律綠色；勾選框旁的文字不跑到下面；按鈕文字置中、15px、不超出 */
+html,body{overflow-x:hidden}
+/* 10-27 第 3 輪：格狀排版不把多出的高度分給每一塊（避免內容中間出現空白）；區塊最後的文字連結靠左；區塊標題統一 18px */
+[style*="display: grid"]{align-content:start}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([style*="align-self"]){align-self:flex-start}
+h2{font-size:18px!important;line-height:1.4}
+/* 不斷行的文字裡面的小段落也不斷行（text-wrap 規則會讓裡面的 span 自己斷行） */
+[style*="white-space: nowrap"] *{white-space:nowrap}
+#dc-root > div,x-dc > div{max-width:100%}
+svg:not([data-keep]):has(> path[d="M5 12l5 5L20 7"]){stroke:#2E7D5B}
+label:has(> input[type="checkbox"]),label:has(> input[type="radio"]){flex-wrap:nowrap!important}
+label > input[type="checkbox"],label > input[type="radio"]{flex-shrink:0}
+:is(a,button)[style*="min-height: 4"][style*="border-radius: 1"],[data-mbar] :is(a,button){justify-content:center;text-align:center;font-size:15px!important;white-space:nowrap;min-width:0;padding-left:10px!important;padding-right:10px!important}
+table{width:100%}
+/* 固定在底部的按鈕區：依狀態出現的按鈕一律直排、滿版 */
+[data-mrow] > div{flex-direction:column!important;gap:8px!important;flex-wrap:nowrap!important}
+[data-mrow] a,[data-mrow] button{width:100%;min-height:48px!important;justify-content:center}
+
+/* 10-28 第 5 輪定案的標準
+   按鈕：大 48px（底部固定、頁面主要動作）／中 44px（卡片裡）／小 36px（列表裡），字一律 15px 粗體
+   輸入框 44px、字 16px（驗證碼 48px、搜尋 40px）；標籤 14px 粗體、上下 2px、左右 10px
+   卡片：開頭或結尾是文字的卡片內距 16px；行距 8px；資料列最後一列下面不留空 */
+:is(a,button)[style*="min-height: 52px"],:is(a,button)[style*="min-height: 56px"]{min-height:48px!important;font-size:15px!important}
+input:not([type="checkbox"]):not([type="radio"]):not([type="search"]),select{min-height:44px!important;height:44px!important;font-size:16px!important}
+input[type="search"]{min-height:40px!important;height:40px!important;font-size:16px!important}
+input[style*="text-align: center"][style*="font-size: 24px"],input[style*="text-align: center"][style*="font-weight: 900"]{min-height:48px!important;height:48px!important;font-size:22px!important}
+span[style*="border-radius: 999px"]:is([style*="padding: 3px 10px"],[style*="padding: 6px 12px"],[style*="padding: 2px 8px"],[style*="padding: 4px 12px"],[style*="padding: 3px 10px 3px 10px"],[style*="padding: 6px 12px 6px 12px"],[style*="padding: 2px 8px 2px 8px"]):not(header *){padding:2px 10px!important;font-size:14px!important;font-weight:700!important}
+[style*="padding: 20px 16px 20px 16px"][style*="border-radius: 2"]:not(section[style*="background: #E4EAF4"]):not([data-keep-pad]){padding:16px!important}
+[style*="border-top: 1px solid #ECE7DC"]:last-child{padding-bottom:0!important}
+span:empty[style*="border-radius: 999px"],b:empty,span:empty[data-avail]{display:none}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([data-back]):not([style*="align-self"]){align-self:flex-end;text-align:right}
+a[data-back]{align-self:flex-start}
+
+/* 10-28 第 6 輪：空的狀態標籤不顯示；巢狀的滿版區塊第一塊上面、最後一塊下面不再多留空 */
+span:empty[style*="max-width: 96px"]{display:none}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):first-child{padding-top:0!important}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):last-child{padding-bottom:0!important}
+
+/* 10-29 第 7 輪：設計稿裡不顯示捲軸（手機的捲軸不佔位置，卡片才會置中） */
+html,body,[data-mscroll]{scrollbar-width:none}
+::-webkit-scrollbar{display:none}
+
+/* 10-28 第 6 輪：卡片上下動態內距 */
+[data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"]{padding-top:10px!important}
+[data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"]{padding-top:11px!important}
+[data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"]{padding-top:15px!important}
+[data-vb="7"][data-vb="7"][data-vb="7"][data-vb="7"][data-vb="7"][data-vb="7"]{padding-bottom:7px!important}
+[data-vb="9"][data-vb="9"][data-vb="9"][data-vb="9"][data-vb="9"][data-vb="9"]{padding-bottom:9px!important}
+[data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"]{padding-bottom:15px!important}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; overflow: hidden; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+
+<header style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4; border-bottom: 1px solid #E2DDD2">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="font-size: 18px; font-weight: 900">傻媽萬事通</span></a>
+<span style="display: flex; align-items: center; gap: 8px"><a href="MenuGuest.dc.html" aria-label="選單" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #23262E"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></a></span>
+</header>
+<div data-mscroll style="flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
+
+<div style="padding: 20px 16px 0 16px">
+<div aria-label="求助步驟" style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 18px; font-weight: 900; color: {{denim}}; white-space: nowrap">手機驗證</span><div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: nowrap; font-size: 14px; color: #62666F"><span style="white-space: nowrap">步驟 2／4</span><span style="white-space: nowrap">下一步：推薦師傅</span></div><div style="height: 6px; border-radius: 3px; background: #E2DDD2; overflow: hidden"><span style="display: block; height: 6px; width: 50%; background: {{denim}}"></span></div></div>
+</div>
+
+<div style="padding: 16px 16px 0"><h1 style="margin: 0; font-size: 24px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">驗證你的手機</h1></div>
+<div style="flex-grow: 1; padding: 20px 16px 20px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start">
+<form data-vt="10" data-vb="15" style="grid-column: auto; padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 18px; font-weight: 900; color: #26406E">手機號碼驗證</span>
+<p style="margin: 0; font-size: 15px; line-height: 1.7; color: #4E525C">為了雙方安全，所有客戶都要先完成手機驗證，師傅才看得到你的求助，視訊也才能錄影存證。</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 15px; color: #4E525C">已經有帳號？<a href="Login.dc.html" style="font-weight: 700">直接登入</a></span>
+<label for="phone" style="font-size: 16px; font-weight: 700">手機號碼</label>
+<div style="display: flex; flex-wrap: nowrap; gap: 8px">
+<span style="height: 44px; padding: 0 14px; display: flex; align-items: center; border-radius: 12px; border: 1px solid #D8D2C4; background: #F6F3EC; font-size: 16px; color: #4E525C">+886</span>
+<input id="phone" type="tel" value="912 345 678" style="flex: 1 1 auto; width: 0; min-width: 0; flex-grow: 1; min-height: 44px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E">
+<button type="button" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-family: inherit; font-size: 15px; font-weight: 700">已傳送</button>
+</div>
+</div>
+
+<fieldset style="margin: 0; padding: 0 0 0 0; border: none; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0 0 0 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">輸入簡訊中的 6 位數驗證碼</legend>
+<div style="display: flex; gap: 12px">
+<sc-for list="{{code}}" as="d" hint-placeholder-count="6">
+<input type="text" inputmode="numeric" maxlength="1" aria-label="{{d.label}}" value="{{d.v}}" style="width: 0; flex: 1 1 0; min-width: 0; height: 56px; box-sizing: border-box; border-radius: 12px; border: {{d.border}}; background: #FFFFFF; text-align: center; font-family: inherit; font-size: 24px; font-weight: 900; color: #23262E">
+</sc-for>
+</div>
+<span data-resend style="font-size: 16px; color: #62666F"><sc-if value="{{counting}}" hint-placeholder-val="{{ true }}">沒收到？<strong style="font-variant-numeric: tabular-nums">00:42</strong> 後可以重新傳送</sc-if><sc-if value="{{canResend}}" hint-placeholder-val="{{ false }}">沒收到？<a href="#" style="font-weight: 700">重新傳送驗證碼</a></sc-if></span>
+</fieldset>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<label for="nick" style="font-size: 16px; font-weight: 700">師傅要怎麼稱呼你？</label>
+<input id="nick" type="text" value="林小姐" style="min-height: 44px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E">
+<span style="font-size: 16px; color: #62666F">只會顯示稱呼，不會顯示你的全名或電話</span>
+</div>
+
+<div data-vt="11" data-vb="9" data-terms style="padding: 16px 16px 16px 16px; border-radius: 14px; border: 1px solid #E2DDD2; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 700; color: #245443"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>條款重點 5 點都已勾選</span>
+<label style="display: flex; align-items: flex-start; gap: 12px; font-size: 16px; line-height: 1.7; color: #4E525C">
+<input type="checkbox" checked style="width: 22px; height: 22px; margin: 2px 0 0 0; accent-color: {{denim}}; flex-shrink: 0">
+<span>我同意 <a href="Legal.dc.html">服務條款</a> 與 <a href="Legal.dc.html">隱私政策</a></span>
+</label>
+<span style="font-size: 14px; color: #62666F; line-height: 1.6">要先打開條款重點、每一點都勾選，才能勾這一格。<a href="TermsSheet.dc.html" style="margin-left: 4px; white-space: nowrap">再看一次條款重點</a></span>
+</div>
+
+
+
+</form>
+
+<aside style="grid-column: auto; display: flex; flex-direction: column; gap: 16px">
+<div data-vt="15" data-vb="7" style="padding: 20px 16px 20px 16px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<span style="padding: 4px 10px 4px 10px; border-radius: 6px; background: #E4F0EA; color: #245443; font-size: 16px; font-weight: 700">你的求助已保存</span>
+<a href="RequestGuest.dc.html" style="font-size: 16px">修改</a>
+</div>
+<span style="font-size: 18px; font-weight: 700">冷氣 · 室內機滴水</span>
+<span style="font-size: 16px; line-height: 1.7; color: #4E525C">先視訊看看 · 現在 · 2 個附件</span>
+</div>
+
+<div data-vt="11" data-vb="9" style="padding: 20px 16px 20px 16px; border-radius: 20px; background: #E4EAF4; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 18px; font-weight: 700; color: #26406E">驗證之後</span>
+<div style="display: flex; flex-direction: column; gap: 8px"><sc-for list="{{after}}" as="p" hint-placeholder-count="3">
+<div style="display: flex; gap: 8px; font-size: 15px; line-height: 1.6; color: #23262E; flex-wrap: nowrap">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg>
+<span>{{p}}</span>
+</div>
+</sc-for></div>
+</div>
+</aside>
+</div>
+</div>
+<div data-mbar style="flex-shrink: 0; padding: 12px 16px 24px; background: #FFFFFF; box-shadow: 0 -4px 16px rgba(35,38,46,0.10); display: flex; flex-direction: column; gap: 8px">
+<a href="Match.dc.html" style="min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 12px; text-decoration: none; font-family: inherit; font-size: 16px; font-weight: 700; border: none; background: {{accent}}; color: #FFFFFF">驗證並查看推薦師傅</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;resend&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;倒數中&quot;,&quot;可以重新傳送&quot;],&quot;default&quot;:&quot;可以重新傳送&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C8412C&quot;,&quot;options&quot;:[&quot;#C8412C&quot;,&quot;#D9573B&quot;,&quot;#B5362A&quot;,&quot;#E0663F&quot;]},&quot;denim&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3A5A94&quot;,&quot;options&quot;:[&quot;#3A5A94&quot;,&quot;#4A6BA8&quot;,&quot;#2F4F86&quot;,&quot;#26406E&quot;]},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const digits = ['3', '8', '1', '', '', ''];
+    const resendOn = (this.props.resend ?? '倒數中') === '可以重新傳送';
+    return {
+      counting: !resendOn, canResend: resendOn,
+      accent: this.props.accent ?? '#C8412C',
+      denim: denim,
+      code: digits.map((v, i) => ({
+        v: v,
+        label: '驗證碼第 ' + (i + 1) + ' 位',
+        border: i === 3 ? '2px solid ' + denim : '1px solid #D8D2C4'
+      })),
+      after: [
+        '馬上看到為你推薦的師傅，也可以指定女師傅',
+        '師傅只看得到你的稱呼和行政區',
+        '沒有先視訊、直接預約到府時，要師傅接受才會成立'
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

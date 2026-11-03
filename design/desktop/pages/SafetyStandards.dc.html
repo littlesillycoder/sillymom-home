@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 安全機制</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1211px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E2DDD2">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E"><span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="font-size: 20px; font-weight: 900">傻媽萬事通</span></a>
+<nav style="display: flex; gap: 36px; font-size: 16px"><a href="Services.dc.html" style="color: #23262E; text-decoration: none; padding-bottom: 6px; ">服務項目</a><a href="TechList.dc.html" style="color: #23262E; text-decoration: none; padding-bottom: 6px; ">找師傅</a><a href="SafetyStandards.dc.html" aria-current="page" style="color: #23262E; text-decoration: none; padding-bottom: 6px; font-weight: 700; border-bottom: 3px solid {{accent}};">安全機制</a><a href="Main.dc.html#pricing" style="color: #23262E; text-decoration: none; padding-bottom: 6px; ">收費方式</a></nav>
+<div style="display: flex; align-items: center; gap: 12px"><a href="Login.dc.html" style="padding: 12px 20px; color: #23262E; text-decoration: none; font-size: 16px">登入</a><a href="Login.dc.html" style="padding: 12px 24px; background: {{accent}}; color: #FFFFFF; border-radius: 999px; text-decoration: none; font-size: 16px; font-weight: 500">免費註冊</a></div>
+</header>
+<section style="padding: 56px 80px 32px; display: flex; flex-direction: column; gap: 14px; max-width: 960px"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">安全機制與審核標準</h1><p style="margin: 0; font-size: 18px; line-height: 1.8; color: #4E525C">我們的安全重點是「讓事情不要發生」：讓陌生人進門前，你已經知道是誰、何時到、要做什麼、多少錢。</p></section>
+<div style="padding: 0 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: start">
+<div style="grid-column: span 8; display: flex; flex-direction: column; gap: 24px">
+<section style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">師傅審核項目</h2><div style="display: grid; grid-template-columns: 160px 1fr 80px; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #ECE7DC"><span style="font-size: 18px; font-weight: 700">身分實名</span><span style="font-size: 16px; line-height: 1.7; color: #4E525C">身分證正反面＋本人手持證件照片，人工比對</span><span style="justify-self: end; padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #E4F0EA; color: #245443">必要</span></div><div style="display: grid; grid-template-columns: 160px 1fr 80px; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #ECE7DC"><span style="font-size: 18px; font-weight: 700">良民證</span><span style="font-size: 16px; line-height: 1.7; color: #4E525C">發證日期一年內；審核時視訊確認正本；簽切結書；有提供才標示，過期移除標章</span><span style="justify-self: end; padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #EEEAE1; color: #4E525C">選填</span></div><div style="display: grid; grid-template-columns: 160px 1fr 80px; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #ECE7DC"><span style="font-size: 18px; font-weight: 700">專業證照</span><span style="font-size: 16px; line-height: 1.7; color: #4E525C">有證照的師傅另外標示，由平台人工檢視</span><span style="justify-self: end; padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #EEEAE1; color: #4E525C">選填</span></div><div style="display: grid; grid-template-columns: 160px 1fr 80px; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #ECE7DC"><span style="font-size: 18px; font-weight: 700">自我介紹影片</span><span style="font-size: 16px; line-height: 1.7; color: #4E525C">讓你先看看師傅說話的樣子</span><span style="justify-self: end; padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #E4F0EA; color: #245443">必要</span></div><span style="margin-top: 12px; font-size: 13px; color: #62666F">審核是確認文件與身分，不代表平台擔保師傅的每一次服務。服務有問題請使用申訴。</span></section>
+<section style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">每一次服務都有的機制</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px"><sc-for list="{{mech}}" as="m" hint-placeholder-count="8"><div style="padding: 14px 16px; border-radius: 14px; background: #F6F3EC; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; font-weight: 700">{{m.t}}</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">{{m.b}}</span></div></sc-for></div>
+</section>
+</div>
+<aside style="grid-column: span 4; display: flex; flex-direction: column; gap: 20px">
+<div style="padding: 24px; border-radius: 20px; background: #E4EAF4; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 18px; font-weight: 700; color: #26406E">平台的責任範圍</span><sc-for list="{{scope}}" as="s" hint-placeholder-count="3"><div style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>{{s}}</span></div></sc-for><a href="Legal.dc.html" style="align-self: flex-end; text-align: right; font-size: 16px">看完整條款 →</a></div>
+<div style="padding: 20px 22px; border-radius: 20px; background: #F8DCD4; color: #8E2E1F; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 18px; font-weight: 900">平台不提供緊急救援</span><span style="font-size: 16px; line-height: 1.7">遇到危險請直接撥 110；瓦斯外洩、冒煙或觸電請先離開現場，撥 119。</span></div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":1211}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      mech: [{ t: '看得到師傅性別', b: '求助或設定裡可以選擇只找女師傅' }, { t: '先視訊，再決定到府', b: '先在鏡頭上見過面、拿到報價' }, { t: '地址延後公開', b: '預約成立前，師傅只看得到行政區' }, { t: '開門前核對碼', b: '雙方手機顯示同一組號碼，對了才開門' }, { t: '行程分享給家人', b: '家人看得到師傅資料和目前進度' }, { t: '平台內訊息', b: '視訊中不交換電話或 LINE，可以直接傳照片' }, { t: '視訊錄影存證', b: '只有雙方看得到（申訴或依法調閱除外）' }, { t: '評價與封鎖', b: '評價延後公開、只顯示部分稱呼；可以封鎖師傅' }],
+      scope: ['平台負責審核、媒合、紀錄與申訴處理', '師傅只付固定的平台服務費，平台不抽維修費的成數', '施工本身由師傅負責；有爭議時平台調閱紀錄、邀請雙方協商', '拒絕協商或違規的師傅會被暫停或停權']
+    };
+  }
+}
+</script>
+</body>
+</html>

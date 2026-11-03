@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 通知</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1123px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<div style="display: flex; align-items: center; gap: 56px">
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<nav style="display: flex; gap: 36px; font-size: 18px"><a href="Dashboard.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">首頁</a><a href="TechList.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">找師傅</a><a href="Records.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">維修紀錄</a><a href="Safety.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">我的家</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 16px"><a href="Notifications.dc.html" aria-label="通知" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0"></path></svg><span style="position: absolute; top: 8px; right: 9px; width: 9px; height: 9px; border-radius: 50%; background: #C8412C"></span></a>
+
+<a href="Messages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg></a>
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林小姐</span></a>
+</div>
+</header>
+<div style="padding: 40px 80px 0; max-width: 1000px; display: flex; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">通知</h1><p style="margin: 0; font-size: 18px; color: #4E525C">預約是藍色、到府是綠色、帳務是灰色；快到期的排在最上面。</p></div>
+<div style="display: flex; gap: 8px"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: {{t.border}}; background: {{t.bg}}; color: #23262E; font-family: inherit; font-size: 16px; font-weight: {{t.weight}}">{{t.t}}</button></sc-for></div>
+</div>
+<div style="flex-grow: 1; padding: 28px 80px 64px; display: flex; flex-direction: column; gap: 12px; max-width: 1000px">
+<sc-for list="{{list}}" as="n" hint-placeholder-count="7">
+<div style="padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 18px 22px; display: flex; align-items: center; gap: 16px; border-left: 4px solid {{n.bar}}">
+<span style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; background: {{n.bg}}; color: {{n.fg}}; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900">{{n.icon}}</span>
+<span style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px"><span style="display: flex; gap: 10px; align-items: baseline"><span style="font-size: 16px; font-weight: 700">{{n.t}}</span><span style="font-size: 13px; color: #62666F">{{n.time}}</span></span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">{{n.b}}</span></span>
+<sc-if value="{{n.hasCta}}" hint-placeholder-val="{{ true }}"><a href="{{n.href}}" style="flex-shrink: 0; min-height: 44px; padding: 0 16px; display: flex; align-items: center; border-radius: 12px; background: {{n.ctaBg}}; color: {{n.ctaFg}}; border: {{n.ctaBorder}}; text-decoration: none; font-size: 16px; font-weight: 700">{{n.cta}}</a></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":1123}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 3 }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const accent = this.props.accent ?? '#C8412C';
+    const on = '2px solid ' + denim; const off = '1px solid #D8D2C4';
+    const pick = (names, key) => names.map((t, i) => ({ t: t, pressed: i === this.state[key] ? 'true' : 'false', border: i === this.state[key] ? on : off, bg: i === this.state[key] ? '#E4EAF4' : '#FFFFFF', weight: i === this.state[key] ? '700' : '400', pick: () => this.setState({ [key]: i }) }));
+    const multi = (names, key) => names.map((t, i) => { const v = this.state[key][i]; return { t: t, pressed: v ? 'true' : 'false', border: v ? on : off, bg: v ? '#E4EAF4' : '#FFFFFF', weight: v ? '700' : '400', pick: () => { const a = this.state[key].slice(); a[i] = !a[i]; this.setState({ [key]: a }); } }; });
+    const p = { ctaBg: accent, ctaFg: '#FFFFFF', ctaBorder: 'none', hasCta: true };
+    const s = { ctaBg: '#FFFFFF', ctaFg: denim, ctaBorder: '1.5px solid ' + denim, hasCta: true };
+    const none = { hasCta: false, cta: '', href: '#', ctaBg: '', ctaFg: '', ctaBorder: '' };
+    const red = { bar: '#B42318', bg: '#F8DCD4', fg: '#8E2E1F' }; const amb = { bar: '#D9A21B', bg: '#FDF3D7', fg: '#6B4A00' }; const blu = { bar: denim, bg: '#E4EAF4', fg: '#26406E' }; const grn = { bar: '#2F8A5F', bg: '#E4F0EA', fg: '#245443' };
+    const all = [
+      Object.assign({ k: 1, icon: '晚到', t: '林師傅通知會晚到', time: '5 分鐘前', b: '新的抵達時間 [14:30]。同意就不算遲到；不同意可以免費取消。', cta: '回覆', href: 'HomeTrack.dc.html' }, amb, p),
+      Object.assign({ k: 0, icon: '婉拒', t: '張師傅婉拒了你的到府預約', time: '1 小時前', b: '這次不會扣任何費用。我們幫你找了其他可以到府的師傅。', cta: '看其他師傅', href: 'Match.dc.html' }, red, p),
+      Object.assign({ k: 0, icon: '視訊', t: '陳師傅請你先視訊', time: '2 小時前', b: '你預約的是直接到府。陳師傅想先透過視訊看看狀況，再決定是否到府。', cta: '預約視訊', href: 'Checkout.dc.html' }, blu, p),
+      Object.assign({ k: 0, icon: '提醒', t: '2 小時後視訊：林師傅', time: '今天 18:00', b: '免費取消的期限是現在。之後取消會扣平台費（求助）NT$100。', cta: '查看預約', href: 'VideoWait.dc.html' }, blu, s),
+      Object.assign({ k: 1, icon: '出發', t: '林師傅已出發', time: '昨天', b: '預計 14:20 抵達，行程已分享給 [聯絡人姓名]。', cta: '看行程', href: 'HomeTrack.dc.html' }, grn, s),
+      Object.assign({ k: 2, icon: '退款', t: '申訴結果：退款 NT$100', time: '[日期]', b: '款項會在 [N] 個工作天內退回你的卡片。' }, grn, none),
+      Object.assign({ k: 0, icon: '提醒', t: '第 2 次視訊再 2 小時就失效', time: '[日期] 18:00', b: '冷氣滴水的求助還有 1 次視訊，[日期] 20:00 到期。到期後會扣平台費（求助）NT$100。', cta: '使用第 2 次視訊', href: 'Summary.dc.html' }, amb, p),
+      Object.assign({ k: 2, icon: '扣款', t: '已扣款：平台費（求助）NT$100', time: '[日期]', b: '冷氣滴水 · 2 次視訊已使用完畢，電子發票已寄出。' }, blu, none)
+    ];
+    const colors = [blu, grn, { bar: '#62666F', bg: '#EEEAE1', fg: '#4E525C' }];
+    const urgentT = ['林師傅通知會晚到', '第 2 次視訊再 2 小時就失效', '2 小時後視訊：林師傅'];
+    const sorted = all.map((n) => Object.assign({}, n, colors[n.k], { urgent: urgentT.indexOf(n.t) })).sort((x, y) => (x.urgent < 0 ? 99 : x.urgent) - (y.urgent < 0 ? 99 : y.urgent));
+    const tab = this.state.tab;
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      tabs: pick(['預約', '到府', '帳務', '全部'], 'tab'),
+      list: tab === 3 ? sorted : sorted.filter((n) => n.k === tab)
+    };
+  }
+}
+</script>
+</body>
+</html>

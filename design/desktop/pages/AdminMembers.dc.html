@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 會員管理</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1000px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+
+<div style="flex-grow: 1; display: flex; min-height: 0">
+<nav aria-label="管理後台" style="width: 240px; flex-shrink: 0; box-sizing: border-box; padding: 24px 16px; background: #23262E; display: flex; flex-direction: column; gap: 6px">
+<a href="AdminHome.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px; text-decoration: none; color: #FFFFFF"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{denim}}; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 900">傻媽萬事通</span><span style="font-size: 13px; color: #A8ABB3">管理後台</span></span></a>
+<a href="AdminHome.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">後台首頁</a><a href="AdminTechReview.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">師傅審核<span style="padding: 1px 8px; border-radius: 999px; background: #C8412C; color: #FFFFFF; font-size: 14px; font-weight: 700">5</span></a><a href="AdminDisputes.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">申訴處理<span style="padding: 1px 8px; border-radius: 999px; background: #C8412C; color: #FFFFFF; font-size: 14px; font-weight: 700">3</span></a><a href="AdminMembers.dc.html" aria-current="page" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #FFFFFF; background: #3A3E48; font-weight: 700">會員管理</a><a href="AdminFinance.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">案件與帳務</a><a href="AdminSettings.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">平台設定</a>
+<div style="margin-top: auto; padding: 12px 8px 0; border-top: 1px solid #3A3E48; font-size: 13px; color: #A8ABB3">[管理員名稱] · 審核員<br>所有操作都會留下紀錄</div>
+</nav>
+<main style="flex-grow: 1; min-width: 0; box-sizing: border-box; padding: 28px 36px 40px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 20px"><div style="display: flex; flex-direction: column; gap: 6px"><h1 style="margin: 0; font-size: 24px; font-weight: 900; color: #23262E">會員管理</h1><span style="font-size: 16px; color: #62666F">師傅與客戶的紀錄、狀態與處置。</span></div></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<div style="display: flex; gap: 8px"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="2"><button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: {{t.border}}; background: {{t.bg}}; color: #23262E; font-family: inherit; font-size: 14px; font-weight: {{t.weight}}">{{t.t}}</button></sc-for></div>
+<div style="display: flex; gap: 10px"><input type="search" placeholder="搜尋姓名、稱呼或手機末四碼" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; width: 300px"><select style="min-height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E"><option>全部狀態</option><option>正常</option><option>警告</option><option>暫停</option><option>停權</option></select></div>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start">
+<div style="padding: 24px 28px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 8px 12px">
+<table style="width: 100%; border-collapse: collapse">
+<thead><tr><sc-for list="{{cols}}" as="c" hint-placeholder-count="7"><th style="padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 700; color: #62666F; border-bottom: 1px solid #E2DDD2">{{c}}</th></sc-for></tr></thead>
+<tbody><sc-for list="{{rows}}" as="r" hint-placeholder-count="6"><tr><td style="padding: 12px; font-size: 16px; border-bottom: 1px solid #ECE7DC; vertical-align: middle; font-weight: 700">{{r.n}}</td><td style="padding: 12px; font-size: 16px; border-bottom: 1px solid #ECE7DC; vertical-align: middle">{{r.a}}</td><td style="padding: 12px; font-size: 16px; border-bottom: 1px solid #ECE7DC; vertical-align: middle">{{r.b}}</td><td style="padding: 12px; font-size: 16px; border-bottom: 1px solid #ECE7DC; vertical-align: middle">{{r.c}}</td><td style="padding: 12px; font-size: 16px; border-bottom: 1px solid #ECE7DC; vertical-align: middle">{{r.d}}</td><td style="padding: 12px; font-size: 16px; border-bottom: 1px solid #ECE7DC; vertical-align: middle">{{r.e}}</td><td style="padding: 12px; font-size: 16px; border-bottom: 1px solid #ECE7DC; vertical-align: middle"><span style="padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: {{r.bg}}; color: {{r.fg}}">{{r.st}}</span></td></tr></sc-for></tbody>
+</table>
+</div>
+<aside style="padding: 24px 28px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 18px; font-weight: 900">{{side.n}}</span>
+<span style="font-size: 16px; color: #62666F">{{side.b}}</span>
+<sc-for list="{{side.log}}" as="l" hint-placeholder-count="4"><div style="padding: 10px 12px; border-radius: 10px; background: #F6F3EC; font-size: 16px; display: flex; flex-direction: column; gap: 2px"><span style="color: #62666F; font-size: 13px">{{l.d}}</span><span>{{l.t}}</span></div></sc-for>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><button type="button" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-family: inherit; font-size: 16px">警告</button><button type="button" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-family: inherit; font-size: 16px">暫停接案</button><button type="button" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-family: inherit; font-size: 16px">恢復</button><button type="button" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: none; background: #B42318; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700">停權</button></div>
+<span style="font-size: 13px; color: #62666F">每次操作都要填原因，並通知當事人。</span>
+</aside>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"who":{"editor":"enum","options":["師傅","客戶"],"default":"客戶"},"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: ((props && props.who) ?? '師傅') === '客戶' ? 1 : 0 }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const on = '2px solid ' + denim; const off = '1px solid #D8D2C4';
+    const tabs = (names, key) => names.map((t, i) => ({ t: t, pressed: i === this.state[key] ? 'true' : 'false', border: i === this.state[key] ? on : off, bg: i === this.state[key] ? '#E4EAF4' : '#FFFFFF', weight: i === this.state[key] ? '700' : '400', pick: () => this.setState({ [key]: i }) }));
+    const ok = { st: '正常', bg: '#E4F0EA', fg: '#245443' }; const warn = { st: '警告 1', bg: '#FDF3D7', fg: '#6B4A00' }; const stop = { st: '暫停', bg: '#F8DCD4', fg: '#8E2E1F' };
+    const tech = this.state.tab === 0;
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      tabs: tabs(['師傅 [N]', '客戶 [N]'], 'tab'),
+      cols: tech ? ['師傅', '類別', '完成案件', '積分', '評分', '良民證到期', '狀態'] : ['客戶', '加入日期', '完成案件', '缺席', '師傅給的評價（不公開）', '申訴', '狀態'],
+      rows: tech ? [
+        Object.assign({ n: '林師傅', a: '冷氣', b: '[N]', c: '評分 [N.N]', d: '0 ／ 1', e: '[日期]（剩 [N] 天）' }, ok),
+        Object.assign({ n: '黃師傅', a: '家電', b: '[N]', c: '評分 [N.N]', d: '1 ／ 2', e: '已逾期' }, stop),
+        Object.assign({ n: '張師傅', a: '門鎖', b: '[N]', c: '評分 [N.N]', d: '0 ／ 0', e: '[日期]' }, warn),
+        Object.assign({ n: '陳師傅', a: '水電', b: '[N]', c: '評分 [N.N]', d: '0 ／ 0', e: '[日期]' }, ok)
+      ] : [
+        Object.assign({ n: '林** · 0912…678', a: '[日期]', b: '[N]', c: '0', d: '評分 [N.N]', e: '1' }, ok),
+        Object.assign({ n: '陳** · 0933…120', a: '[日期]', b: '[N]', c: '2', d: '評分 [N.N]', e: '0' }, warn),
+        Object.assign({ n: '王** · 0988…451', a: '[日期]', b: '[N]', c: '0', d: '評分 [N.N]', e: '1' }, ok)
+      ],
+      side: tech ? { n: '黃師傅', b: '家電 · 加入 [日期] · 積分 72 · 低於提醒門檻', log: [{ d: '[日期]', t: '系統：良民證逾期，已移除良民證標章' }, { d: '[日期]', t: '系統：積分低於 70 分時會通知師傅（不停權）' }, { d: '[日期]', t: '缺席 1 次（視訊遲到超過 5 分鐘）' }, { d: '[日期]', t: '到府遲到超過 30 分鐘，客戶繼續等，出車費減半' }, { d: '[日期]', t: '申訴：收費和報價不符（協商中）' }] }
+                  : { n: '陳**', b: '客戶 · 加入 [日期]', log: [{ d: '[日期]', t: '缺席 1 次（到府 12 小時內取消）' }, { d: '[日期]', t: '師傅評價：溝通 [N] 分、現場環境 [N] 分' }, { d: '[日期]', t: '缺席 1 次（視訊沒上線）' }] }
+    };
+  }
+}
+</script>
+</body>
+</html>

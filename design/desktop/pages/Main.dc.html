@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 首頁</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 4395px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E2DDD2; background: #F6F3EC">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column">
+<span style="font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 20px; line-height: 1.1">傻媽萬事通</span>
+<span style="font-size: 13px; letter-spacing: 1px; color: #62666F">女性安心居家修繕</span>
+</div>
+</div>
+<nav style="display: flex; gap: 36px; font-size: 16px">
+<a href="Services.dc.html" style="color: #23262E; text-decoration: none">服務項目</a>
+<a href="#safety" style="color: #23262E; text-decoration: none">安全機制</a>
+<a href="TechList.dc.html" style="color: #23262E; text-decoration: none">認識師傅</a>
+<a href="#pricing" style="color: #23262E; text-decoration: none">收費方式</a>
+<a href="TechJoin.dc.html" style="color: #23262E; text-decoration: none">成為師傅</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 12px">
+<a href="Login.dc.html" style="padding: 12px 20px; color: #23262E; text-decoration: none; font-size: 16px">登入</a>
+<a href="Login.dc.html" style="padding: 12px 24px; background: {{accent}}; color: #FFFFFF; border-radius: 999px; text-decoration: none; font-size: 16px; font-weight: 500">免費註冊</a>
+</div>
+</header>
+
+<section style="padding: 40px 80px 48px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: stretch">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span style="align-self: flex-start; padding: 8px 16px; background: #E4EAF4; color: #26406E; border-radius: 999px; font-size: 14px; font-weight: 500">女性客戶安心&nbsp;· 可指定女師傅</span>
+<h1 style="margin: 0; font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 50px; line-height: 1.25; white-space: nowrap; color: {{denim}}">家裡東西壞了，<br>找一位你放心開門的師傅</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.8; color: #4E525C; max-width: 560px">師傅頁面會標示身分驗證、良民證和證照，也看得到師傅的性別。先在視訊上見過面、拿到線上報價；真的需要到府，來的是你已經認識的人。</p>
+<div style="margin-top: auto; padding: 18px 22px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; justify-content: space-between; gap: 20px; font-size: 16px; font-weight: 500; color: #2F6B55">
+<span style="display: flex; align-items: center; gap: 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>可指定女師傅</span>
+<span style="display: flex; align-items: center; gap: 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>地址確認後才公開</span>
+<span style="display: flex; align-items: center; gap: 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>先見過面再開門</span>
+</div>
+</div>
+
+<form style="background: #FFFFFF; border: 1px solid #E2DDD2; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 18px">
+<label for="problem" style="font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 24px; display: flex; align-items: center; gap: 10px">你遇到什麼問題？<span style="padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: #FBE3DE; color: #8E2E1F; letter-spacing: 0">必填</span></label>
+<textarea id="problem" rows="3" placeholder="例如：浴室水龍頭一直滴水，關緊了也沒用" style="font-family: inherit; font-size: 16px; line-height: 1.7; padding: 16px; border: 1px solid #D8D2C4; border-radius: 14px; background: #F6F3EC; color: #23262E; resize: none"></textarea>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 16px; color: #62666F">選一個類別</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{chips}}" as="chip" hint-placeholder-count="6">
+<button type="button" style="padding: 10px 16px; min-height: 44px; border-radius: 999px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; font-family: inherit; font-size: 16px">{{chip}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; gap: 12px">
+<button type="button" style="flex-grow: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 14px; border: 1px dashed #B9B3A6; background: #F6F3EC; color: #23262E; font-family: inherit; font-size: 16px">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4zM12 9.5a3.5 3.5 0 110 7 3.5 3.5 0 010-7"></path></svg>
+上傳照片或影片（選填）</button>
+<a href="RequestGuest.dc.html" style="flex-grow: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 18px; font-weight: 700">找師傅幫忙</a>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; font-size: 16px; color: #4E525C">
+<span style="width: 10px; height: 10px; border-radius: 50%; background: #2F8A5F"></span>
+目前&nbsp;[N]&nbsp;位師傅在線，其中&nbsp;[N]&nbsp;位女師傅&nbsp;· 平均&nbsp;[N]&nbsp;分鐘內回應
+</div>
+</form>
+</section>
+
+<section id="safety" style="padding: 48px 80px; background: #E4EAF4; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 720px">
+<span style="font-size: 16px; letter-spacing: 3px; color: #26406E; font-weight: 700">安全，是我們做的第一件事</span>
+<h2 style="margin: 0; font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 40px; line-height: 1.35; color: {{denim}}">從你開口求助到師傅離開，每一步都為你設想過</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+<sc-for list="{{safety}}" as="s" hint-placeholder-count="6">
+<div style="background: #FFFFFF; border-radius: 20px; padding: 28px; display: flex; gap: 18px; align-items: flex-start">
+<div style="width: 56px; height: 56px; flex-shrink: 0; border-radius: 14px; background: #E4F0EA; color: #2F6B55; display: flex; align-items: center; justify-content: center">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{s.d}}"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-size: 20px; font-weight: 700; line-height: 1.4">{{s.t}}</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.75; color: #4E525C; text-align: left">{{s.b}}</p>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="services" style="padding: 48px 80px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; align-items: flex-end; justify-content: space-between">
+<h2 style="margin: 0; font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 40px; color: {{denim}}">你可以找師傅處理這些事</h2>
+<a href="Services.dc.html" style="font-size: 16px; font-weight: 500">看全部服務項目 →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="12">
+<a href="{{c.href}}" style="box-sizing: border-box; padding: 20px 22px; background: {{c.bg}}; border: 1px solid #E2DDD2; border-radius: 20px; display: flex; flex-direction: row; align-items: flex-start; gap: 18px; text-decoration: none; color: #23262E">
+<span style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 16px; background: #E4EAF4; display: flex; align-items: center; justify-content: center"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2F4F86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{c.d}}"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 22px; font-weight: 700; line-height: 1.3">{{c.t}}</span>
+<span style="font-size: 18px; line-height: 1.5; color: #4E525C">{{c.b}}</span>
+</div>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="padding: 48px 80px; background: #FFFFFF; display: flex; flex-direction: column; gap: 28px">
+<h2 style="margin: 0; font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 40px; text-align: center; color: {{denim}}">三個步驟，不用讓陌生人先進門</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 32px 36px; border-radius: 20px; background: #F6F3EC">
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px"><span style="font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 40px; line-height: 1; color: {{accent}}; white-space: nowrap">{{st.n}}</span><h3 style="margin: 0; font-size: 24px; line-height: 1.3; white-space: nowrap">{{st.t}}</h3></div>
+<p style="margin: 0; font-size: 16px; line-height: 1.75; color: #4E525C">{{st.b}}</p>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="techs" style="padding: 48px 80px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 40px; color: {{denim}}">認識我們的師傅</h2>
+<p style="margin: 0; font-size: 18px; color: #4E525C">身分驗證、良民證和證照，有就標示在師傅卡片和個人頁上</p>
+</div>
+<a href="TechList.dc.html" style="font-size: 16px; font-weight: 500">瀏覽全部師傅 →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+<sc-for list="{{techs}}" as="p" hint-placeholder-count="3">
+<a href="TechGuest.dc.html" style="padding: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; border-radius: 20px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #23262E">
+<div style="display: flex; align-items: flex-start; gap: 16px"><span style="flex-shrink: 0; width: 72px; display: flex; flex-direction: column; align-items: center; gap: 8px"><span style="width: 64px; height: 64px; border-radius: 50%; background: #E4EAF4; color: #26406E; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900">{{p.i}}</span><span style="display: flex; flex-direction: column; align-items: center; line-height: 1.4; white-space: nowrap"><span style="font-size: 18px; font-weight: 900">[N.N]<span style="font-size: 14px; font-weight: 500; color: #62666F"> / 5</span></span><span style="font-size: 14px; color: #62666F">[N]&nbsp;則評價</span></span></span><span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px"><span style="display: flex; align-items: center; gap: 8px"><span style="font-size: 20px; font-weight: 900; white-space: nowrap">{{p.n}}</span><span style="padding: 2px 8px; border-radius: 999px; background: {{p.gBg}}; color: #FFFFFF; font-size: 14px; font-weight: 700; white-space: nowrap">{{p.g}}</span><span style="margin-left: auto"></span><span style="flex-shrink: 0; padding: 4px 12px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: {{p.onBg}}; color: {{p.onFg}}">{{p.status}}</span></span><span style="display: flex; flex-direction: column; line-height: 1.6"><span style="font-size: 16px; color: #23262E">{{p.s}}</span><span style="font-size: 15px; color: #62666F">冷凍空調技術士&nbsp;[N]&nbsp;年&nbsp;· 另有&nbsp;[N]&nbsp;張證照</span></span><span style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{p.badges}}" as="bd" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 14px; font-weight: 700; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>{{bd}}</span></sc-for></span><span style="display: flex"><span style="padding: 2px 8px; border-radius: 999px; background: #E4EAF4; color: #26406E; font-size: 14px; font-weight: 700; white-space: nowrap">[N]&nbsp;次服務</span></span></span></div>
+<div style="margin-top: auto; display: flex; align-items: center; justify-content: flex-end; gap: 8px"><span style="font-size: 16px; color: #2F4F86; white-space: nowrap">看個人頁 →</span></div>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section id="pricing" style="padding: 48px 80px; background: #FFFFFF; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 12px; align-items: center">
+<h2 style="margin: 0; font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 40px; color: {{denim}}">價格先講清楚</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; column-gap: 48px; row-gap: 8px"><li style="display: flex; gap: 8px; font-size: 18px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>平台只收平台費。</span></li><li style="display: flex; gap: 8px; font-size: 18px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>出車費和維修費直接付給師傅。</span></li><li style="display: flex; gap: 8px; font-size: 18px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>付款只收信用卡。</span></li></ul>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+<div style="padding: 36px 32px; border-radius: 24px; border: 2px solid #C8412C; display: flex; flex-direction: column; gap: 16px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #E4EAF4; color: #26406E; font-size: 14px; font-weight: 700">多數人從這裡開始</span>
+<h3 style="margin: 0; font-size: 24px">視訊診斷估價</h3>
+<div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap"><span style="font-weight: 900; font-size: 40px">NT$100</span><span style="font-size: 16px; color: #62666F">/ 平台費（求助），含&nbsp;2&nbsp;次視訊</span></div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; flex-grow: 1"><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>師傅透過鏡頭看狀況，給你線上報價</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>第&nbsp;2&nbsp;次可以找同一位或換一位師傅</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>「24&nbsp;小時」內有效；視訊不滿「3&nbsp;分鐘」不收費</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>第&nbsp;2&nbsp;次視訊結束、選擇不再視訊或「24&nbsp;小時」到期時才扣款</span></li></ul>
+<a href="RequestGuest.dc.html" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 18px; font-weight: 700">開始視訊診斷估價</a>
+</div>
+<div style="padding: 36px 32px; border-radius: 24px; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 16px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 14px; font-weight: 700">視訊後再決定</span>
+<h3 style="margin: 0; font-size: 24px">到府維修</h3>
+<div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap"><span style="font-weight: 900; font-size: 40px">出車費＋維修費</span><span style="font-size: 16px; color: #62666F">直接付給師傅</span></div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; flex-grow: 1"><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>出車費上限「NT$500」</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>照線上報價施工，不亂加價</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>現場要加價，必須先經你同意</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>視訊後預約到府，不再收平台費</span></li></ul>
+<a href="HowHome.dc.html" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 14px; text-decoration: none; font-size: 18px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700">了解到府流程</a>
+</div>
+<div style="padding: 36px 32px; border-radius: 24px; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 16px">
+<span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #EEEAE1; color: #4E525C; font-size: 14px; font-weight: 700">找過、信任的師傅</span>
+<h3 style="margin: 0; font-size: 24px">直接預約到府</h3>
+<div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap"><span style="font-weight: 900; font-size: 40px">NT$100</span><span style="font-size: 16px; color: #62666F">/ 平台費（直接預約到府），核對碼確認時扣款</span></div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; flex-grow: 1"><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>不用再視訊，直接預約時段</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>要由師傅確認接受</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>一樣有核對碼、行程分享和保固</span></li><li style="display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.7; color: #4E525C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>急件（「12&nbsp;小時內」到府）另加平台費（急件）「NT$100」</span></li></ul>
+<a href="TechList.dc.html" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 14px; text-decoration: none; font-size: 18px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700">看全部師傅</a>
+</div>
+</div>
+</section>
+
+<section style="padding: 56px 80px; display: flex; flex-direction: column; gap: 24px">
+<h2 style="margin: 0; font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 40px; line-height: 1.4; color: {{denim}}">常見問題</h2>
+<div style="border-top: 1px solid #E2DDD2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; align-items: start">
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="8">
+<details style="padding: 20px 0; border-bottom: 1px solid #E2DDD2"><summary style="font-size: 18px; font-weight: 700; cursor: pointer">{{f.q}}</summary><ul style="margin: 12px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px"><sc-for list="{{f.a}}" as="li" hint-placeholder-count="3"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6; color: #4E525C; text-align: left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>{{li}}</span></li></sc-for></ul></details>
+</sc-for>
+</div>
+<a href="Help.dc.html" style="align-self: flex-end; text-align: right; font-size: 16px; font-weight: 500">更多問題請看客服中心 →</a>
+</section>
+
+<section id="join" style="margin: 0 80px 56px; padding: 32px 40px; border-radius: 24px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0">
+<h2 style="margin: 0; font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 24px; line-height: 1.4">你有修繕專業？在傻媽萬事通接案</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; color: #E4EAF4">自己決定接案時間和報價，出車費和維修費全部歸你。<br>每次視訊收平台服務費「NT$150」，沒拿到案退「NT$50」抵用金，新師傅第&nbsp;1&nbsp;次視訊免費。</p>
+</div>
+<a href="TechJoin.dc.html" style="flex-shrink: 0; padding: 16px 28px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 18px; font-weight: 700">申請成為師傅</a>
+</section>
+
+<footer style="flex-grow: 1; padding: 56px 80px; border-top: 1px solid #E2DDD2; display: flex; justify-content: space-between; gap: 48px; font-size: 16px; color: #4E525C">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'Noto Sans TC', sans-serif; font-weight: 900; letter-spacing: 0.02em; font-size: 20px; color: #23262E">傻媽萬事通</span>
+<span>© [年份]&nbsp;[公司名稱]</span>
+</div>
+<div style="display: flex; gap: 72px">
+<div style="display: flex; flex-direction: column; gap: 12px"><span style="font-weight: 700; color: #23262E">服務</span><a href="TechList.dc.html" style="color: #4E525C; text-decoration: none">水電與漏水</a><a href="TechList.dc.html" style="color: #4E525C; text-decoration: none">冷氣</a><a href="TechList.dc.html" style="color: #4E525C; text-decoration: none">家電</a></div>
+<div style="display: flex; flex-direction: column; gap: 12px"><span style="font-weight: 700; color: #23262E">關於</span><a href="SafetyStandards.dc.html" style="color: #4E525C; text-decoration: none">安全機制</a><a href="SafetyStandards.dc.html" style="color: #4E525C; text-decoration: none">審核標準</a><a href="TechJoin.dc.html" style="color: #4E525C; text-decoration: none">成為師傅</a></div>
+<div style="display: flex; flex-direction: column; gap: 12px"><span style="font-weight: 700; color: #23262E">支援</span><a href="Help.dc.html" style="color: #4E525C; text-decoration: none">客服中心</a><a href="Legal.dc.html" style="color: #4E525C; text-decoration: none">服務條款</a><a href="Legal.dc.html" style="color: #4E525C; text-decoration: none">隱私政策</a></div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":4395}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#C8412C',
+      denim: this.props.denim ?? '#3A5A94',
+      chips: ['水電與漏水', '冷氣', '家電', '燈具與插座', '門鎖', '3C 與網路', '油漆與小裝修', '不確定是哪一類'],
+      safety: [
+        { d: 'M3 6h12v12H3zM15 10l6-3v10l-6-3z', t: '先視訊，看到師傅本人', b: '視訊時就看得到師傅本人和性別，拿到線上報價再決定要不要到府。' },
+        { d: 'M9 12h6M9 16h6M6 3h9l4 4v14H6zM14 3v5h5', t: '線上報價，不亂加價', b: '師傅照線上報價施工；現場要加價必須經你同意，減少現場糾紛。' },
+        { d: 'M3 6h12v12H3zM15 10l6-3v10l-6-3zM7 10a1.5 1.5 0 110 3 1.5 1.5 0 010-3', t: '全程錄影存證', b: '視訊全程錄影，只有你和師傅看得到；有爭議時，平台調閱紀錄處理。' },
+        { d: 'M3 5h18v14H3zM9 9a2 2 0 110 4 2 2 0 010-4zM6 16c1-2 5-2 6 0M14 10h4M14 13h3', t: '實名審核，證件標示', b: '每位師傅都通過身分實名審核；良民證和專業證照，有提供就在個人頁標示。' },
+        { d: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4', t: '在平台交易才有保障', b: '預約、付款、評價和申訴都在平台內；私下交易沒有錄影、保固和申訴保障。' },
+        { d: 'M5 11h14v10H5zM8 11V8a4 4 0 018 0v3', t: '開門前核對碼，行程分享', b: '核對碼對了才開門；地址預約成立後才公開，行程自動分享給緊急聯絡人。' }
+      ],
+      cats: [
+        { d: 'M12 3s6 7 6 11a6 6 0 01-12 0c0-4 6-11 6-11z', t: '水電與漏水', b: '水龍頭、馬桶、管線', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9', t: '冷氣', b: '滴水、不冷、清洗', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M5 3h14v18H5zM12 9a4 4 0 110 8 4 4 0 010-8zM8 6h2', t: '家電', b: '洗衣機、冰箱、熱水器', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0012 3z', t: '燈具與插座', b: '換燈、跳電、開關', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M5 11h14v10H5zM8 11V8a4 4 0 018 0v3', t: '門鎖', b: '換鎖、電子鎖安裝', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M3 4h18v12H3zM8 20h8M12 16v4', t: '3C 與網路', b: '電腦、路由器、網路', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M4 5h16v4H4zM6 9v2a6 6 0 0012 0V9M12 13v.5', t: '智慧家電與監視器', b: '智慧家電設定、監視器安裝', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M4 4h13v5H4zM17 6h3v6h-8v3M11 15h2v6h-2z', t: '油漆與小裝修', b: '油漆、壁紙、矽利康', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M12 7a3 3 0 013 3v6a3 3 0 01-6 0v-6a3 3 0 013-3zM12 7V4M9 12H4M15 12h5M9 16l-4 3M15 16l4 3M9 9L5 6M15 9l4-3', t: '除蟲', b: '除蟲、除白蟻', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M14.5 6.5a4 4 0 00-5 5L4 17l3 3 5.5-5.5a4 4 0 005-5l-2.5 2.5-2.5-.5-.5-2.5z', t: '家具組裝', b: '層架、床架、掛畫', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M4 11l8-7 8 7v9H4zM10 20v-5h4v5', t: '居家小修繕', b: '門片、紗窗、窗戶', href: 'TechList.dc.html', bg: '#FFFFFF' },
+        { d: 'M12 21a9 9 0 110-18 9 9 0 010 18zM9.5 9.5a2.5 2.5 0 115 .5c0 1.5-2.5 2-2.5 3.5M12 17v.5', t: '不確定是哪一類？', b: '直接描述問題，師傅視訊後幫你判斷', href: 'RequestGuest.dc.html', bg: '#F6F3EC' }
+      ],
+      steps: [
+        { n: '01', t: '拍照描述問題', b: '寫下狀況、上傳照片或短影片。系統會先幫你分類，推薦擅長這類問題的師傅。' },
+        { n: '02', t: '與師傅視訊', b: '先看過師傅的個人介紹、證照和評價再開始。你只需要拿著手機，讓師傅透過鏡頭看狀況。' },
+        { n: '03', t: '拿到線上報價，再預約到府', b: '師傅告訴你原因和報價。需要到府，由同一位師傅處理，你同意報價後再預約。' }
+      ],
+      techs: [
+        { i: '陳', n: '陳師傅', s: '水電、漏水、熱水器', status: '在線中', onBg: '#E4F0EA', onFg: '#245443', g: '男師傅', gBg: '#3A5A94', badges: ['身分驗證', '良民證', '證照'] },
+        { i: '林', n: '林師傅', s: '冷氣安裝與保養', status: '可視訊：今晚', onBg: '#E4EAF4', onFg: '#26406E', g: '女師傅', gBg: '#9C3D6B', badges: ['身分驗證', '良民證', '證照'] },
+        { i: '黃', n: '黃師傅', s: '家電維修、洗衣機', status: '在線中', onBg: '#E4F0EA', onFg: '#245443', g: '男師傅', gBg: '#3A5A94', badges: ['身分驗證', '證照'] }
+      ],
+      faq: [
+        { n: '1', q: '視訊診斷估價要付費嗎？', a: ['每個求助的平台費（求助）「NT$100」，含「2 次」視訊。', '可以找同一位或換一位師傅，「24 小時」內有效。', '第 2 次視訊結束、你選擇不再視訊，或「24 小時」到期時才扣款。', '視訊不滿「3 分鐘」不收費。'] },
+        { n: '2', q: '臨時取消要付費嗎？', a: ['視訊「前 2 小時以上」取消，不收費。', '視訊「前 2 小時內」取消或遲到超過「5 分鐘」，會扣平台費（求助）「NT$100」。', '未滿「24 小時」，第 2 次視訊仍可使用。', '到府「前 12 小時以上」取消或改期，不收費。', '到府「前 12 小時內」取消，收逾時費（臨時取消）「NT$100」。', '到府「前 12 小時內」改期，收逾時費（臨時改期）「NT$50」。'] },
+        { n: '3', q: '師傅遲到怎麼辦？', a: ['師傅「到府前 2 小時以上」事先通知晚到，你也同意新時間：費用照原本報價。', '師傅沒通知、晚到「超過 30 分鐘」，你決定取消：全部不用付。', '師傅沒通知、晚到「超過 30 分鐘」，你決定繼續等待，最後師傅來了：出車費「減半」。'] },
+        { n: '4', q: '現場可以加價嗎？', a: ['師傅要照線上報價施工。', '現場需要額外處理，必須先說明並經你同意。', '你不同意，就照原本的報價。'] },
+        { n: '5', q: '一定要先視訊嗎？', a: ['不一定，找過、信任的師傅可以直接預約到府。', '平台費（直接預約到府）「NT$100」。', '要由師傅確認接受才成立。'] },
+        { n: '6', q: '視訊錄影誰看得到？', a: ['只有你和這次的師傅看得到。', '發生申訴時，平台客服才會調閱。'] },
+        { n: '7', q: '可以指定師傅性別嗎？', a: ['可以，每位師傅都標示性別。', '求助時可以選擇只找女師傅或男師傅。'] },
+        { n: '8', q: '可以開發票嗎？', a: ['平台費由平台開立電子發票。', '可以填統一編號或載具。', '出車費和維修費的發票或收據，請向師傅索取。'] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

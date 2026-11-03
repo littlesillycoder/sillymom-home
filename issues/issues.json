@@ -1,0 +1,689 @@
+{
+  "milestones": [
+    {
+      "title": "投資人展示版",
+      "description": "可以用電腦和手機直接點的展示網站：真的登入、資料庫、視訊；付款和簡訊用假模組；全部免費方案。"
+    },
+    {
+      "title": "完整前端",
+      "description": "其餘所有頁面的畫面（先用假資料）。"
+    },
+    {
+      "title": "後端與真實服務",
+      "description": "接上資料庫和真的外部服務：綠界、EVERY8D、LINE、錄影存台灣。"
+    },
+    {
+      "title": "上線前",
+      "description": "英文翻譯、整站檢查、資安檢查、上線。"
+    }
+  ],
+  "labels": [
+    {
+      "name": "基礎",
+      "color": "0E8A16",
+      "description": "專案設定、架構、共用元件"
+    },
+    {
+      "name": "前端",
+      "color": "1D76DB",
+      "description": "頁面畫面"
+    },
+    {
+      "name": "後端",
+      "color": "5319E7",
+      "description": "資料庫、商業規則、外部服務"
+    },
+    {
+      "name": "部署",
+      "color": "006B75",
+      "description": "部署與環境"
+    },
+    {
+      "name": "內容",
+      "color": "C5DEF5",
+      "description": "文字、翻譯"
+    },
+    {
+      "name": "上線前",
+      "color": "B60205",
+      "description": "上線前檢查"
+    },
+    {
+      "name": "你要做的",
+      "color": "FBCA04",
+      "description": "需要你本人處理（申請帳號、簽約、找律師等），不是寫程式"
+    },
+    {
+      "name": "之後討論",
+      "color": "D4C5F9",
+      "description": "先記下來，之後再決定要不要做"
+    }
+  ],
+  "issues": [
+    {
+      "title": "你要做的｜開立開發用帳號：Cloudflare、Supabase、LiveKit、網域",
+      "milestone": "投資人展示版",
+      "labels": [
+        "你要做的"
+      ],
+      "body": "### 背景\n投資人展示版需要這幾個帳號。全部用公司信箱（小傻瓜創意國際顧問有限公司）和公司信用卡開，之後報帳或轉讓給買方比較方便。開發期間都用免費方案。\n\n### 要做\n- Cloudflare：註冊帳號；在「Domain Registration」買 `sillymomhome.com`，打開自動續約。\n- Supabase：註冊帳號，建立專案 `sillymom-home`，區域選 **Northeast Asia (Tokyo)**，方案先用 Free。\n- LiveKit：到 cloud.livekit.io 註冊，建立專案，方案先用 Build（免費）。\n- GitHub：在 repo 的 Settings → Secrets and variables → Actions，之後依「基礎｜建立專案」的說明放入金鑰（Claude Code 會告訴你要放哪些）。\n- 把各服務的金鑰交給開發用的電腦（放在 `.env.local`，不要傳到 GitHub 或貼在 issue 裡）。\n\n### 完成標準\n- [ ] 四個帳號都建好，網域已購買。\n- [ ] 金鑰已放到本機 `.env.local` 和 GitHub Secrets。\n\n### 這次不做\n- 不用申請綠界、EVERY8D、LINE（Milestone 3 才需要）。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜建立專案：Next.js、Cloudflare 部署、Supabase 東京",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n建立整個專案的骨架，並在第一步就確認 Next.js 能部署到 Cloudflare、能讀寫 Supabase。之後所有 issue 都建在這個骨架上。\n\n### 要做\n- 用 Next.js（App Router、TypeScript strict）建立專案，套件管理用 pnpm。\n- 用 OpenNext 的 Cloudflare 轉接（`@opennextjs/cloudflare`）部署到 Cloudflare Workers；設定 `wrangler`。\n- 接上 Supabase（`@supabase/supabase-js`、`@supabase/ssr`）；本機用 Supabase CLI（`supabase start`），`supabase/migrations/` 管理資料表。\n- 做一頁驗證頁 `/health`：讀寫一張測試資料表、顯示 Supabase 和部署環境資訊，確認在 Cloudflare 上正常。\n- 設定 ESLint、Prettier、TypeScript 檢查、Vitest；GitHub Actions：每個 PR 跑檢查和測試，main 分支自動部署。\n- 每個 PR 自動部署預覽網址（Cloudflare 的 preview deployment）。\n- 環境變數範本 `.env.example`；`.gitignore` 排除 `.env*`（`.env.example` 除外）。\n- 把 `CLAUDE.md` 最下面的「指令」補齊。\n- 在 `docs/技術決定.md` 加一節「部署注意事項」，記錄 OpenNext 遇到的限制。\n\n### 完成標準\n- [ ] `/health` 在本機和 Cloudflare 上都能讀寫資料庫。\n- [ ] 推到 main 會自動部署；PR 會有預覽網址。\n- [ ] `.env.example` 列出所有需要的變數，沒有任何金鑰進 git。\n- [ ] 如果遇到 Next.js 在 Cloudflare 上的嚴重相容問題，在 issue 留言說明，並評估先改用 Vercel 免費版做展示（不要自己決定，先問）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做任何業務頁面。\n- 不做登入。\n\n### 要先完成\n- {{dep:你要做的｜開立開發用帳號：Cloudflare、Supabase、LiveKit、網域}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜模組化架構與規則",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n照 `docs/架構說明.md` 建立模組資料夾、事件機制和自動檢查。這條規則很重要：Claude Code 每次只看一部分程式，沒有自動檢查，模組邊界一定會被破壞。\n\n### 要做\n- 建立 `src/modules/`、`src/shared/` 結構（照 `docs/架構說明.md` 第 2 節），先放空的模組資料夾和各自的 `README.md` 範本。\n- 模組間的規則：只能 import `modules/<模組>/index.ts`；用 ESLint 規則（例如 `eslint-plugin-boundaries`）自動檢查，CI 會擋。\n- 事件機制：定義事件型別、發出事件、訂閱事件；第一版用資料庫事件表 + 同程式內處理（含重試與處理紀錄）。\n- 做一個範例：模組 A 發出事件，模組 B 收到並寫入一筆紀錄（含測試）。\n- 把架構規則摘要寫進 `CLAUDE.md`（已經有初版，照實作補充細節）。\n\n### 完成標準\n- [ ] 範例事件可以從 A 送到 B，有測試。\n- [ ] 故意寫一段跨模組 import 內部檔案的程式，lint 會失敗（在 PR 說明裡示範後刪除）。\n- [ ] 每個模組資料夾都有 `README.md`：負責什麼、公開介面、發出和接收的事件。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不寫任何實際業務功能。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Cloudflare 部署、Supabase 東京}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜外部服務替換介面：金流、發票、簡訊、通知",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n網站之後可能賣到其他國家，各地的金流、發票、通知服務都不同。換服務時只換對應的模組，不改其他程式。投資人展示版也全部用這裡的假模組。\n\n### 要做\n- 在 `src/shared/providers/` 定義四個介面：金流（綁卡、扣款、退款、查詢交易）、發票（開立、作廢、折讓）、簡訊（送驗證碼、送一般簡訊）、通知（送給指定使用者，由實作決定走 LINE、簡訊或 Email）。\n- 每個介面做 `mock` 實作：不真的扣款或發送，把內容寫進資料庫的「外部服務紀錄」表，後台可以查看。\n- 簡訊 mock：驗證碼固定為 `123456`，只在非正式環境有效（正式環境用 mock 時要直接報錯）。\n- 用環境變數選擇實作：`PAYMENT_PROVIDER`、`INVOICE_PROVIDER`、`SMS_PROVIDER`、`NOTIFY_PROVIDER`。\n- `src/shared/config/regions.ts`：地區設定（語言、幣別、時區、使用哪些實作）。\n- 說明文件 `src/shared/providers/README.md`：要接新服務時，要實作哪些功能、怎麼測試。\n\n### 完成標準\n- [ ] 程式其他地方只透過介面呼叫（lint 規則禁止 import 實作檔案）。\n- [ ] 改環境變數就能切換實作，不用改程式。\n- [ ] 四個 mock 都有測試。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不串接真的綠界、EVERY8D、LINE（在 Milestone 3 各自的 issue）。\n\n### 要先完成\n- {{dep:基礎｜模組化架構與規則}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜多語系、幣別、時區、日期格式",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n網站要中英切換，之後也可能賣到其他國家。文字、金額、時間如果寫死在程式裡，之後要改很花時間。\n\n### 要做\n- 架好多語系（例如 `next-intl`）：繁體中文（預設）和英文；網址帶語言，例如 `/zh-TW/`、`/en/`；頁首加語言切換。\n- 所有畫面文字從語言檔讀取；英文先用繁中內容占位，之後由「內容｜英文翻譯」補上。\n- 共用格式化工具：金額（資料存「數字＋幣別代碼」，例如 `150` + `TWD`，顯示為 NT$150；`EUR` 顯示 €150）、日期、時間（存 UTC，顯示時轉地區時區，台灣是 Asia/Taipei）。\n- 加一條 lint 檢查：`.tsx` 裡直接寫中文字串會提醒。\n\n### 完成標準\n- [ ] 切換語言後，範例頁的文字、金額、日期都會跟著改變。\n- [ ] 有測試確認 NT$ 和 € 格式、台灣和歐洲時區都正確。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不翻譯整站英文內容。\n- 不做歐洲的金流或發票。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Cloudflare 部署、Supabase 東京}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜資安基本設定",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n網站有客戶和師傅的個資，資安從一開始就要設好。\n\n### 要做\n- 安全標頭：Content-Security-Policy、HSTS、X-Frame-Options、Referrer-Policy、Permissions-Policy（允許攝影機、麥克風給視訊頁使用）。\n- Cloudflare Turnstile（防機器人）：做成共用元件和伺服器端驗證函式，給註冊、登入、送出驗證碼使用。\n- 限制請求次數的共用工具（例如同一手機號碼、同一 IP 送驗證碼的次數），用 Cloudflare 或資料庫實作。\n- GitHub Dependabot（套件漏洞與更新）、GitHub secret scanning。\n- log 工具：自動遮蔽手機、地址、證件號碼、email 等個資。\n- 寫 `docs/資安檢查清單.md`：之後每個 issue 和上線前都照這份檢查。\n\n### 完成標準\n- [ ] 用安全標頭檢查工具（例如 securityheaders.com）檢查預覽網址，沒有紅色項目。\n- [ ] Turnstile 和限制次數工具都有測試。\n- [ ] log 遮蔽有測試。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做管理員兩步驟驗證（在 Milestone 3）。\n- 不做檔案加密（在 Milestone 3）。\n\n### 要先完成\n- {{dep:基礎｜建立專案：Next.js、Cloudflare 部署、Supabase 東京}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜設計規範與共用元件",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n把設計稿定案的樣式做成共用元件。手機版設計稿的 `<style>` 裡有一大段「定案的標準」，是這個 issue 的主要依據。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Main.dc.html`、`design/mobile/pages/Checkout.dc.html`、`design/mobile/pages/Account.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Main.dc.html`、`design/desktop/pages/Checkout.dc.html`、`design/desktop/pages/Account.dc.html`（截圖在 `design/desktop/screenshots/`）\n- 這幾頁只是範例，元件樣式散在所有頁面；手機版每頁 `<style>` 的共用規則是定案標準。\n\n### 要做\n- 設計規範（CSS 變數或 Tailwind 主題，擇一並寫進 `CLAUDE.md`）：顏色（主要紅 #C8412C、牛仔藍 #3A5A94、背景 #F6F3EC、文字 #23262E 等，以設計稿為準）、字型 Noto Sans TC、字級、間距、圓角（卡片 16、卡片裡的小框 12）。\n- 共用元件：按鈕（主要、次要、預約、低調、危險、危險次要；大 48／中 44／小 36）、標籤（性別、狀態、驗證徽章）、卡片、輸入框（44 高、16 字；驗證碼 48；搜尋 40）、勾選框、開關、分頁籤、對話框、步驟列、提示框（藍、黃、綠、紅）。\n- 全站文字規則：`word-break: keep-all`、段落 `word-break: normal`；單獨一行的文字連結靠右；「← 回…」返回連結靠左上。\n- 元件展示頁 `/dev/ui`（只在非正式環境顯示）。\n\n### 完成標準\n- [ ] `/dev/ui` 列出所有元件，在 390 和 1440 寬度下對照設計稿截圖，顏色、尺寸一致。\n- [ ] 網站上沒有使用 emoji。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做頁首頁尾（下一個 issue）。\n- 不做師傅卡（另一個 issue）。\n\n### 要先完成\n- {{dep:基礎｜多語系、幣別、時區、日期格式}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜頁首、頁尾、手機選單與自動調整寬度",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n所有頁面共用的外框。手機版用漢堡選單，電腦版用導覽列。版面寬度照 `docs/電腦版自動調整寬度規則.md`。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Main.dc.html`、`design/mobile/pages/MenuGuest.dc.html`、`design/mobile/pages/Menu.dc.html`、`design/mobile/pages/TechMenu.dc.html`、`design/mobile/pages/Dashboard.dc.html`、`design/mobile/pages/TechHome.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Main.dc.html`、`design/desktop/pages/Dashboard.dc.html`、`design/desktop/pages/TechHome.dc.html`、`design/desktop/pages/AdminHome.dc.html`（截圖在 `design/desktop/screenshots/`）\n- 寬度規則：`docs/電腦版自動調整寬度規則.md`、`docs/自動調整寬度示意_公開首頁.png`\n\n### 要做\n- 頁首四種：未登入、會員、師傅（有「師傅」標籤）、後台（左側深色選單）。\n- 手機選單三種：未登入、會員、師傅。\n- 頁尾。\n- 頁面版面元件：內容區左右留白（螢幕寬度 5.556%，2560 以上內容最寬 2240）、767／768／1099／1100 的切換點，照寬度規則文件。\n- 後台版面：左側選單 240，1099 以下收成只顯示圖示（72）。\n- 「建置中」頁：還沒做的頁面先連到這裡。\n\n### 完成標準\n- [ ] 在 390、1024、1440、1920 寬度下，頁首、選單、頁尾和設計稿一致，沒有橫向捲軸。\n- [ ] 語言切換放在頁首。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做頁面內容。\n\n### 要先完成\n- {{dep:基礎｜設計規範與共用元件}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜師傅卡元件：簡易卡、詳細卡",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n師傅卡出現在首頁、服務分類頁、師傅列表、推薦師傅、登入後首頁。設計已定案兩種樣式。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Main.dc.html`、`design/mobile/pages/TechList.dc.html`、`design/mobile/pages/Match.dc.html`、`design/mobile/pages/Dashboard.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Main.dc.html`、`design/desktop/pages/TechList.dc.html`、`design/desktop/pages/Match.dc.html`、`design/desktop/pages/Dashboard.dc.html`、`design/desktop/pages/ServiceAircon.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 簡易卡：頭像，下方是「[N.N]/5」和「[N] 則評價」兩行；右邊是名字、性別、狀態（右上角）；專長；證照；驗證徽章；「[N] 次服務」單獨一行；「看個人頁 →」在右下。\n- 簡易卡變化：在「我信任的師傅」裡，預約按鈕放在「[N] 次服務」那一行旁邊。\n- 詳細卡：頭像加評分；名字、性別、SV 標籤；專長；證照；徽章；狀態；按鈕；中間沒有分隔線。\n- 狀態標籤三種：在線中（綠）、忙碌中（黃）、稍後可約（藍）。\n- 依寬度調整：1099 以下詳細卡的狀態移到名字那一排右邊，按鈕移到卡片下方靠右（見寬度規則文件）。\n\n### 完成標準\n- [ ] `/dev/ui` 有兩種卡片的所有狀態，對照設計稿截圖一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不接資料庫（用假資料）。\n\n### 要先完成\n- {{dep:基礎｜設計規範與共用元件}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜資料庫結構：會員、師傅、案件與存取權限",
+      "milestone": "投資人展示版",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n投資人展示版需要的資料表。其他資料表在 Milestone 3 補上。\n\n### 要做\n- 資料表（各自放在對應模組的 migration）：使用者與角色（客戶、師傅、管理員：老闆／審核員／客服）、客戶資料、師傅資料（名稱、性別、專長、服務地區、證照、徽章、評分、服務次數、狀態）、求助案件（問題描述、類別、照片、狀態）、視訊預約、平台設定（收費金額、保存天數，初始值照 `docs/技術決定.md` 第 3 節）。\n- 每張表的 Row Level Security：客戶只能讀寫自己的資料；師傅只能讀自己的資料和被指派給自己的案件；公開資料（師傅個人頁）用專用的檢視表，只露出可以公開的欄位；管理員依角色限制。\n- 產生 TypeScript 型別。\n\n### 完成標準\n- [ ] 每張表都有 RLS 測試：A 客戶讀不到 B 客戶的資料；師傅讀不到沒指派給他的案件；未登入只能讀公開檢視表。\n- [ ] migration 可以從空資料庫重跑。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做評價、積分、帳務、申訴、訊息的資料表（Milestone 3）。\n\n### 要先完成\n- {{dep:基礎｜模組化架構與規則}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜手機驗證碼登入與角色（先用假簡訊）",
+      "milestone": "投資人展示版",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n用手機簡訊驗證碼註冊和登入。展示版用假簡訊（驗證碼固定 `123456`），正式版在 Milestone 3 換成 EVERY8D。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Login.dc.html`、`design/mobile/pages/SignUp.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Login.dc.html`、`design/desktop/pages/SignUp.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 用 Supabase Auth 的手機登入，簡訊透過「外部服務替換介面」的簡訊模組送出（Supabase 的 Send SMS Hook）。\n- 註冊、登入、登出、保持登入；角色（客戶、師傅、管理員）寫在使用者資料。\n- Turnstile 防機器人；同一手機號碼與 IP 限制送出次數（用「基礎｜資安基本設定」的工具）。\n- 前端：登入／註冊頁、手機快速驗證頁（照設計稿），條款重點彈出視窗的連結先接到「建置中」或條款頁。\n- 依角色導向：客戶到登入後首頁、師傅到今日後台、管理員到後台首頁。\n\n### 完成標準\n- [ ] 用假簡訊可以完成註冊和登入；正式環境用假簡訊會直接報錯。\n- [ ] 限制次數和 Turnstile 有測試。\n- [ ] 未登入不能進會員、師傅、後台的頁面。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不串接 EVERY8D。\n- 不做 LINE 登入或綁定 LINE。\n\n### 要先完成\n- {{dep:後端｜資料庫結構：會員、師傅、案件與存取權限}}\n- {{dep:基礎｜外部服務替換介面：金流、發票、簡訊、通知}}\n- {{dep:基礎｜資安基本設定}}\n- {{dep:基礎｜頁首、頁尾、手機選單與自動調整寬度}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜示範資料與示範帳號",
+      "milestone": "投資人展示版",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n給投資人看的網站要有看起來真實的資料：師傅、評價、案件。\n\n### 要做\n- 示範資料腳本（seed）：約 12 位師傅（男女都有、各種專長和地區、評分和服務次數、不同狀態）、示範評價、示範案件。\n- 三個示範帳號：客戶、師傅、管理員（老闆）。帳號和登入方式寫在 `docs/示範帳號.md`（驗證碼用假簡訊 `123456`）。\n- 師傅頭像用中性的插畫或文字頭像（設計稿是名字第一個字），不要用真人照片。\n- 腳本可以重跑：清空示範資料再重建，不影響其他資料。\n\n### 完成標準\n- [ ] 展示環境執行腳本後，首頁、師傅列表、推薦師傅都有資料。\n- [ ] 三個示範帳號都能登入。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不放真實的人名、電話、地址。\n\n### 要先完成\n- {{dep:後端｜手機驗證碼登入與角色（先用假簡訊）}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜公開首頁",
+      "milestone": "投資人展示版",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n網站的門面，投資人第一眼看到的頁面。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Main.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Main.dc.html`（截圖在 `design/desktop/screenshots/`）\n- 寬度示意：`docs/自動調整寬度示意_公開首頁.png`\n\n### 要做\n- 照設計稿做公開首頁：首屏（大標題 + 求助輸入卡）、安全機制、三個步驟、服務類別、認識我們的師傅（簡易卡，從資料庫讀）、價格方案、常見問題、成為師傅橫幅、頁尾。\n- 首屏大標題 `clamp(36px, 3.5vw, 50px)`，一行放得下「找一位你放心開門的師傅」。\n- 1099 以下的細部調整照寬度規則文件第 4 節（服務類別 3 欄、師傅卡只顯示 2 張等）。\n- 首屏的求助輸入卡送出後，帶著內容進入「求助：描述問題」。\n\n### 完成標準\n- [ ] 在 390、1024、1440、1920 寬度下對照設計稿和寬度示意圖。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做 SEO 進階設定（標題和描述先照頁面內容寫）。\n\n### 要先完成\n- {{dep:基礎｜師傅卡元件：簡易卡、詳細卡}}\n- {{dep:後端｜示範資料與示範帳號}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜師傅列表、師傅個人頁、師傅評價",
+      "milestone": "投資人展示版",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n客戶找師傅、看師傅資料的頁面。\n\n### 設計稿\n- 手機版：`design/mobile/pages/TechList.dc.html`、`design/mobile/pages/TechGuest.dc.html`、`design/mobile/pages/Tech.dc.html`、`design/mobile/pages/Reviews.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/TechList.dc.html`、`design/desktop/pages/TechGuest.dc.html`、`design/desktop/pages/Tech.dc.html`、`design/desktop/pages/Reviews.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 師傅列表：篩選（類別、地區、性別、狀態）、排序、詳細卡；從資料庫讀。\n- 師傅個人頁：未登入版和會員版（會員版多了預約和加入我信任的師傅）。\n- 師傅評價頁。\n- 篩選和排序先做簡單版（資料庫查詢），推薦排序演算法在 Milestone 3。\n\n### 完成標準\n- [ ] 示範資料可以篩選；點詳細卡進個人頁；個人頁可以進評價頁。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做推薦排序演算法。\n- 不做「加入我信任的師傅」的儲存（按鈕先顯示，Milestone 2 的會員頁一起做）。\n\n### 要先完成\n- {{dep:基礎｜師傅卡元件：簡易卡、詳細卡}}\n- {{dep:後端｜示範資料與示範帳號}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜求助：描述問題、推薦師傅",
+      "milestone": "投資人展示版",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n客戶求助流程的前半段：描述問題 → 手機驗證（未登入時）→ 推薦師傅。\n\n### 設計稿\n- 手機版：`design/mobile/pages/RequestGuest.dc.html`、`design/mobile/pages/Request.dc.html`、`design/mobile/pages/SignUp.dc.html`、`design/mobile/pages/TermsSheet.dc.html`、`design/mobile/pages/Match.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/RequestGuest.dc.html`、`design/desktop/pages/Request.dc.html`、`design/desktop/pages/SignUp.dc.html`、`design/desktop/pages/Match.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 描述問題：未登入版和已登入版；文字描述、類別、照片或影片上傳（存 Supabase Storage 的不公開空間，只有客戶本人和被指派的師傅看得到）。\n- 未登入時送出後，先到手機快速驗證，再回來繼續。\n- 建立求助案件。\n- 推薦師傅：依類別和地區列出符合的師傅（詳細卡），可以選一位進入確認與付款。\n\n### 完成標準\n- [ ] 示範客戶可以完成：描述問題 → 推薦師傅 → 選一位師傅。\n- [ ] 上傳的照片其他帳號打不開（有測試）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做公開求助（Milestone 2）。\n- 不做推薦排序演算法。\n\n### 要先完成\n- {{dep:前端｜師傅列表、師傅個人頁、師傅評價}}\n- {{dep:後端｜手機驗證碼登入與角色（先用假簡訊）}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜求助：確認與付款（假金流）",
+      "milestone": "投資人展示版",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n選好師傅後，確認時段並綁定信用卡。展示版用假金流：按了就顯示成功，不扣款。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Checkout.dc.html`、`design/mobile/pages/ErrorPages.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Checkout.dc.html`、`design/desktop/pages/ErrorPages.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 確認與付款頁：師傅資訊、時段、服務內容、費用說明（金額從平台設定讀）、綁卡表單。\n- 綁卡和扣款透過「外部服務替換介面」的金流模組（mock）。\n- 建立視訊預約，狀態「已預約」。\n- 錯誤頁「付款方式無法使用」的狀態（mock 可以設定成失敗來測試）。\n\n### 完成標準\n- [ ] 示範客戶可以完成綁卡並建立視訊預約。\n- [ ] 金額從平台設定讀取，改設定後畫面跟著變。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不串接綠界。\n- 不開發票。\n\n### 要先完成\n- {{dep:前端｜求助：描述問題、推薦師傅}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜視訊房間與計時（LiveKit 免費版，先不錄影）",
+      "milestone": "投資人展示版",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n客戶和師傅的視訊診斷是平台的核心。展示版要能真的視訊，但先不錄影。\n\n### 要做\n- 建立 `video` 模組：依視訊預約建立 LiveKit 房間；伺服器端產生加入房間的 token（只有該案件的客戶和師傅能加入）。\n- 計時：記錄雙方進入、離開時間，計算通話長度。\n- 通話結束發出 `video.ended` 事件（含通話秒數），帳務之後依「滿 3 分鐘」規則處理（展示版先只記錄）。\n- LiveKit 金鑰只在伺服器端使用。\n\n### 完成標準\n- [ ] 示範客戶和示範師傅用兩台裝置（或兩個瀏覽器）可以互相視訊。\n- [ ] 非案件當事人拿不到 token（有測試）。\n- [ ] 通話長度正確寫入資料庫。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不錄影（Milestone 3）。\n- 不做缺席判定和收費。\n\n### 要先完成\n- {{dep:前端｜求助：確認與付款（假金流）}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜求助：視訊等待室、視訊室、諮詢結束",
+      "milestone": "投資人展示版",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n客戶端的視訊流程畫面。\n\n### 設計稿\n- 手機版：`design/mobile/pages/VideoWait.dc.html`、`design/mobile/pages/VideoRoom.dc.html`、`design/mobile/pages/Summary.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/VideoWait.dc.html`、`design/desktop/pages/VideoRoom.dc.html`、`design/desktop/pages/Summary.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 視訊等待室：檢查攝影機和麥克風、倒數、師傅狀態。\n- 視訊室（客戶端）：畫面、靜音、關鏡頭、結束；接 LiveKit。\n- 諮詢結束：通話摘要、診斷單（展示版用示範診斷單）、下一步（預約到府先連到「建置中」）。\n- 手機和電腦都能用（手機瀏覽器的攝影機權限）。\n\n### 完成標準\n- [ ] 示範客戶可以從等待室進入視訊，結束後看到諮詢結束頁。\n- [ ] 手機（iPhone Safari、Android Chrome）和電腦（Chrome）都測過。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做錄影播放（Milestone 2 的錄影頁）。\n\n### 要先完成\n- {{dep:後端｜視訊房間與計時（LiveKit 免費版，先不錄影）}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜師傅：今日後台與視訊室",
+      "milestone": "投資人展示版",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n師傅端的主畫面，以及師傅端的視訊室，讓投資人看到雙邊流程。\n\n### 設計稿\n- 手機版：`design/mobile/pages/TechHome.dc.html`、`design/mobile/pages/TechMenu.dc.html`、`design/mobile/pages/TechVideo.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/TechHome.dc.html`、`design/desktop/pages/TechVideo.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 今日後台：上線接案開關、今天的案件、待處理事項、積分與評價摘要（從資料庫讀；沒有的資料先用示範資料）。\n- 師傅選單（手機）。\n- 視訊室（師傅端）：接 LiveKit，和客戶端同一個房間。\n\n### 完成標準\n- [ ] 示範師傅登入後看到今日後台，可以進入視訊和示範客戶通話。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做案件與排班、診斷單、到府任務（Milestone 2）。\n\n### 要先完成\n- {{dep:後端｜視訊房間與計時（LiveKit 免費版，先不錄影）}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜後台：首頁",
+      "milestone": "投資人展示版",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n管理後台的首頁，展示平台的營運數字。後台只需要支援電腦寬度。\n\n### 設計稿\n- 電腦版：`design/desktop/pages/AdminHome.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 後台首頁：待處理（師傅審核、申訴）、今日數字、近期案件；從資料庫讀，沒有的資料用示範資料。\n- 只有管理員角色能進入；依角色顯示選單（老闆全部、審核員、客服）。\n\n### 完成標準\n- [ ] 示範管理員登入後看到後台首頁；客戶和師傅帳號進不去（有測試）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做其他後台頁面（Milestone 2）。\n- 不做兩步驟驗證（Milestone 3）。\n\n### 要先完成\n- {{dep:後端｜示範資料與示範帳號}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "部署｜展示網站上線與示範導覽",
+      "milestone": "投資人展示版",
+      "labels": [
+        "部署"
+      ],
+      "body": "### 背景\n把投資人展示版部署到正式網址，並加上示範導覽，讓投資人不會迷路。\n\n### 要做\n- 部署到 `sillymomhome.com`（或先用 `demo.sillymomhome.com`），連到展示環境的資料庫。\n- 示範導覽：畫面角落一個按鈕，列出主要流程（客戶求助到視訊、師傅接案、後台），點了可以一鍵用示範帳號登入並跳到起點。只在展示環境顯示。\n- 頁面最上方顯示一條細的提示「示範版本，資料皆為示意」。\n- 寫 `docs/展示操作說明.md`：怎麼示範視訊（兩台裝置）、常見問題。\n\n### 完成標準\n- [ ] 用手機和電腦打開網址都能走完主要流程。\n- [ ] 示範導覽只在展示環境出現。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不開放真實註冊（展示環境可以關閉一般註冊，只留示範帳號）。\n\n### 要先完成\n- {{dep:前端｜公開首頁}}\n- {{dep:前端｜求助：視訊等待室、視訊室、諮詢結束}}\n- {{dep:前端｜師傅：今日後台與視訊室}}\n- {{dep:前端｜後台：首頁}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜服務項目與服務分類頁",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n服務項目列表和服務分類頁。冷氣頁是分類頁的模板，其他分類照同樣版面、換內容。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Services.dc.html`、`design/mobile/pages/ServiceAircon.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Services.dc.html`、`design/desktop/pages/ServiceAircon.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 服務項目頁。\n- 服務分類頁模板（以冷氣為例），分類內容放在資料庫或設定檔，新增分類不用改程式。\n- 分類頁的推薦師傅（簡易卡，從資料庫讀）。\n\n### 完成標準\n- [ ] 冷氣分類頁和設計稿一致；新增一個分類只要加資料。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜安全機制、了解到府流程、客服中心、錯誤頁",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n說明型的頁面。\n\n### 設計稿\n- 手機版：`design/mobile/pages/SafetyStandards.dc.html`、`design/mobile/pages/HowHome.dc.html`、`design/mobile/pages/Help.dc.html`、`design/mobile/pages/ErrorPages.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/SafetyStandards.dc.html`、`design/desktop/pages/HowHome.dc.html`、`design/desktop/pages/Help.dc.html`、`design/desktop/pages/ErrorPages.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 安全機制與審核標準。\n- 了解到府流程。\n- 客服中心（常見問題，內容放語言檔）。\n- 錯誤頁：找不到頁面、維護中、付款失敗三種狀態；接到 Next.js 的 404 和錯誤處理。\n\n### 完成標準\n- [ ] 四頁和設計稿一致；不存在的網址顯示找不到頁面。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜客戶條款規則、條款重點彈出視窗",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n客戶條款規則頁和註冊時的條款重點。正文要等律師審閱，先保留「[律師審閱後放上]」。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Legal.dc.html`、`design/mobile/pages/TermsSheet.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Legal.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 客戶條款規則頁（收費、時間與罰則等分頁）。\n- 條款重點彈出視窗（手機是底部彈出，電腦是置中對話框）。\n- 條款裡的金額從平台設定讀取。\n\n### 完成標準\n- [ ] 兩者和設計稿一致；金額跟平台設定同步。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不放正式條文。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜綁定 LINE",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n註冊後引導綁定 LINE，用來收通知。電腦版沒有另外設計，用同樣內容做成置中卡片。\n\n### 設計稿\n- 手機版：`design/mobile/pages/LineBind.dc.html`（截圖在 `design/mobile/screenshots/`）\n\n### 要做\n- 綁定 LINE 頁（手機版照設計稿；電腦版置中卡片，可以加 QR Code 讓使用者用手機掃）。\n- 綁定流程先接「通知」替換介面的 mock，真的 LINE 在 Milestone 3。\n\n### 完成標準\n- [ ] 畫面和設計稿一致；跳過綁定可以繼續使用。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不串接真的 LINE。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜登入後首頁、通知",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n會員登入後的首頁和通知列表。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Dashboard.dc.html`、`design/mobile/pages/Notifications.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Dashboard.dc.html`、`design/desktop/pages/Notifications.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 登入後首頁：進行中的案件、我信任的師傅（簡易卡，預約按鈕在「[N] 次服務」旁）、快速求助。\n- 通知列表（先用假資料）。\n\n### 完成標準\n- [ ] 兩頁和設計稿一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做通知的實際發送。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜訊息列表與對話",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n會員和師傅之間的站內訊息。手機版列表和對話分兩頁，電腦版在同一頁。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Messages.dc.html`、`design/mobile/pages/MessagesChat.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Messages.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 訊息列表、對話畫面（先用假資料）。\n- 對話裡的安全提醒（不可交換 LINE 或電話、私下付款請回報）。\n\n### 完成標準\n- [ ] 畫面和設計稿一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做即時傳送（Milestone 3 的「站內訊息與通知」）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜維修紀錄、錄影逐字稿與發票",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n客戶的維修紀錄和每筆紀錄的錄影、逐字稿、發票。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Records.dc.html`、`design/mobile/pages/Recording.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Records.dc.html`、`design/desktop/pages/Recording.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 維修紀錄列表。\n- 錄影、逐字稿與發票頁（錄影播放器先用示意畫面）。\n\n### 完成標準\n- [ ] 兩頁和設計稿一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不接真的錄影檔（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜公開求助、回報與申訴",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n公開求助（等多位師傅回覆）和回報與申訴。\n\n### 設計稿\n- 手機版：`design/mobile/pages/OpenRequest.dc.html`、`design/mobile/pages/Report.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/OpenRequest.dc.html`、`design/desktop/pages/Report.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 公開求助（等待回覆）頁。\n- 回報與申訴表單頁（送出先寫進資料庫，處理流程在 Milestone 3）。\n\n### 完成標準\n- [ ] 兩頁和設計稿一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做 72 小時期限的處理流程。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜到府：預約到府、改期或取消",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n到府維修的客戶端流程：預約與改期取消。\n\n### 設計稿\n- 手機版：`design/mobile/pages/HomeBook.dc.html`、`design/mobile/pages/BookingChange.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/HomeBook.dc.html`、`design/desktop/pages/BookingChange.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 預約到府（含急件、直接預約到府；費用從平台設定讀）。\n- 改期或取消（逾時費說明，金額從平台設定讀）。\n\n### 完成標準\n- [ ] 兩頁和設計稿一致，各狀態都能切換檢查。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做行程追蹤（另一個 issue）。\n- 不做預約的後端（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜到府：行程追蹤",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n到府當天客戶看到的行程追蹤，狀態很多，單獨一個 issue。\n\n### 設計稿\n- 手機版：`design/mobile/pages/HomeTrack.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/HomeTrack.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 行程追蹤各階段：師傅出發、抵達核對、施工中、收款結案。\n- 核對碼顯示與「號碼不對」按鈕。\n- 施工中的加價申請：加價框淺黃 #FDF3D7；「同意」主要按鈕、「不同意」白底紅框 #B42318。\n- 說明提示框淺藍 #E4EAF4／#26406E。\n- 緊急聯絡人分享、聯絡客服。\n\n### 完成標準\n- [ ] 各階段狀態都和設計稿一致（手機和電腦）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做核對碼、行程分享的後端（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜我的家與安全設定、編輯地址與聯絡人",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n會員的居家與安全設定。地址和緊急聯絡人是敏感個資。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Safety.dc.html`、`design/mobile/pages/AddressEdit.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Safety.dc.html`、`design/desktop/pages/AddressEdit.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 我的家與安全設定。\n- 編輯地址、編輯緊急聯絡人（同一頁兩種狀態）。\n- 地址、緊急聯絡人兩張資料表（含 RLS）；師傅只看得到行政區，預約成立後才給完整地址（權限規則先建好）。\n\n### 完成標準\n- [ ] 兩頁和設計稿一致；地址和聯絡人可以新增、修改、刪除。\n- [ ] RLS 測試：別人讀不到我的地址和聯絡人。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做緊急聯絡人的確認簡訊（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜我信任的師傅與封鎖、帳號設定",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n會員的師傅名單和帳號設定。\n\n### 設計稿\n- 手機版：`design/mobile/pages/Favorites.dc.html`、`design/mobile/pages/Account.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/Favorites.dc.html`、`design/desktop/pages/Account.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 我信任的師傅與封鎖：加入、移除、封鎖要能儲存（資料表含 RLS）；師傅個人頁的「加入我信任的師傅」按鈕接上。\n- 帳號設定：手機、稱呼、發票載具、通知方式、下載我的資料、登出、刪除帳號。\n\n### 完成標準\n- [ ] 兩頁和設計稿一致；信任和封鎖可以儲存。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做「下載我的資料」和「刪除帳號」的實際處理（上線前另外做）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜師傅：成為師傅、申請步驟 1–5",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n師傅申請入駐：步驟 1 基本資料、2 專長與證照、3 實名與良民證、4 自我介紹影片、5 綁定信用卡（步驟 6 在另一個 issue）。\n\n### 設計稿\n- 手機版：`design/mobile/pages/TechJoin.dc.html`、`design/mobile/pages/TechApplySteps.dc.html`、`design/mobile/pages/TechApply.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/TechJoin.dc.html`、`design/desktop/pages/TechApplySteps.dc.html`、`design/desktop/pages/TechApply.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 成為師傅介紹頁。\n- 申請步驟 1–5：步驟列的圈圈，做完的步驟可以點回去修改；上一步、下一步。\n- 服務地區的行政區按鈕：手機版三個一排，電腦版照設計稿。\n- 申請資料存草稿（資料表含 RLS），中途離開可以回來繼續。\n\n### 完成標準\n- [ ] 五個步驟可以前後切換並保留已填資料。\n- [ ] 畫面和設計稿一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做證件上傳、加密、審核（Milestone 3）。\n- 不真的綁卡（用 mock）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜師傅：同意師傅條款、申請結果",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n師傅申請的最後一步和送出後的結果頁。\n\n### 設計稿\n- 手機版：`design/mobile/pages/TechTerms.dc.html`、`design/mobile/pages/TechApplyStatus.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/TechTerms.dc.html`、`design/desktop/pages/TechApplyStatus.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 步驟 6 同意師傅條款：標題「申請成為師傅」、步驟列（1–5 可點回去）、「步驟 6 / 6：同意師傅條款」、說明分三行（「今日後台」「收入與費用」是連結）、四個分頁（手機版縮成「收費、罰則、積分、規範」一行，電腦版照設計稿）、正文裡的「診斷單」「通知客戶我會晚到」「訊息」是連結、「上一步」白底藍框按鈕連到步驟 5。\n- 勾選同意後送出申請。\n- 申請結果：審核中、需要補件、已通過、未通過四種狀態；說明文字裡的「訊息」「個人頁」「上線接案」「客服」是連結；兩個按鈕靠右。\n\n### 完成標準\n- [ ] 條款頁和四種申請結果狀態都和設計稿一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做審核流程（Milestone 3）。\n- 條款正文先保留「[律師審閱後放上]」。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜師傅：案件與排班",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n師傅的案件列表和可接案時段設定。\n\n### 設計稿\n- 手機版：`design/mobile/pages/TechSchedule.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/TechSchedule.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 案件列表。\n- 排班：選日期、30 分鐘一格的時段開關（先存資料庫，含 RLS）。\n\n### 完成標準\n- [ ] 畫面和設計稿一致；排班可以儲存。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做預約與排班的衝突檢查（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜師傅：診斷單、到府任務、評價客戶",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n師傅視訊後的診斷單，以及到府任務的師傅端流程。\n\n### 設計稿\n- 手機版：`design/mobile/pages/TechDiagnosis.dc.html`、`design/mobile/pages/TechJob.dc.html`、`design/mobile/pages/TechRateCustomer.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/TechDiagnosis.dc.html`、`design/desktop/pages/TechJob.dc.html`、`design/desktop/pages/TechRateCustomer.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 診斷單（欄位說明裡的「排班」「個人頁」是連結）。\n- 到府任務（出發、抵達核對、施工、收款結案四個階段；「評價這位客戶」是連結；「現場遇到問題？回報給平台」靠右）。\n- 評價客戶。\n\n### 完成標準\n- [ ] 三頁和設計稿一致，到府任務四個階段都能切換檢查。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做診斷單送出、加價同意、核對碼的後端（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜師傅：收入與費用、編輯個人頁、訊息、師傅條款",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n師傅的收入、個人頁設定、訊息和已上線版的師傅條款。\n\n### 設計稿\n- 手機版：`design/mobile/pages/TechEarnings.dc.html`、`design/mobile/pages/TechProfileEdit.dc.html`、`design/mobile/pages/TechMessages.dc.html`、`design/mobile/pages/TechTermsOnline.dc.html`（截圖在 `design/mobile/screenshots/`）\n- 電腦版：`design/desktop/pages/TechEarnings.dc.html`、`design/desktop/pages/TechProfileEdit.dc.html`、`design/desktop/pages/TechMessages.dc.html`、`design/desktop/pages/TechTerms.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 收入與費用（括號裡的說明改用藍色粗體另起一行；「更換卡片」「查看本月發票」靠右）。\n- 編輯個人頁（「更換大頭照」在頭像旁邊；「看全部評價並回覆 →」「看完整師傅條款 →」靠右）。\n- 師傅訊息。\n- 師傅條款（已上線版）：沒有步驟列和同意按鈕，顯示「你已同意這份條款」；電腦版用 `desktop/pages/TechTerms` 的版面、手機版 `TechTermsOnline` 的內容。\n\n### 完成標準\n- [ ] 四頁和設計稿一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做收入的實際計算（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜後台：師傅審核、會員管理",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n管理後台的師傅審核和會員管理畫面。\n\n### 設計稿\n- 電腦版：`design/desktop/pages/AdminTechReview.dc.html`、`design/desktop/pages/AdminMembers.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 師傅審核（列表、詳細資料、通過／補件／不通過；證件預覽先用示意）。\n- 會員管理（搜尋、詳細資料、停權）。\n- 依角色限制：審核員只能看師傅審核，客服只能看會員管理。\n\n### 完成標準\n- [ ] 兩頁和設計稿一致；角色限制有測試。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做證件解密與調閱核准（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜後台：申訴處理、案件與帳務",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n管理後台的申訴處理和案件帳務畫面。\n\n### 設計稿\n- 電腦版：`design/desktop/pages/AdminDisputes.dc.html`、`design/desktop/pages/AdminFinance.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 申訴處理（列表、案件紀錄、協商、處理結果；72 小時期限的倒數顯示）。\n- 案件與帳務（交易列表、發票號碼、退款與重新扣款按鈕先接 mock）。\n\n### 完成標準\n- [ ] 兩頁和設計稿一致。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 這次不做\n- 不做申訴期限的自動處理（Milestone 3）。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "前端｜後台：平台設定",
+      "milestone": "完整前端",
+      "labels": [
+        "前端"
+      ],
+      "body": "### 背景\n平台設定頁很大，單獨一個 issue。收費金額、保存天數等都在這裡修改。\n\n### 設計稿\n- 電腦版：`design/desktop/pages/AdminSettings.dc.html`（截圖在 `design/desktop/screenshots/`）\n\n### 要做\n- 平台設定的各區塊，照設計稿。\n- 收費金額、抵用金、保存天數（錄影 180 天、冷儲存 30 天、證件停用後保留期間）等，讀寫「平台設定」資料表。\n- 修改紀錄（誰在什麼時候改了什麼）。\n- 只有老闆角色可以修改。\n\n### 完成標準\n- [ ] 改了收費金額後，前台的條款、確認與付款等頁面跟著改變。\n- [ ] 非老闆角色不能修改（有測試）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：程式放在對應模組、畫面文字放語言檔、金額和日期用共用格式化工具。\n- [ ] 版面同一套程式自動調整：767 以下照手機版設計稿，768 以上照電腦版設計稿與 `docs/電腦版自動調整寬度規則.md`。\n- [ ] 顏色、字級、間距、圓角照設計稿；用 `src/shared/ui` 的共用元件。\n- [ ] 設計稿裡的連結都接到對應頁面（還沒做的頁面先連到「建置中」頁）。\n- [ ] lint、型別檢查、模組邊界檢查通過。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照 `design/*/screenshots/` 檢查。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "你要做的｜申請綠界金流與電子發票，確認綁卡扣款",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "你要做的"
+      ],
+      "body": "### 背景\n正式收款要用綠界。開始實作前，最重要的是確認綠界能不能「綁卡後由平台直接扣款，不用客戶再操作」——視訊滿 3 分鐘自動扣平台費要靠這個功能。\n\n### 要做\n- 打電話或寫信問綠界業務：(1) 綁定信用卡後，平台能不能用 API 直接扣款（不需要客戶再按）？用的是哪一個服務、文件在哪裡？(2) 信用卡手續費率；(3) 電子發票的費用；(4) 退款怎麼處理。\n- 可以的話，用公司資料申請綠界特店（金流 + 電子發票），申請測試環境帳號。\n- 不行的話，在這個 issue 留言，改評估 TapPay（我會更新 `docs/技術決定.md`）。\n- 把測試環境的特店編號和金鑰放到本機 `.env.local`（不要貼在 issue）。\n\n### 完成標準\n- [ ] 已確認綁卡扣款可行，並在這個 issue 留言記錄綠界的回覆。\n- [ ] 有測試環境帳號。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "你要做的｜申請 EVERY8D 簡訊與 LINE 官方帳號",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "你要做的"
+      ],
+      "body": "### 背景\n正式的手機驗證碼和通知需要這兩個帳號。\n\n### 要做\n- EVERY8D：用公司資料申請帳號，購買最小方案（500 點）；申請開通 API；把帳號密碼放到本機 `.env.local`。\n- LINE 官方帳號：用公司資料申請官方帳號「傻媽萬事通」，方案先用免費的輕用量；到 LINE Developers 建立 Messaging API channel 和 LINE Login channel；把 Channel ID、Secret、Access Token 放到本機 `.env.local`。\n- LINE 官方帳號的「圖文選單」放一個「回報與申訴」按鈕，連到網站的回報與申訴頁（網址等網站上線後填）；在官方帳號後台設定客服自動回覆的歡迎訊息。\n\n### 完成標準\n- [ ] 兩個帳號都申請好，金鑰已放在本機。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "你要做的｜開 Google Cloud 帳號（錄影與證件存台灣）",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "你要做的"
+      ],
+      "body": "### 背景\n錄影和證件要存在 Google Cloud 台灣機房。\n\n### 要做\n- 用公司信箱開 Google Cloud 帳號、建立專案 `sillymom-home`、綁定公司信用卡。\n- 設定預算提醒（例如每月 US$20 時寄信通知）。\n- 其他設定（儲存空間、權限）由「後端｜檔案安全」issue 用程式或指令建立，Claude Code 會告訴你要按哪些按鈕。\n\n### 完成標準\n- [ ] 帳號和專案建好，有預算提醒。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜資料庫結構：評價、積分、帳務、申訴、訊息與存取權限",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\nMilestone 1 只建了展示需要的表，這裡補上其餘的資料表。\n\n### 要做\n- 評價（客戶評師傅、師傅評客戶）、積分紀錄（每筆 90 天後失效）、平台費交易、抵用金（3 個月有效）、發票紀錄、申訴與處理紀錄、站內訊息、通知紀錄、到府任務、診斷單與報價、加價申請。\n- 每張表的 RLS。\n- 把 Milestone 2 前端用的假資料改接這些資料表的部分，留給各功能的 issue。\n\n### 完成標準\n- [ ] 每張表都有 RLS 測試。\n- [ ] migration 可以從空資料庫重跑。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:部署｜展示網站上線與示範導覽}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜檔案安全：錄影與證件存台灣、加密、短效連結、保存期限",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n錄影和證件是最敏感的資料。存在 Google Cloud 台灣機房，不公開、加密、用短效連結開啟、到期自動刪除。\n\n### 要做\n- 建立 Google Cloud Storage 儲存空間（asia-east1），兩個：錄影、證件；都不公開。\n- 生命週期規則：錄影 30 天後轉 Coldline、180 天後刪除（天數從平台設定讀；有申訴或在保固期內的案件改為不自動刪除，結案後再處理）。\n- 證件：另外用金鑰加密（例如 Cloud KMS 或應用層加密）；師傅停用後依平台設定的期間刪除。\n- 短效連結（幾分鐘失效）；只有有權限的人可以取得連結。\n- 證件調閱：審核完後要「老闆」核准才能打開，每次調閱記錄（誰、何時、原因）。\n- 存取金鑰只在伺服器端；用最小權限的服務帳號。\n\n### 完成標準\n- [ ] 沒有權限的帳號拿不到連結（有測試）。\n- [ ] 過期連結打不開。\n- [ ] 生命週期規則已設定並寫進 `docs/技術決定.md`。\n- [ ] 證件調閱有核准和紀錄。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:你要做的｜開 Google Cloud 帳號（錄影與證件存台灣）}}\n- {{dep:後端｜資料庫結構：評價、積分、帳務、申訴、訊息與存取權限}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜管理員兩步驟驗證、角色權限、操作紀錄",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n後台能看到很多個資，管理員帳號要特別保護。\n\n### 要做\n- 管理員登入一律兩步驟驗證（TOTP，例如 Google Authenticator）。\n- 角色權限：老闆（全部）、審核員（師傅審核）、客服（申訴、會員）；伺服器端檢查，不只是隱藏選單。\n- 操作紀錄：後台每個動作（查看個資、修改、核准）都記錄，老闆可以查詢。\n\n### 完成標準\n- [ ] 沒有兩步驟驗證的管理員進不了後台。\n- [ ] 各角色的權限有測試。\n- [ ] 操作紀錄不能被修改或刪除。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:後端｜資料庫結構：評價、積分、帳務、申訴、訊息與存取權限}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜師傅申請、證件上傳與後台審核",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n把師傅申請流程接上真的資料和證件上傳。\n\n### 要做\n- 申請步驟 1–6 的資料儲存。\n- 證件上傳到「檔案安全」的證件空間（加密）。\n- 後台師傅審核：通過、補件、不通過；結果用通知送給師傅；通過後扣上架審核費（金流介面）。\n- 良民證到期前 30 天提醒，逾期移除標章。\n- 發出 `technician.approved` 事件。\n\n### 完成標準\n- [ ] 一位師傅可以從申請到審核通過，個人頁上線。\n- [ ] 證件只有審核員和老闆看得到。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:後端｜檔案安全：錄影與證件存台灣、加密、短效連結、保存期限}}\n- {{dep:後端｜管理員兩步驟驗證、角色權限、操作紀錄}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜師傅搜尋、篩選與推薦排序",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n推薦師傅和師傅列表的排序規則。\n\n### 要做\n- 篩選：類別、地區、性別、狀態、證照。\n- 推薦排序：參考積分、評價、回應速度；新師傅前 30 天曝光加權（權重放平台設定）。\n- 排序邏輯寫在 `matching` 模組，有單元測試。\n\n### 完成標準\n- [ ] 推薦結果符合規則（測試覆蓋各種情況）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做師傅廣告（「之後討論」）。\n\n### 要先完成\n- {{dep:後端｜資料庫結構：評價、積分、帳務、申訴、訊息與存取權限}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜預約與排班時段",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n視訊預約和到府預約要和師傅排班一致，不能重複預約。\n\n### 要做\n- 依師傅排班產生可預約時段。\n- 預約時鎖定時段，避免重複；改期、取消釋放時段。\n- 診斷單的「預計維修所需時間」自動佔用排班。\n- 時間一律存 UTC。\n\n### 完成標準\n- [ ] 同時兩個人預約同一時段，只有一個成功（有測試）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:後端｜資料庫結構：評價、積分、帳務、申訴、訊息與存取權限}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜綠界金流：綁卡、扣平台費、退款、抵用金",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n接上真的綠界金流，實作「外部服務替換介面」的 `ecpay` 金流模組。\n\n### 要做\n- 綁卡（卡號不經過我們的系統，只存綠界給的代號）。\n- 扣款：依事件扣平台費（例如 `video.ended` 滿 3 分鐘、核對碼確認、師傅審核通過）；金額從平台設定讀。\n- 退款、抵用金（產生、折抵、到期）。\n- 綠界的付款結果通知（webhook）驗證簽章。\n- 測試環境完整跑過一次。\n\n### 完成標準\n- [ ] 測試環境可以綁卡、扣款、退款。\n- [ ] webhook 簽章驗證有測試。\n- [ ] 其他程式沒有直接呼叫綠界（只透過介面）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 正式環境切換在「上線清單」做。\n\n### 要先完成\n- {{dep:你要做的｜申請綠界金流與電子發票，確認綁卡扣款}}\n- {{dep:後端｜資料庫結構：評價、積分、帳務、申訴、訊息與存取權限}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜綠界電子發票",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n每次扣款自動開立電子發票，實作 `ecpay` 發票模組。\n\n### 要做\n- 扣款成功後開立電子發票（載具：手機條碼或會員載具；統一編號）。\n- 作廢、折讓（退款時）。\n- 抵用金折抵的部分不開發票。\n\n### 完成標準\n- [ ] 測試環境可以開立、作廢、折讓。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:後端｜綠界金流：綁卡、扣平台費、退款、抵用金}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜EVERY8D 簡訊驗證碼",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n接上真的簡訊，實作 `every8d` 簡訊模組。簡訊只用在註冊、換手機號碼、沒綁 LINE 時的重要通知。\n\n### 要做\n- 實作 EVERY8D API（送出、查詢送達狀態）。\n- 驗證碼內容含品牌名稱和有效時間。\n- 保留次數限制和 Turnstile。\n\n### 完成標準\n- [ ] 測試環境可以收到真的簡訊。\n- [ ] 其他程式沒有直接呼叫 EVERY8D。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:你要做的｜申請 EVERY8D 簡訊與 LINE 官方帳號}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜視訊錄影、滿 3 分鐘才收費、缺席判定",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n視訊錄影存到台灣，並實作視訊相關的收費和缺席規則。\n\n### 要做\n- LiveKit 錄影（Egress），上傳到「檔案安全」的錄影空間（Google Cloud 台灣）。\n- 錄影和逐字稿在客戶的「錄影、逐字稿與發票」頁和後台申訴頁可以播放（短效連結）。\n- 滿 3 分鐘才收平台費；新師傅第 1 次免費。\n- 缺席判定（2 小時內取消、遲到超過 5 分鐘等，規則照條款），發出對應事件。\n\n### 完成標準\n- [ ] 錄影檔存在台灣的儲存空間。\n- [ ] 收費和缺席規則都有測試。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 逐字稿如果需要語音轉文字服務，先在 issue 留言討論再做。\n\n### 要先完成\n- {{dep:後端｜檔案安全：錄影與證件存台灣、加密、短效連結、保存期限}}\n- {{dep:後端｜綠界金流：綁卡、扣平台費、退款、抵用金}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜診斷單、報價、到府加價同意",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n師傅視訊後送出診斷單和報價，到府時的加價要客戶同意。\n\n### 要做\n- 診斷單送出（視訊結束後 30 分鐘內；逾時影響積分）。\n- 客戶同意報價。\n- 到府加價申請：客戶在手機上同意或不同意；不同意就照原報價。\n- 所有紀錄保留，申訴時可以查。\n\n### 完成標準\n- [ ] 整個流程有測試，紀錄完整。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:後端｜預約與排班時段}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜到府：核對碼、行程分享、等候倒數",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n到府的安全機制。\n\n### 要做\n- 核對碼：師傅念出、客戶手機顯示，對了才開門；客戶按「號碼不對」時案件暫停並通知客服。\n- 行程分享：緊急聯絡人收到行程連結（只在到府期間有效）。\n- 沒人開門：等候 15 分鐘倒數、記錄定位、拍門牌照片；完成後給師傅抵用金。\n- 發出 `homevisit.code_verified` 等事件。\n\n### 完成標準\n- [ ] 整個到府流程可以在測試環境走完。\n- [ ] 行程連結過期後打不開。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:後端｜診斷單、報價、到府加價同意}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜站內訊息與通知",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n會員和師傅之間的訊息，以及各種通知。\n\n### 要做\n- 站內訊息（即時更新可以用 Supabase Realtime）。\n- 通知：依事件產生通知，透過「通知」介面送出（LINE 或簡訊），並顯示在通知列表。\n- 使用者的通知設定（帳號設定頁）。\n- 訊息裡偵測電話、LINE ID 等聯絡方式並提醒（不可私下交易）。\n\n### 完成標準\n- [ ] 訊息可以即時收到。\n- [ ] 通知依設定送出。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:後端｜資料庫結構：評價、積分、帳務、申訴、訊息與存取權限}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜LINE 官方帳號：綁定、通知、申訴入口",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n接上真的 LINE，實作 `line` 通知模組。申訴用簡單版：官方帳號選單連到網站申訴頁，客服在 LINE 後台手動回覆。\n\n### 要做\n- 綁定 LINE（LINE Login 取得使用者 ID，同時加入官方帳號好友）。\n- 通知透過 Messaging API 推播；沒綁 LINE 的人改用簡訊。\n- 確認圖文選單「回報與申訴」連結正確。\n- 記錄每月推播則數，接近方案上限時通知老闆。\n\n### 完成標準\n- [ ] 綁定後可以收到 LINE 通知。\n- [ ] 其他程式沒有直接呼叫 LINE。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做 LINE 對話自動進後台（之後討論）。\n\n### 要先完成\n- {{dep:你要做的｜申請 EVERY8D 簡訊與 LINE 官方帳號}}\n- {{dep:後端｜站內訊息與通知}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜評價與積分",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n客戶評師傅、師傅評客戶，以及師傅的積分規則。\n\n### 要做\n- 評價（客戶看得到師傅的評價；師傅評客戶不公開，只給平台和其他師傅參考）。\n- 積分：起始 80、上限 100、每筆 90 天後失效、低於 70 通知（不停權）；加減分規則照師傅條款，數值放平台設定。\n- 評價與積分顯示在師傅卡、個人頁、今日後台、收入與費用。\n\n### 完成標準\n- [ ] 積分規則都有測試（含 90 天失效）。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 不做「72 小時沒回覆申訴扣積分」（之後討論）。\n\n### 要先完成\n- {{dep:後端｜資料庫結構：評價、積分、帳務、申訴、訊息與存取權限}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "後端｜申訴流程與 72 小時期限",
+      "milestone": "後端與真實服務",
+      "labels": [
+        "後端"
+      ],
+      "body": "### 背景\n客戶或師傅提出申訴後的處理流程。\n\n### 要做\n- 申訴建立、指派客服、72 小時內回覆申訴人（剩不到 12 小時標紅）。\n- 協商：安排時間；師傅拒絕或逾期未回覆協商，自動暫停接案直到出席。\n- 處理結果：退款（平台費用）、警告、暫停、停權、不成立；結果用訊息通知雙方。\n- 有申訴的案件，錄影保存延長。\n\n### 完成標準\n- [ ] 整個申訴流程有測試。\n- [ ] 72 小時期限的提醒會送出。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 要先完成\n- {{dep:後端｜站內訊息與通知}}\n- {{dep:後端｜檔案安全：錄影與證件存台灣、加密、短效連結、保存期限}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "內容｜英文翻譯",
+      "milestone": "上線前",
+      "labels": [
+        "內容"
+      ],
+      "body": "### 背景\n網站要中英切換。所有畫面文字已經在語言檔裡，這裡把英文補齊。\n\n### 要做\n- 翻譯英文語言檔的所有內容（條款正文除外，等律師版本）。\n- 檢查英文在各寬度下的排版（英文比中文長，按鈕和標籤不能被截斷）。\n\n### 完成標準\n- [ ] 英文版走完主要流程，沒有中文殘留、沒有被截斷的文字。\n\n### 這次不做\n- 不翻譯條款正文。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "上線前｜整站在 390、1024、1440、1920 寬度檢查",
+      "milestone": "上線前",
+      "labels": [
+        "上線前"
+      ],
+      "body": "### 背景\n上線前把每一頁在四種寬度都檢查一次。\n\n### 要做\n- 用 Playwright 對每一頁在 390、1024、1440、1920 截圖。\n- 對照設計稿截圖和寬度規則文件第 7 節的檢查項目：沒有橫向捲軸、詞沒有從中間斷開、卡片同一排高度對齊、沒有一排只剩一張的卡。\n- 列出問題並修正（問題多的話，依頁面拆成新的 issue）。\n\n### 完成標準\n- [ ] 所有頁面四種寬度的截圖都附在 PR 或 issue 裡，沒有未處理的問題。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "上線前｜資安檢查與備份還原演練",
+      "milestone": "上線前",
+      "labels": [
+        "上線前"
+      ],
+      "body": "### 背景\n上線前用 Claude Code 做一輪資安檢查，並演練一次資料還原。\n\n### 要做\n- 照 `docs/資安檢查清單.md` 逐項檢查。\n- 檢查每張表的 RLS、每個 API 的權限、檔案的短效連結、金鑰沒有外洩。\n- 個資清單：列出每種個資存在哪裡、誰看得到、保存多久（給律師寫隱私權政策用）。\n- 用 Supabase 備份還原到一個測試專案，確認資料完整。\n- 把發現的問題開成 issue 並修正。\n\n### 完成標準\n- [ ] 資安檢查清單全部打勾。\n- [ ] 個資清單完成。\n- [ ] 備份還原成功並記錄步驟。\n\n### 這次不做\n- 外部滲透測試（之後討論）。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "你要做的｜律師審閱條款與隱私權政策",
+      "milestone": "上線前",
+      "labels": [
+        "你要做的",
+        "上線前"
+      ],
+      "body": "### 背景\n條款正文目前是「[律師審閱後放上]」。上線前要請律師審閱。\n\n### 要做\n- 請律師審閱並提供：客戶條款、師傅條款（含切結書）、隱私權政策。\n- 請律師確認：(1) 資料存在日本（Supabase 東京）和台灣（Google Cloud）的寫法；(2) 證件停用後的保存年限；(3) 錄影保存 180 天是否合適；(4) 個資外洩的通報義務與時限；(5) 刪除帳號後交易與發票紀錄的保存年限。\n- 提供給律師的資料：`docs/技術決定.md`、上線前資安檢查產生的個資清單、設計稿的條款頁。\n\n### 完成標準\n- [ ] 拿到律師版本的條款和隱私權政策，並確認上面五點。\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "上線前｜上線清單",
+      "milestone": "上線前",
+      "labels": [
+        "上線前"
+      ],
+      "body": "### 背景\n正式上線前的最後一步。\n\n### 要做\n- 放上律師版本的條款和隱私權政策。\n- Supabase 升級 Pro；Cloudflare Workers 付費版；LiveKit 依用量選方案。\n- 正式環境的外部服務改成真的：`PAYMENT_PROVIDER=ecpay`、`INVOICE_PROVIDER=ecpay`、`SMS_PROVIDER=every8d`、`NOTIFY_PROVIDER=line`；綠界改正式特店。\n- 關閉示範導覽和示範帳號；清除示範資料。\n- 正式網域 `sillymomhome.com`；Cloudflare 防火牆規則、Turnstile 正式金鑰。\n- 監控與告警：錯誤通知、費用預算提醒。\n- 寫 `docs/上線紀錄.md`。\n\n### 完成標準\n- [ ] 正式環境走完一次真實流程（小額測試扣款後退款）。\n- [ ] 清單每一項都打勾。\n\n### 要先完成\n- {{dep:你要做的｜律師審閱條款與隱私權政策}}\n- {{dep:上線前｜資安檢查與備份還原演練}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "之後討論｜72 小時沒回覆申訴就扣積分",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n師傅在申訴 72 小時內沒有回覆，就扣積分。要決定扣多少、怎麼通知。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜師傅買廣告排前面（標示「贊助」）",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n類似 Amazon 的 Sponsored：師傅付費提高曝光，搜尋結果標示「贊助」。要決定收費方式和排序規則。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜師傅發折價券",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n師傅提供折價券折抵現場收費，不影響平台費。要決定誰能發、怎麼核銷。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜照客戶需求寫內容，取代 SEO",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n客戶不再只靠 SEO 搜尋，而是依需求（intention）找服務。內容要說明為什麼我們的維修服務比較好，從用戶需求出發。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜用 AI 做推廣影片和腳本",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n用 AI 免費製作推廣影片；之後提供腳本給 AI 製作廣告。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜研究 Amazon 賣家評分機制",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n參考 Amazon 賣家評分機制，檢討師傅的評價與積分規則。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜第二階段：網站與 LINE 官方帳號建置媒合",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n第二階段的服務：幫客戶建網站或 LINE 官方帳號，平台只做媒合。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜LINE 優先登入",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n用「LINE 登入」並同時加入官方帳號；手機號碼改到第一次預約時才用簡訊驗證。註冊比較快，通知一定送得到。需要改登入和註冊頁的設計。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜LINE 申訴完整版",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\nLINE 對話自動進到後台的申訴處理，不用客服在 LINE 後台手動處理。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜賣到歐洲：GDPR 與地區部署",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n一個地區一套部署，資料留在當地；改用 Stripe、VAT 發票、WhatsApp 或 Email 通知；請熟悉歐盟法規的律師確認 GDPR 要求。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜外部滲透測試與資安險",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n流量起來後，請專業公司做滲透測試；評估投保資安險（個資外洩的賠償與處理費用）。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜資料全部存在台灣（自架 LiveKit 或 Supabase）",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n把 LiveKit 或 Supabase 自己架在 Google Cloud 台灣機房，讓視訊過程和會員資料也留在台灣；量大時也比較省錢，但要自己維護。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    },
+    {
+      "title": "之後討論｜包成 App",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n把網站包成 App 上架 App Store 和 Google Play；連結可以設定成有 App 就開 App。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
+    }
+  ]
+}

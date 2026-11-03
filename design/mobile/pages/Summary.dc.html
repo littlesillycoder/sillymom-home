@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 諮詢結束（手機）</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- m-fixed -->
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 手機版共用規則（每個畫板在自己的頁面裡顯示，所以不用加前綴）
+   1. 一般橫排可換行；開頭是圖示或頭像的橫排，圖示和文字固定同一行，第三個以後的元素換到下一行
+   2. 按鈕、標籤、日期這類短文字不斷開；段落裡的連結整段一起換行 */
+*{box-sizing:border-box}
+[style*="display: flex"]:not([style*="flex-direction: column"]){flex-wrap:wrap}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(2){flex:1 1 180px;min-width:0}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(n+3){margin-left:auto}
+header,header *,[data-mbar] *{flex-wrap:nowrap!important}
+button,a[style*="display: flex"],a[style*="display: inline-flex"],[style*="border-radius: 999px"],[style*="border-radius: 6px"],[role="tab"]{white-space:nowrap}
+a:not([style*="display"]){display:inline-block}
+img,video{max-width:100%}
+/* 10-27：不可以左右滑；打勾一律綠色；勾選框旁的文字不跑到下面；按鈕文字置中、15px、不超出 */
+html,body{overflow-x:hidden}
+/* 10-27 第 3 輪：格狀排版不把多出的高度分給每一塊（避免內容中間出現空白）；區塊最後的文字連結靠左；區塊標題統一 18px */
+[style*="display: grid"]{align-content:start}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([style*="align-self"]){align-self:flex-start}
+h2{font-size:18px!important;line-height:1.4}
+/* 不斷行的文字裡面的小段落也不斷行（text-wrap 規則會讓裡面的 span 自己斷行） */
+[style*="white-space: nowrap"] *{white-space:nowrap}
+#dc-root > div,x-dc > div{max-width:100%}
+svg:not([data-keep]):has(> path[d="M5 12l5 5L20 7"]){stroke:#2E7D5B}
+label:has(> input[type="checkbox"]),label:has(> input[type="radio"]){flex-wrap:nowrap!important}
+label > input[type="checkbox"],label > input[type="radio"]{flex-shrink:0}
+:is(a,button)[style*="min-height: 4"][style*="border-radius: 1"],[data-mbar] :is(a,button){justify-content:center;text-align:center;font-size:15px!important;white-space:nowrap;min-width:0;padding-left:10px!important;padding-right:10px!important}
+table{width:100%}
+/* 固定在底部的按鈕區：依狀態出現的按鈕一律直排、滿版 */
+[data-mrow] > div{flex-direction:column!important;gap:8px!important;flex-wrap:nowrap!important}
+[data-mrow] a,[data-mrow] button{width:100%;min-height:48px!important;justify-content:center}
+
+/* 10-28 第 5 輪定案的標準
+   按鈕：大 48px（底部固定、頁面主要動作）／中 44px（卡片裡）／小 36px（列表裡），字一律 15px 粗體
+   輸入框 44px、字 16px（驗證碼 48px、搜尋 40px）；標籤 14px 粗體、上下 2px、左右 10px
+   卡片：開頭或結尾是文字的卡片內距 16px；行距 8px；資料列最後一列下面不留空 */
+:is(a,button)[style*="min-height: 52px"],:is(a,button)[style*="min-height: 56px"]{min-height:48px!important;font-size:15px!important}
+input:not([type="checkbox"]):not([type="radio"]):not([type="search"]),select{min-height:44px!important;height:44px!important;font-size:16px!important}
+input[type="search"]{min-height:40px!important;height:40px!important;font-size:16px!important}
+input[style*="text-align: center"][style*="font-size: 24px"],input[style*="text-align: center"][style*="font-weight: 900"]{min-height:48px!important;height:48px!important;font-size:22px!important}
+span[style*="border-radius: 999px"]:is([style*="padding: 3px 10px"],[style*="padding: 6px 12px"],[style*="padding: 2px 8px"],[style*="padding: 4px 12px"],[style*="padding: 3px 10px 3px 10px"],[style*="padding: 6px 12px 6px 12px"],[style*="padding: 2px 8px 2px 8px"]):not(header *){padding:2px 10px!important;font-size:14px!important;font-weight:700!important}
+[style*="padding: 20px 16px 20px 16px"][style*="border-radius: 2"]:not(section[style*="background: #E4EAF4"]):not([data-keep-pad]){padding:16px!important}
+[style*="border-top: 1px solid #ECE7DC"]:last-child{padding-bottom:0!important}
+span:empty[style*="border-radius: 999px"],b:empty,span:empty[data-avail]{display:none}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([data-back]):not([style*="align-self"]){align-self:flex-end;text-align:right}
+a[data-back]{align-self:flex-start}
+
+/* 10-28 第 6 輪：空的狀態標籤不顯示；巢狀的滿版區塊第一塊上面、最後一塊下面不再多留空 */
+span:empty[style*="max-width: 96px"]{display:none}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):first-child{padding-top:0!important}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):last-child{padding-bottom:0!important}
+
+/* 10-29 第 7 輪：設計稿裡不顯示捲軸（手機的捲軸不佔位置，卡片才會置中） */
+html,body,[data-mscroll]{scrollbar-width:none}
+::-webkit-scrollbar{display:none}
+
+/* 10-28 第 6 輪：卡片上下動態內距 */
+[data-vt="0"][data-vt="0"][data-vt="0"][data-vt="0"][data-vt="0"][data-vt="0"]{padding-top:0px!important}
+[data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"]{padding-top:10px!important}
+[data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"]{padding-top:11px!important}
+[data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"][data-vt="15"]{padding-top:15px!important}
+[data-vb="6"][data-vb="6"][data-vb="6"][data-vb="6"][data-vb="6"][data-vb="6"]{padding-bottom:6px!important}
+[data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"]{padding-bottom:10px!important}
+[data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"]{padding-bottom:15px!important}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; overflow: hidden; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+
+<header style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4; border-bottom: 1px solid #E2DDD2">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="font-size: 18px; font-weight: 900">傻媽萬事通</span></a>
+<span style="display: flex; align-items: center; gap: 8px"><a href="MenuGuest.dc.html" aria-label="選單" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #23262E"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></a></span>
+</header>
+<div data-mscroll style="flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
+
+<section style="padding: 20px 16px 20px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 16px; color: #4E525C">視訊診斷估價已結束 · 林師傅 · [N] 分鐘</span>
+<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><h1 style="margin: 0; font-size: 24px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}; white-space: nowrap">林師傅的診斷結果</h1><span style="padding: 3px 10px; border-radius: 999px; background: {{resBg}}; color: {{resFg}}; font-size: 13px; font-weight: 700; white-space: nowrap">{{resLabel}}</span></div>
+</div>
+</section>
+
+<div style="flex-grow: 1; padding: 0 16px 20px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start">
+
+<div style="grid-column: auto; display: flex; flex-direction: column; gap: 16px">
+
+<sc-if value="{{no}}" hint-placeholder-val="{{ false }}">
+<section style="padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 2px solid {{denim}}; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="align-self: flex-start; padding: 5px 12px 5px 12px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 14px; font-weight: 700">到府費用現場直接付給師傅</span>
+<h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">林師傅建議安排到府處理</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #4E525C">排水管內部可能有破損，需要現場更換。到府的會是同一位林師傅，報價經你同意才會開工。</p>
+</div>
+<div style="border-radius: 16px; background: #F6F3EC; padding: 20px 16px 20px 16px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 16px; font-weight: 700">林師傅的報價</span>
+<sc-for list="{{quote}}" as="q" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: nowrap; font-size: 15px; line-height: 1.6"><span style="color: #4E525C; white-space: pre-line">{{q.t}}</span><span style="white-space: nowrap; font-weight: 700">{{q.p}}</span></div>
+</sc-for>
+<div style="padding-top: 12px; border-top: 1px solid #E2DDD2; display: flex; justify-content: space-between; font-size: 18px; font-weight: 700"><span>到府時付給林師傅</span><span>[<strong style="white-space: nowrap">NT$XXX</strong>]</span></div>
+<ul style="margin: 0; padding: 0 0 0 0; list-style: none; display: flex; flex-direction: column; gap: 4px"><li style="display: flex; gap: 8px; font-size: 13px; line-height: 1.7; color: #62666F; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>出車費是固定金額，現場決定不修只付出車費。</span></li><li style="display: flex; gap: 8px; font-size: 13px; line-height: 1.7; color: #62666F; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>林師傅要照這份報價施工。</span></li><li style="display: flex; gap: 8px; font-size: 13px; line-height: 1.7; color: #62666F; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>現場要加價必須先經你同意，你不同意就照原本的報價。</span></li><li style="display: flex; gap: 8px; font-size: 13px; line-height: 1.7; color: #62666F; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>預約時會依「預計維修所需時間」保留林師傅的時段。</span></li><li style="display: flex; gap: 8px; font-size: 13px; line-height: 1.7; color: #62666F; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>保固 [N] 天由林師傅提供。</span></li></ul>
+</div>
+
+<ul style="margin: 0; padding: 0 0 0 0; list-style: none; display: flex; flex-direction: column; gap: 4px"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>預約到府屬於同一個案件，不另收平台費。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>備註：更換排水管一條。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>請透過平台預約；私下交易沒有錄影、評價和申訴保障。</span></li></ul>
+</section>
+</sc-if>
+
+<sc-if value="{{solved}}" hint-placeholder-val="{{ true }}">
+<section data-vt="10" data-vb="6" style="padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 2px solid #2F8A5F; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 900; color: #245443; white-space: nowrap">問題已經解決了嗎？</h2>
+<ul style="margin: 0; padding: 0 0 0 0; list-style: none; display: flex; flex-direction: column; gap: 4px"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>林師傅表示問題已在視訊中解決。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>請你確認後，這個求助就會結束，扣平台費（求助）<strong style="white-space: nowrap">NT$100</strong>。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>還沒解決？可以用第 2 次視訊，或換一位師傅。</span></li></ul>
+
+</section>
+</sc-if>
+<sc-if value="{{pending}}" hint-placeholder-val="{{ false }}">
+<section style="padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 2px solid #D9A21B; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #6B4A00">林師傅正在整理報價</h2>
+<div style="display: flex; align-items: baseline; gap: 12px"><span style="font-size: 18px; font-weight: 900; color: #B42318">剩 [18] 分鐘</span><span style="font-size: 16px; color: #4E525C">最晚 [時間] 送出</span></div>
+<ul style="margin: 0; padding: 0 0 0 0; list-style: none; display: flex; flex-direction: column; gap: 4px"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>師傅要在視訊結束後 30 分鐘內送出診斷單和報價。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>送出後會用 LINE 通知你。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>超過 30 分鐘沒送出：這次視訊不算次數，你可以直接找另一位師傅。</span></li></ul>
+
+</section>
+</sc-if>
+<sc-if value="{{ready}}" hint-placeholder-val="{{ true }}">
+<section data-vt="15" data-vb="15" style="padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">林師傅的診斷單</h2>
+<span style="padding: 4px 10px 4px 10px; border-radius: 6px; background: #E4EAF4; color: #26406E; font-size: 16px; font-weight: 700">師傅填寫</span>
+</div>
+<sc-for list="{{summary}}" as="s" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding-bottom: 14px; border-bottom: 1px solid #ECE7DC">
+<span style="font-size: 16px; font-weight: 700; color: #4E525C">{{s.k}}</span>
+<span style="grid-column: auto; font-size: 16px; line-height: 1.8">{{s.v}}</span>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<section style="padding: 0; overflow: hidden; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 0">
+<div style="width: 100%; height: 200px; flex-shrink: 0; border-radius: 14px; background: #23262E; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<button type="button" aria-label="播放諮詢錄影" style="width: 52px; height: 52px; border-radius: 50%; border: none; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5l11 7-11 7z"></path></svg>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px">
+<span style="font-size: 18px; font-weight: 700">諮詢錄影 · [N] 分鐘</span>
+<span style="font-size: 16px; line-height: 1.7; color: #4E525C">錄影保存 [N] 天，只有你和林師傅看得到（申訴調閱或依法要求時除外）。你可以隨時刪除；有申訴進行中，會保留到申訴結束。</span>
+<div style="display: flex; gap: 16px; font-size: 16px"><a href="Recording.dc.html">下載診斷單</a><a href="Recording.dc.html">刪除錄影</a></div>
+</div>
+</section>
+</div>
+
+<div style="grid-column: auto; display: flex; flex-direction: column; gap: 16px">
+
+<div data-vt="0" style="padding: 4px 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column"><details style="padding: 12px 0; border-bottom: 1px solid #ECE7DC"><summary style="cursor: pointer; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 700">▸ 第 2 次視訊</span><span style="padding-left: 16px; font-size: 14px; color: #62666F">還剩 1 次，24 小時內可以用</span></summary><div style="display: flex; flex-direction: column; gap: 14px; padding-top: 12px">
+
+<ul style="margin: 0; padding: 0 0 0 0; list-style: none; display: flex; flex-direction: column; gap: 4px"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>第 2 次視訊在 [日期] [時間] 前有效（第 1 次視訊後 24 小時）。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>到期前 2 小時會提醒你。</span></li></ul>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px">
+<a href="Tech.dc.html" style="min-height: 48px; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 700; background: {{denim}}; color: #FFFFFF">找林師傅再視訊</a>
+<a href="Match.dc.html" style="min-height: 48px; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 700; background: #FFFFFF; color: {{denim}}; border: 1.5px solid {{denim}}">換一位師傅</a>
+</div>
+<div data-vt="11" style="padding: 16px 16px 16px 16px; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 16px; font-weight: 700">不用了，結束這個求助</span>
+<span style="font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left">選這個就不會再使用第 2 次視訊。</span>
+<a href="Dashboard.dc.html" style="min-height: 48px; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 700; background: #F6F3EC; color: #23262E; border: 1px solid #D8D2C4">確認結束，平台費（求助）<strong style="white-space: nowrap">NT$100</strong></a>
+</div>
+<a data-vt="11" data-vb="10" href="Report.dc.html" style="padding: 12px 14px 12px 14px; border-radius: 12px; background: #FFFFFF; text-decoration: none; color: #23262E; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; white-space: normal"><span style="font-size: 16px; font-weight: 700">對這次服務有疑慮？</span><span style="font-size: 16px; color: #4E525C">申訴後平台會看錄影和診斷單，成立就退費</span></a>
+</div></details>
+
+<details style="padding: 12px 0; border-bottom: 1px solid #ECE7DC"><summary style="cursor: pointer; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 700">▸ 費用</span><span style="padding-left: 16px; font-size: 14px; color: #62666F">平台費（求助）NT$100，已含 2 次視訊</span></summary><div style="display: flex; flex-direction: column; gap: 14px; padding-top: 12px">
+
+<div style="display: flex; justify-content: space-between; font-size: 16px"><span style="color: #4E525C">平台費（求助），含 2 次視訊</span><span><strong style="white-space: nowrap">NT$100</strong></span></div>
+<sc-if value="{{no}}" hint-placeholder-val="{{ false }}">
+<div style="padding: 12px 14px 12px 14px; border-radius: 12px; background: #F6F3EC; display: flex; justify-content: space-between; font-size: 16px"><span style="color: #4E525C">到府維修 · 預約後現場付給林師傅</span><span>[<strong style="white-space: nowrap">NT$XXX</strong>]</span></div>
+</sc-if>
+<div style="padding-top: 12px; border-top: 1px solid #E2DDD2; display: flex; justify-content: space-between; font-size: 18px; font-weight: 900"><span>尚未扣款</span><span><strong style="white-space: nowrap">NT$100</strong></span></div>
+<ul style="margin: 0; padding: 0 0 0 0; list-style: none; display: flex; flex-direction: column; gap: 4px"><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #62666F; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>第 2 次視訊結束、你選擇「不用了」，或 [日期] [時間]（24 小時到期）時，才會扣款。</span></li><li style="display: flex; gap: 8px; font-size: 16px; line-height: 1.7; color: #62666F; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>扣款後寄出電子發票。</span></li></ul>
+</div></details>
+
+<details style="padding: 12px 0"><summary style="cursor: pointer; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 700">▸ 給林師傅評價</span><span style="padding-left: 16px; font-size: 14px; color: #62666F">說說這次的感覺，7 天內都可以寫</span></summary><div style="display: flex; flex-direction: column; gap: 14px; padding-top: 12px">
+<div style="display: flex; align-items: center; gap: 14px">
+<div style="width: 56px; height: 56px; border-radius: 50%; background: #E4EAF4; color: #26406E; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900">林</div>
+<div style="display: flex; flex-direction: column">
+
+<span style="font-size: 16px; color: #62666F">雙方都評價後或 7 天後才公開，只顯示「林**」</span>
+</div>
+</div>
+<div style="display: flex; gap: 6px" role="group" aria-label="評分">
+<sc-for list="{{stars}}" as="s" hint-placeholder-count="5">
+<button type="button" aria-label="{{s.label}}" onClick="{{s.pick}}" style="width: 48px; height: 48px; border-radius: 10px; border: none; background: transparent; color: {{s.color}}; display: flex; align-items: center; justify-content: center">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="{{s.fill}}" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg>
+</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{tags}}" as="t" hint-placeholder-count="6">
+<button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="min-height: 40px; padding: 0 14px 0 14px; border-radius: 999px; border: {{t.border}}; background: {{t.bg}}; color: #23262E; font-family: inherit; font-size: 14px; font-weight: {{t.weight}}">{{t.t}}</button>
+</sc-for>
+</div>
+<label for="review" style="font-size: 16px; font-weight: 700">想多說一些嗎？（選填）</label>
+<textarea id="review" rows="3" placeholder="例如：講解很清楚，報價也很透明" style="font-family: inherit; font-size: 16px; line-height: 1.7; padding: 14px 14px 14px 14px; border: 1px solid #D8D2C4; border-radius: 12px; background: #F6F3EC; color: #23262E; resize: none"></textarea>
+<label style="display: flex; align-items: center; gap: 10px; font-size: 16px">
+<input type="checkbox" checked style="width: 20px; height: 20px; margin: 0; accent-color: {{denim}}">
+加入「我信任的師傅」，下次可以直接找這位師傅
+</label>
+<a href="Favorites.dc.html" style="font-size: 15px; color: #4E525C; align-self: flex-start; white-space: normal">不想再遇到這位師傅？封鎖這位師傅</a>
+<a href="Dashboard.dc.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: {{denim}}; color: #FFFFFF; text-decoration: none; font-size: 18px; font-weight: 700">送出評價</a>
+<a href="Report.dc.html" style="font-size: 15px; color: #4E525C; text-align: left; align-self: flex-start; white-space: normal">這次諮詢有讓你不舒服的地方？私下回報給平台</a>
+</div></details></div>
+</div>
+</div>
+</div>
+<div data-mbar style="flex-shrink: 0; padding: 12px 16px 24px; background: #FFFFFF; box-shadow: 0 -4px 16px rgba(35,38,46,0.10); display: flex; flex-direction: column; gap: 8px">
+<sc-if value="{{no}}" hint-placeholder-val="{{ false }}"><div style="display: flex; gap: 8px; flex-direction: row">
+<a href="HomeBook.dc.html" style="flex: 1; flex-grow: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 18px; font-weight: 700">接受報價，預約到府</a>
+<a href="Match.dc.html" style="flex: 1; min-height: 56px; padding: 0 16px 0 16px; display: flex; align-items: center; border-radius: 14px; border: 1px solid #D8D2C4; color: #23262E; text-decoration: none; font-size: 16px">換一位師傅</a>
+</div></sc-if>
+<sc-if value="{{solved}}" hint-placeholder-val="{{ true }}"><div style="display: flex; gap: 8px; flex-direction: row"><a href="Dashboard.dc.html" style="flex: 1; flex: 1 1 0; min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 700">確認已解決</a><a href="TechList.dc.html" style="flex: 1; flex: 1 1 0; min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; text-decoration: none; font-size: 15px; font-weight: 700">還沒解決</a></div></sc-if>
+<sc-if value="{{pending}}" hint-placeholder-val="{{ false }}"><a href="Match.dc.html" style="flex: 1; align-self: flex-start; min-height: 48px; padding: 0 16px 0 16px; display: flex; align-items: center; border-radius: 12px; border: 1px solid #D8D2C4; color: #23262E; text-decoration: none; font-size: 16px">先看看其他師傅</a></sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C8412C&quot;,&quot;options&quot;:[&quot;#C8412C&quot;,&quot;#D9573B&quot;,&quot;#B5362A&quot;,&quot;#E0663F&quot;]},&quot;denim&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3A5A94&quot;,&quot;options&quot;:[&quot;#3A5A94&quot;,&quot;#4A6BA8&quot;,&quot;#2F4F86&quot;,&quot;#26406E&quot;]},&quot;result&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;建議到府&quot;,&quot;問題已在視訊中解決&quot;,&quot;等待報價&quot;],&quot;default&quot;:&quot;建議到府&quot;},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { solved: true, stars: 5, tags: { '講解清楚': true, '很有耐心': true } };
+  }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const st = this.state;
+    const res = this.props.result ?? '建議到府';
+    const solved = res === '問題已在視訊中解決';
+    const pending = res === '等待報價';
+    const on = '2px solid ' + denim;
+    const off = '1px solid #D8D2C4';
+    const tagNames = ['講解清楚', '準時', '很有耐心', '讓人安心', '價格合理', '專業'];
+    return {
+      accent: this.props.accent ?? '#C8412C',
+      denim: denim,
+      no: !solved && !pending, solved: solved, pending: pending, ready: !pending,
+      resLabel: pending ? '報價整理中' : (solved ? '問題已在視訊中解決' : '建議到府維修'),
+      resBg: pending ? '#FDF3D7' : (solved ? '#E4F0EA' : '#F8DCD4'),
+      resFg: pending ? '#6B4A00' : (solved ? '#245443' : '#8E2E1F'),
+      yesPressed: solved ? 'true' : 'false',
+      noPressed: solved ? 'false' : 'true',
+      yesBorder: solved ? '2px solid #2F8A5F' : off,
+      yesBg: solved ? '#E4F0EA' : '#FFFFFF',
+      noBorder: solved ? off : on,
+      noBg: solved ? '#FFFFFF' : '#E4EAF4',
+      pickYes: () => this.setState({ solved: true }),
+      pickNo: () => this.setState({ solved: false }),
+      quote: [
+        { t: '維修費（含材料）', p: '[NT$XXX]' },
+        { t: '出車費\n固定，上限 NT$500', p: '[NT$XXX]' },
+        { t: '預計維修所需時間', p: '約 [N] 小時' },
+        { t: '保固', p: '[N] 天' }
+      ],
+      summary: [
+        { k: '原因', v: solved ? '排水口附近積灰，造成排水不順。' : '排水管內部可能破損，造成室內機滴水。' },
+        { k: '建議', v: solved ? '清洗濾網後已經不滴水，問題已在視訊中解決。' : '建議到府更換排水管，報價如上。' },
+        { k: '保固與提醒', v: solved ? '若清洗後仍滴水，可能是排水管破損，再預約到府。' : '林師傅提供保固 [N] 天，會記錄在你的維修紀錄。' }
+      ],
+      steps: [
+        { n: '1', t: '關掉冷氣，拔掉插頭', bg: '#E4F0EA', fg: '#245443' },
+        { n: '2', t: '找到室內機右下角的排水管', bg: '#E4F0EA', fg: '#245443' },
+        { n: '3', t: '用吸管清出排水管出口的堵塞', bg: '#E4F0EA', fg: '#245443' },
+        { n: '4', t: '開機測試 30 分鐘，確認不再滴水', bg: '#E4F0EA', fg: '#245443' }
+      ],
+      stars: [1, 2, 3, 4, 5].map((n) => ({
+        label: n + ' 顆星',
+        color: n <= st.stars ? '#D9A21B' : '#B9B3A6',
+        fill: n <= st.stars ? '#F5C542' : 'none',
+        pick: () => this.setState({ stars: n })
+      })),
+      tags: tagNames.map((t) => {
+        const sel = !!st.tags[t];
+        return {
+          t: t,
+          pressed: sel ? 'true' : 'false',
+          border: sel ? on : off,
+          bg: sel ? '#E4EAF4' : '#FFFFFF',
+          weight: sel ? '700' : '400',
+          pick: () => this.setState({ tags: Object.assign({}, st.tags, { [t]: !sel }) })
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

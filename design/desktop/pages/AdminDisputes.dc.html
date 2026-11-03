@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 申訴處理</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1680px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+
+<div style="flex-grow: 1; display: flex; min-height: 0">
+<nav aria-label="管理後台" style="width: 240px; flex-shrink: 0; box-sizing: border-box; padding: 24px 16px; background: #23262E; display: flex; flex-direction: column; gap: 6px">
+<a href="AdminHome.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px; text-decoration: none; color: #FFFFFF"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{denim}}; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 900">傻媽萬事通</span><span style="font-size: 13px; color: #A8ABB3">管理後台</span></span></a>
+<a href="AdminHome.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">後台首頁</a><a href="AdminTechReview.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">師傅審核<span style="padding: 1px 8px; border-radius: 999px; background: #C8412C; color: #FFFFFF; font-size: 14px; font-weight: 700">5</span></a><a href="AdminDisputes.dc.html" aria-current="page" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #FFFFFF; background: #3A3E48; font-weight: 700">申訴處理<span style="padding: 1px 8px; border-radius: 999px; background: #C8412C; color: #FFFFFF; font-size: 14px; font-weight: 700">3</span></a><a href="AdminMembers.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">會員管理</a><a href="AdminFinance.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">案件與帳務</a><a href="AdminSettings.dc.html" style="min-height: 44px; padding: 0 14px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; font-size: 16px; color: #C9CCD3; background: transparent; font-weight: 400">平台設定</a>
+<div style="margin-top: auto; padding: 12px 8px 0; border-top: 1px solid #3A3E48; font-size: 13px; color: #A8ABB3">[管理員名稱] · 審核員<br>所有操作都會留下紀錄</div>
+</nav>
+<main style="flex-grow: 1; min-width: 0; box-sizing: border-box; padding: 28px 36px 40px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 20px"><div style="display: flex; flex-direction: column; gap: 6px"><h1 style="margin: 0; font-size: 24px; font-weight: 900; color: #23262E">申訴處理</h1><span style="font-size: 16px; color: #62666F">看紀錄、安排協商、決定處理方式。涉及安全的申訴優先處理。</span></div></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px"><div style="display: flex; gap: 8px"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: {{t.border}}; background: {{t.bg}}; color: #23262E; font-family: inherit; font-size: 14px; font-weight: {{t.weight}}">{{t.t}}</button></sc-for></div><span style="padding: 8px 14px; border-radius: 10px; background: #FDF3D7; color: #6B4A00; font-size: 16px; font-weight: 700">每件申訴都要在 72 小時內回覆申訴人 · 剩不到 12 小時標紅色</span></div>
+<div style="display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 20px; align-items: start">
+<div style="padding: 24px 28px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 12px; display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{cases}}" as="a" hint-placeholder-count="4"><button type="button" aria-pressed="{{a.pressed}}" onClick="{{a.pick}}" style="padding: 12px; border-radius: 12px; border: none; background: {{a.bg}}; font-family: inherit; color: #23262E; text-align: left; display: flex; flex-direction: column; gap: 4px"><span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 16px; font-weight: 700">{{a.t}}</span><span style="padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: {{a.tagBg}}; color: {{a.tagFg}}">{{a.tag}}</span></span><span style="font-size: 13px; color: #62666F">{{a.b}}</span><span style="align-self: flex-start; display: flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 8px; background: {{a.dBg}}; color: {{a.dFg}}; font-size: 13px; font-weight: 700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 110 18 9 9 0 010-18zM12 7v5l3 2"></path></svg>{{a.due}}</span></button></sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<section style="padding: 24px 28px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; gap: 12px"><h2 style="margin: 0; font-size: 20px; font-weight: 900">收費和報價不符 · 黃師傅</h2><span style="padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: #FDF3D7; color: #6B4A00">協商中</span></div>
+<span style="font-size: 16px; color: #62666F">申訴人：陳**（客戶）· 案件 [編號] · 到府 [日期] · 客戶已同意調閱錄影與訊息</span>
+<div style="padding: 10px 14px; border-radius: 10px; background: #E4F0EA; color: #245443; display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 110 18 9 9 0 010-18zM12 7v5l3 2"></path></svg>72 小時回覆期限：[日期] 18:20 · 已在 20 小時內回覆，協商中</div>
+<p style="margin: 0; padding: 12px 14px; border-radius: 12px; background: #F6F3EC; font-size: 16px; line-height: 1.7">「師傅到場後說要多換一個零件，我在平台上按了不同意，但他說不換就不能修，最後收了比報價多 [NT$XXX]。」</p>
+</section>
+<section style="padding: 24px 28px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 900">案件紀錄</h2>
+<sc-for list="{{timeline}}" as="e" hint-placeholder-count="6"><div style="display: grid; grid-template-columns: 120px 1fr auto; gap: 12px; align-items: center; font-size: 16px; padding: 8px 0; border-bottom: 1px solid #ECE7DC"><span style="color: #62666F">{{e.time}}</span><span>{{e.t}}</span><span style="padding: 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: {{e.bg}}; color: {{e.fg}}">{{e.tag}}</span></div></sc-for>
+<div style="display: flex; gap: 10px"><a href="Recording.dc.html" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-family: inherit; font-size: 16px">看視訊錄影</a><a href="Messages.dc.html" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-family: inherit; font-size: 16px">看訊息紀錄</a><a href="TechDiagnosis.dc.html" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-family: inherit; font-size: 16px">看診斷單</a></div>
+</section>
+<section style="padding: 24px 28px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 900">協商</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; font-size: 16px">
+<div style="padding: 10px 12px; border-radius: 10px; background: #F6F3EC"><span style="color: #62666F; font-size: 13px">協商時間</span><br><strong>[日期] 14:00（平台視訊）</strong></div>
+<div style="padding: 10px 12px; border-radius: 10px; background: #E4F0EA; color: #245443"><span style="font-size: 16px">客戶</span><br><strong>已確認出席</strong></div>
+<div style="padding: 10px 12px; border-radius: 10px; background: #FDF3D7; color: #6B4A00"><span style="font-size: 16px">師傅</span><br><strong>尚未回覆 · 剩 [N] 小時</strong></div>
+</div>
+<span style="font-size: 13px; color: #62666F">師傅拒絕或逾期未回覆協商：系統自動暫停接案，直到出席協商。</span>
+</section>
+<section style="padding: 24px 28px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 900">處理結果</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px"><sc-for list="{{actions}}" as="c" hint-placeholder-count="6"><label style="display: flex; align-items: center; gap: 10px; font-size: 16px"><input type="checkbox" style="width: 18px; height: 18px; margin: 0; accent-color: {{denim}}">{{c}}</label></sc-for></div>
+<div style="padding: 14px 16px; border-radius: 12px; border: 1px solid #E2DDD2; display: flex; align-items: flex-end; gap: 16px">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 16px; font-weight: 700">退款金額（依案件決定）<input type="text" value="NT$[XXX]" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400"></label>
+<span style="padding-bottom: 12px; font-size: 16px; color: #4E525C">一律退回客戶原本的信用卡</span>
+</div>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 16px; font-weight: 700">給雙方的說明（會用訊息通知）<textarea rows="2" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; padding: 10px 12px; resize: none; font-weight: 400">[處理說明]</textarea></label>
+<span style="font-size: 13px; color: #62666F">維修費由客戶直接付給師傅，平台不經手；平台只能退還平台收的費用，並依紀錄協助雙方協商。</span>
+<sc-if value="{{open}}" hint-placeholder-val="{{ true }}"><div style="display: flex; justify-content: flex-end; gap: 10px"><button type="button" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-family: inherit; font-size: 16px">儲存草稿</button><button type="button" onClick="{{close}}" style="min-height: 44px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: none; background: {{denim}}; color: #FFFFFF; text-decoration: none; font-family: inherit; font-size: 16px; font-weight: 700">結案並通知雙方</button></div></sc-if>
+<sc-if value="{{closed}}" hint-placeholder-val="{{ false }}"><div style="padding: 14px 16px; border-radius: 12px; background: #E4F0EA; color: #245443; display: flex; align-items: center; justify-content: space-between; gap: 12px"><span style="font-size: 16px; font-weight: 700">已結案，處理說明已用訊息通知雙方</span><button type="button" onClick="{{reopen}}" style="min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #D8D2C4; background: #FFFFFF; color: #23262E; text-decoration: none; font-family: inherit; font-size: 16px">重新開啟</button></div></sc-if>
+</section>
+</div>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":1680}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 1, sel: 0, closed: false }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const on = '2px solid ' + denim; const off = '1px solid #D8D2C4';
+    const tabs = (names, key) => names.map((t, i) => ({ t: t, pressed: i === this.state[key] ? 'true' : 'false', border: i === this.state[key] ? on : off, bg: i === this.state[key] ? '#E4EAF4' : '#FFFFFF', weight: i === this.state[key] ? '700' : '400', pick: () => this.setState({ [key]: i }) }));
+    const g = { bg: '#E4F0EA', fg: '#245443' }; const y = { bg: '#FDF3D7', fg: '#6B4A00' }; const r = { bg: '#F8DCD4', fg: '#8E2E1F' }; const n = { bg: '#EEEAE1', fg: '#4E525C' };
+    const cases = [
+      Object.assign({ t: '收費和報價不符', b: '陳** → 黃師傅 · 到府 · [日期]', tag: '協商中', tagBg: y.bg, tagFg: y.fg, due: '已回覆（20 小時內）', dBg: g.bg, dFg: g.fg }),
+      Object.assign({ t: '言行讓我不舒服', b: '林** → 王師傅 · 到府 · [日期]', tag: '涉及安全', tagBg: r.bg, tagFg: r.fg, due: '剩 6 小時回覆', dBg: r.bg, dFg: r.fg }),
+      Object.assign({ t: '視訊中要求加 LINE', b: '王** → 張師傅 · 視訊 · [日期]', tag: '新申訴', tagBg: n.bg, tagFg: n.fg, due: '剩 52 小時回覆', dBg: y.bg, dFg: y.fg })
+    ];
+    const sel = this.state.sel;
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      open: !this.state.closed, closed: this.state.closed, close: () => this.setState({ closed: true }), reopen: () => this.setState({ closed: false }),
+      tabs: tabs(['新申訴 1', '協商中 2', '已結案'], 'tab'),
+      cases: cases.map((a, i) => Object.assign({}, a, { pressed: i === sel ? 'true' : 'false', bg: i === sel ? '#E4EAF4' : '#FFFFFF', pick: () => this.setState({ sel: i }) })),
+      timeline: [
+        Object.assign({ time: '[日期] 10:02', t: '視訊診斷估價 9 分鐘 · 診斷單：排水管破損，建議到府', tag: '視訊' }, n),
+        Object.assign({ time: '[日期] 10:15', t: '報價 · 出車費 NT$[XXX] ＋ 維修費 NT$[XXX]，客戶同意', tag: '報價' }, g),
+        Object.assign({ time: '[日期] 14:05', t: '核對碼確認，送出最終報價，客戶同意', tag: '到府' }, g),
+        Object.assign({ time: '[日期] 14:30', t: '加價申請 +NT$[XXX]，客戶不同意', tag: '加價' }, r),
+        Object.assign({ time: '[日期] 15:10', t: '師傅標記「已收款」NT$[XXX]，高於同意的金額', tag: '異常' }, r),
+        Object.assign({ time: '[日期] 18:20', t: '客戶提出申訴', tag: '申訴' }, y)
+      ],
+      actions: ['退款給客戶（金額與方式見下方）', '要求師傅退還超收的維修費（協商結果）', '警告師傅', '暫停師傅接案 [N] 天', '停權', '申訴不成立']
+    };
+  }
+}
+</script>
+</body>
+</html>

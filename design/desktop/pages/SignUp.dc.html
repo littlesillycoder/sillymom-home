@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 手機驗證</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1210px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg>
+</span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<a href="RequestGuest.dc.html" style="font-size: 16px; color: #4E525C; text-decoration: none">← 回上一步</a>
+</header>
+
+<div style="padding: 40px 80px 0">
+<ol aria-label="求助步驟" style="margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: 16px; font-size: 16px">
+<li style="display: flex; align-items: center; gap: 10px; color: #245443"><span style="width: 32px; height: 32px; border-radius: 50%; background: #E4F0EA; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span>描述問題</li>
+<li aria-hidden="true" style="width: 48px; height: 2px; background: #D8D2C4"></li>
+<li aria-current="step" style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: {{denim}}"><span style="width: 32px; height: 32px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 15px">2</span>手機驗證</li>
+<li aria-hidden="true" style="width: 48px; height: 2px; background: #D8D2C4"></li>
+<li style="display: flex; align-items: center; gap: 10px; color: #62666F"><span style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #B9B3A6; display: flex; align-items: center; justify-content: center; font-size: 15px">3</span>推薦師傅</li>
+<li aria-hidden="true" style="width: 48px; height: 2px; background: #D8D2C4"></li>
+<li style="display: flex; align-items: center; gap: 10px; color: #62666F"><span style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #B9B3A6; display: flex; align-items: center; justify-content: center; font-size: 15px">4</span>確認與付款</li>
+</ol>
+</div>
+
+<div style="flex-grow: 1; padding: 40px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px; align-items: start">
+<form style="grid-column: span 7; padding: 44px 48px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">驗證你的手機</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #4E525C">為了雙方安全，所有客戶都要先完成手機驗證，師傅才看得到你的求助，視訊也才能錄影存證。</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<label for="phone" style="font-size: 16px; font-weight: 700">手機號碼</label>
+<div style="display: flex; gap: 12px">
+<span style="min-height: 56px; padding: 0 18px; display: flex; align-items: center; border-radius: 14px; border: 1px solid #D8D2C4; background: #F6F3EC; font-size: 16px; color: #4E525C">+886</span>
+<input id="phone" type="tel" value="912 345 678" style="flex-grow: 1; min-height: 56px; box-sizing: border-box; padding: 0 18px; border-radius: 14px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 18px; color: #23262E">
+<button type="button" style="min-height: 56px; padding: 0 22px; border-radius: 14px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-family: inherit; font-size: 16px; font-weight: 700">已傳送</button>
+</div>
+</div>
+
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">輸入簡訊中的 6 位數驗證碼</legend>
+<div style="display: flex; gap: 12px">
+<sc-for list="{{code}}" as="d" hint-placeholder-count="6">
+<input type="text" inputmode="numeric" maxlength="1" aria-label="{{d.label}}" value="{{d.v}}" style="width: 64px; height: 72px; box-sizing: border-box; border-radius: 14px; border: {{d.border}}; background: #FFFFFF; text-align: center; font-family: inherit; font-size: 28px; font-weight: 900; color: #23262E">
+</sc-for>
+</div>
+<span data-resend style="font-size: 16px; color: #62666F"><sc-if value="{{counting}}" hint-placeholder-val="{{ true }}">沒收到？<strong style="font-variant-numeric: tabular-nums">00:42</strong> 後可以重新傳送</sc-if><sc-if value="{{canResend}}" hint-placeholder-val="{{ false }}">沒收到？<a href="#" style="font-weight: 700">重新傳送驗證碼</a></sc-if></span>
+</fieldset>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<label for="nick" style="font-size: 16px; font-weight: 700">師傅要怎麼稱呼你？</label>
+<input id="nick" type="text" value="林小姐" style="min-height: 56px; box-sizing: border-box; padding: 0 18px; border-radius: 14px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 18px; color: #23262E">
+<span style="font-size: 16px; color: #62666F">只會顯示稱呼，不會顯示你的全名或電話</span>
+</div>
+
+<div data-terms style="padding: 16px 18px; border-radius: 14px; border: 1px solid #E2DDD2; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 700; color: #245443"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>條款重點 5 點都已勾選</span>
+<a href="Legal.dc.html" style="font-size: 16px">再看一次條款重點</a>
+</div>
+<label style="display: flex; align-items: flex-start; gap: 12px; font-size: 16px; line-height: 1.7; color: #4E525C">
+<input type="checkbox" checked style="width: 22px; height: 22px; margin: 2px 0 0; accent-color: {{denim}}; flex-shrink: 0">
+<span>我同意 <a href="Legal.dc.html">服務條款</a> 與 <a href="Legal.dc.html">隱私政策</a></span>
+</label>
+<span style="font-size: 14px; color: #62666F; line-height: 1.6">要先打開條款重點、每一點都勾選，才能勾這一格。</span>
+</div>
+
+<a href="Match.dc.html" style="min-height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 18px; font-weight: 700">驗證並查看推薦師傅</a>
+<span style="font-size: 16px; color: #4E525C; text-align: center">已經有帳號？<a href="Match.dc.html">直接登入</a></span>
+</form>
+
+<aside style="grid-column: span 5; display: flex; flex-direction: column; gap: 20px">
+<div style="padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<span style="padding: 4px 10px; border-radius: 6px; background: #E4F0EA; color: #245443; font-size: 16px; font-weight: 700">你的求助已保存</span>
+<a href="RequestGuest.dc.html" style="font-size: 16px">修改</a>
+</div>
+<span style="font-size: 18px; font-weight: 700">冷氣 · 室內機滴水</span>
+<span style="font-size: 16px; line-height: 1.7; color: #4E525C">先視訊看看 · 現在 · 2 個附件</span>
+</div>
+
+<div style="padding: 28px; border-radius: 20px; background: #E4EAF4; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 18px; font-weight: 700; color: #26406E">驗證之後</span>
+<sc-for list="{{after}}" as="p" hint-placeholder-count="3">
+<div style="display: flex; gap: 10px; font-size: 16px; line-height: 1.7; color: #23262E">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 3px"><path d="M5 12l5 5L20 7"></path></svg>
+<span>{{p}}</span>
+</div>
+</sc-for>
+</div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;resend&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;倒數中&quot;,&quot;可以重新傳送&quot;],&quot;default&quot;:&quot;可以重新傳送&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C8412C&quot;,&quot;options&quot;:[&quot;#C8412C&quot;,&quot;#D9573B&quot;,&quot;#B5362A&quot;,&quot;#E0663F&quot;]},&quot;denim&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3A5A94&quot;,&quot;options&quot;:[&quot;#3A5A94&quot;,&quot;#4A6BA8&quot;,&quot;#2F4F86&quot;,&quot;#26406E&quot;]},&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1210}}">
+class Component extends DCLogic {
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const digits = ['3', '8', '1', '', '', ''];
+    const resendOn = (this.props.resend ?? '倒數中') === '可以重新傳送';
+    return {
+      counting: !resendOn, canResend: resendOn,
+      accent: this.props.accent ?? '#C8412C',
+      denim: denim,
+      code: digits.map((v, i) => ({
+        v: v,
+        label: '驗證碼第 ' + (i + 1) + ' 位',
+        border: i === 3 ? '2px solid ' + denim : '1px solid #D8D2C4'
+      })),
+      after: [
+        '馬上看到為你推薦的師傅，也可以指定女師傅',
+        '師傅只看得到你的稱呼和行政區',
+        '沒有先視訊、直接預約到府時，要師傅接受才會成立'
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

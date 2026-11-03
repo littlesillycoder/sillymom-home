@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 錯誤頁</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 800px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E2DDD2">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E"><span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="font-size: 20px; font-weight: 900">傻媽萬事通</span></a>
+<nav style="display: flex; gap: 36px; font-size: 16px"><a href="Services.dc.html" style="color: #23262E; text-decoration: none; padding-bottom: 6px; ">服務項目</a><a href="TechList.dc.html" style="color: #23262E; text-decoration: none; padding-bottom: 6px; ">找師傅</a><a href="SafetyStandards.dc.html" style="color: #23262E; text-decoration: none; padding-bottom: 6px; ">安全機制</a><a href="Main.dc.html#pricing" style="color: #23262E; text-decoration: none; padding-bottom: 6px; ">收費方式</a></nav>
+<div style="display: flex; align-items: center; gap: 12px"><a href="Login.dc.html" style="padding: 12px 20px; color: #23262E; text-decoration: none; font-size: 16px">登入</a><a href="Login.dc.html" style="padding: 12px 24px; background: {{accent}}; color: #FFFFFF; border-radius: 999px; text-decoration: none; font-size: 16px; font-weight: 500">免費註冊</a></div>
+</header>
+<div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 40px 80px">
+<section style="width: 640px; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 48px; display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center">
+<span style="width: 72px; height: 72px; border-radius: 50%; background: {{iconBg}}; color: {{iconFg}}; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900">{{icon}}</span>
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; color: {{denim}}">{{title}}</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #4E525C">{{desc}}</p>
+<div style="display: flex; gap: 12px"><a href="{{href1}}" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">{{cta1}}</a><a href="{{href2}}" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700; text-decoration: none; font-size: 16px; font-family: inherit">{{cta2}}</a></div>
+</section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"kind":{"editor":"enum","options":["找不到頁面","維護中","付款失敗"],"default":"維護中"},"$preview":{"width":1440,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const k = this.props.kind ?? '找不到頁面';
+    const m = {
+      '找不到頁面': { icon: '404', iconBg: '#E4EAF4', iconFg: '#26406E', title: '找不到這個頁面', desc: '網址可能打錯了，或這個頁面已經移除。', cta1: '回首頁', href1: 'Main.dc.html', cta2: '找師傅幫忙', href2: 'RequestGuest.dc.html' },
+      '維護中': { icon: '…', iconBg: '#FDF3D7', iconFg: '#6B4A00', title: '系統維護中', desc: '我們正在更新系統，預計 [時間] 恢復。已預約的視訊和到府不受影響，時間到會照常通知。', cta1: '看客服中心', href1: 'Help.dc.html', cta2: '回首頁', href2: 'Main.dc.html' },
+      '付款失敗': { icon: '!', iconBg: '#F8DCD4', iconFg: '#8E2E1F', title: '付款方式無法使用', desc: '這張卡沒有通過驗證，可能已過期或額度不足。請換一個付款方式，預約才會成立。', cta1: '更換付款方式', href1: 'Checkout.dc.html', cta2: '聯絡客服', href2: 'Help.dc.html' }
+    }[k] || {};
+    return Object.assign({ accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94' }, m);
+  }
+}
+</script>
+</body>
+</html>

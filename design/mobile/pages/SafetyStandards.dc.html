@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 安全機制（手機）</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 手機版共用規則（每個畫板在自己的頁面裡顯示，所以不用加前綴）
+   1. 一般橫排可換行；開頭是圖示或頭像的橫排，圖示和文字固定同一行，第三個以後的元素換到下一行
+   2. 按鈕、標籤、日期這類短文字不斷開；段落裡的連結整段一起換行 */
+*{box-sizing:border-box}
+[style*="display: flex"]:not([style*="flex-direction: column"]){flex-wrap:wrap}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(2){flex:1 1 180px;min-width:0}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(n+3){margin-left:auto}
+header,header *,[data-mbar] *{flex-wrap:nowrap!important}
+button,a[style*="display: flex"],a[style*="display: inline-flex"],[style*="border-radius: 999px"],[style*="border-radius: 6px"],[role="tab"]{white-space:nowrap}
+a:not([style*="display"]){display:inline-block}
+img,video{max-width:100%}
+/* 10-27：不可以左右滑；打勾一律綠色；勾選框旁的文字不跑到下面；按鈕文字置中、15px、不超出 */
+html,body{overflow-x:hidden}
+/* 10-27 第 3 輪：格狀排版不把多出的高度分給每一塊（避免內容中間出現空白）；區塊最後的文字連結靠左；區塊標題統一 18px */
+[style*="display: grid"]{align-content:start}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([style*="align-self"]){align-self:flex-start}
+h2{font-size:18px!important;line-height:1.4}
+/* 不斷行的文字裡面的小段落也不斷行（text-wrap 規則會讓裡面的 span 自己斷行） */
+[style*="white-space: nowrap"] *{white-space:nowrap}
+#dc-root > div,x-dc > div{max-width:100%}
+svg:not([data-keep]):has(> path[d="M5 12l5 5L20 7"]){stroke:#2E7D5B}
+label:has(> input[type="checkbox"]),label:has(> input[type="radio"]){flex-wrap:nowrap!important}
+label > input[type="checkbox"],label > input[type="radio"]{flex-shrink:0}
+:is(a,button)[style*="min-height: 4"][style*="border-radius: 1"],[data-mbar] :is(a,button){justify-content:center;text-align:center;font-size:15px!important;white-space:nowrap;min-width:0;padding-left:10px!important;padding-right:10px!important}
+table{width:100%}
+
+/* 10-28 第 5 輪定案的標準
+   按鈕：大 48px（底部固定、頁面主要動作）／中 44px（卡片裡）／小 36px（列表裡），字一律 15px 粗體
+   輸入框 44px、字 16px（驗證碼 48px、搜尋 40px）；標籤 14px 粗體、上下 2px、左右 10px
+   卡片：開頭或結尾是文字的卡片內距 16px；行距 8px；資料列最後一列下面不留空 */
+:is(a,button)[style*="min-height: 52px"],:is(a,button)[style*="min-height: 56px"]{min-height:48px!important;font-size:15px!important}
+input:not([type="checkbox"]):not([type="radio"]):not([type="search"]),select{min-height:44px!important;height:44px!important;font-size:16px!important}
+input[type="search"]{min-height:40px!important;height:40px!important;font-size:16px!important}
+input[style*="text-align: center"][style*="font-size: 24px"],input[style*="text-align: center"][style*="font-weight: 900"]{min-height:48px!important;height:48px!important;font-size:22px!important}
+span[style*="border-radius: 999px"]:is([style*="padding: 3px 10px"],[style*="padding: 6px 12px"],[style*="padding: 2px 8px"],[style*="padding: 4px 12px"],[style*="padding: 3px 10px 3px 10px"],[style*="padding: 6px 12px 6px 12px"],[style*="padding: 2px 8px 2px 8px"]):not(header *){padding:2px 10px!important;font-size:14px!important;font-weight:700!important}
+[style*="padding: 20px 16px 20px 16px"][style*="border-radius: 2"]:not(section[style*="background: #E4EAF4"]):not([data-keep-pad]){padding:16px!important}
+[style*="border-top: 1px solid #ECE7DC"]:last-child{padding-bottom:0!important}
+span:empty[style*="border-radius: 999px"],b:empty,span:empty[data-avail]{display:none}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([data-back]):not([style*="align-self"]){align-self:flex-end;text-align:right}
+a[data-back]{align-self:flex-start}
+
+/* 10-28 第 6 輪：空的狀態標籤不顯示；巢狀的滿版區塊第一塊上面、最後一塊下面不再多留空 */
+span:empty[style*="max-width: 96px"]{display:none}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):first-child{padding-top:0!important}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):last-child{padding-bottom:0!important}
+
+/* 10-29 第 7 輪：設計稿裡不顯示捲軸（手機的捲軸不佔位置，卡片才會置中） */
+html,body,[data-mscroll]{scrollbar-width:none}
+::-webkit-scrollbar{display:none}
+
+/* 10-28 第 6 輪：卡片上下動態內距 */
+[data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"]{padding-top:11px!important}
+[data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"]{padding-bottom:8px!important}
+[data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"][data-vb="10"]{padding-bottom:10px!important}
+[data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"]{padding-bottom:15px!important}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 390px; height: 2042px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: space-between; background: #F6F3EC; border-bottom: 1px solid #E2DDD2">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="font-size: 18px; font-weight: 900">傻媽萬事通</span></a>
+<span style="display: flex; align-items: center; gap: 8px"><a href="Login.dc.html" style="min-height: 36px; padding: 0 14px 0 14px; border-radius: 999px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 700; display: flex; align-items: center">免費註冊</a><a href="MenuGuest.dc.html" aria-label="選單" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #23262E"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></a></span>
+</header>
+<section style="padding: 20px 16px 20px 16px; display: flex; flex-direction: column; gap: 14px; max-width: 960px"><h1 style="margin: 0; font-size: 24px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">安全機制與審核標準</h1><p style="margin: 0; font-size: 18px; line-height: 1.8; color: #4E525C">我們的安全重點是「讓事情不要發生」：讓陌生人進門前，你已經知道是誰、何時到、要做什麼、多少錢。</p></section>
+<div style="padding: 0 16px 20px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start">
+<div style="grid-column: auto; display: flex; flex-direction: column; gap: 16px">
+<section data-vt="11" data-vb="10" style="padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">師傅審核項目</h2><div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: center; padding: 16px 0 16px 0; border-bottom: 1px solid #ECE7DC"><span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: nowrap"><span style="font-size: 18px; font-weight: 700">身分實名</span><span style=" padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #E4F0EA; color: #245443">必要</span></span><span style="font-size: 16px; line-height: 1.7; color: #4E525C">身分證正反面＋本人手持證件照片，人工比對</span></div><div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: center; padding: 16px 0 16px 0; border-bottom: 1px solid #ECE7DC"><span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: nowrap"><span style="font-size: 18px; font-weight: 700">良民證</span><span style=" padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #EEEAE1; color: #4E525C">選填</span></span><span style="font-size: 16px; line-height: 1.7; color: #4E525C">發證日期一年內；審核時視訊確認正本；簽切結書；有提供才標示，過期移除標章</span></div><div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: center; padding: 16px 0 16px 0; border-bottom: 1px solid #ECE7DC"><span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: nowrap"><span style="font-size: 18px; font-weight: 700">專業證照</span><span style=" padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #EEEAE1; color: #4E525C">選填</span></span><span style="font-size: 16px; line-height: 1.7; color: #4E525C">有證照的師傅另外標示，由平台人工檢視</span></div><div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: center; padding: 16px 0 16px 0; border-bottom: 1px solid #ECE7DC"><span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: nowrap"><span style="font-size: 18px; font-weight: 700">自我介紹影片</span><span style=" padding: 3px 10px 3px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; background: #E4F0EA; color: #245443">必要</span></span><span style="font-size: 16px; line-height: 1.7; color: #4E525C">讓你先看看師傅說話的樣子</span></div><span style="margin-top: 12px; font-size: 13px; color: #62666F">審核是確認文件與身分，不代表平台擔保師傅的每一次服務。服務有問題請使用申訴。</span></section>
+<section data-vt="11" data-vb="15" style="padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">每一次服務都有的機制</h2>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px"><sc-for list="{{mech}}" as="m" hint-placeholder-count="8"><div data-vt="11" data-vb="8" style="padding: 14px 16px 14px 16px; border-radius: 14px; background: #F6F3EC; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; font-weight: 700">{{m.t}}</span><span style="font-size: 16px; line-height: 1.6; color: #4E525C">{{m.b}}</span></div></sc-for></div>
+</section>
+</div>
+<aside style="grid-column: auto; display: flex; flex-direction: column; gap: 16px">
+<div data-vt="11" data-vb="10" style="padding: 20px 16px 20px 16px; border-radius: 20px; background: #E4EAF4; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 18px; font-weight: 700; color: #26406E">平台的責任範圍</span><sc-for list="{{scope}}" as="s" hint-placeholder-count="3"><div style="display: flex; gap: 10px; font-size: 16px; line-height: 1.7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>{{s}}</span></div></sc-for><a href="Legal.dc.html" style="font-size: 16px">看完整條款 →</a></div>
+<div data-vt="11" data-vb="8" style="padding: 20px 16px 20px 16px; border-radius: 20px; background: #F8DCD4; color: #8E2E1F; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 18px; font-weight: 900">平台不提供緊急救援</span><span style="font-size: 16px; line-height: 1.7">遇到危險請直接撥 110；瓦斯外洩、冒煙或觸電請先離開現場，撥 119。</span></div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":390,"height":2042}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      mech: [{ t: '看得到師傅性別', b: '求助或設定裡可以選擇只找女師傅' }, { t: '先視訊，再決定到府', b: '先在鏡頭上見過面、拿到報價' }, { t: '地址延後公開', b: '預約成立前，師傅只看得到行政區' }, { t: '開門前核對碼', b: '雙方手機顯示同一組號碼，對了才開門' }, { t: '行程分享給家人', b: '家人看得到師傅資料和目前進度' }, { t: '平台內訊息', b: '視訊中不交換電話或 LINE，可以直接傳照片' }, { t: '視訊錄影存證', b: '只有雙方看得到（申訴或依法調閱除外）' }, { t: '評價與封鎖', b: '評價延後公開、只顯示部分稱呼；可以封鎖師傅' }],
+      scope: ['平台負責審核、媒合、紀錄與申訴處理', '師傅只付固定的平台服務費，平台不抽維修費的成數', '施工本身由師傅負責；有爭議時平台調閱紀錄、邀請雙方協商', '拒絕協商或違規的師傅會被暫停或停權']
+    };
+  }
+}
+</script>
+</body>
+</html>

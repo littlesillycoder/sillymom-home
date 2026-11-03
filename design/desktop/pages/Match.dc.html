@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 推薦師傅</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1449px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg>
+</span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<div style="display: flex; align-items: center; gap: 24px">
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林小姐</span></a>
+</div>
+</header>
+
+<div style="padding: 40px 80px 0; display: flex; flex-direction: column; gap: 28px">
+<sc-if value="{{guest}}" hint-placeholder-val="{{ true }}">
+<ol aria-label="求助步驟" style="margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: 16px; font-size: 16px">
+<li style="display: flex; align-items: center; gap: 10px; color: #245443"><span style="width: 32px; height: 32px; border-radius: 50%; background: #E4F0EA; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span>描述問題</li>
+<li aria-hidden="true" style="width: 48px; height: 2px; background: #D8D2C4"></li>
+<li style="display: flex; align-items: center; gap: 10px; color: #245443"><span style="width: 32px; height: 32px; border-radius: 50%; background: #E4F0EA; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span>手機驗證</li>
+<li aria-hidden="true" style="width: 48px; height: 2px; background: #D8D2C4"></li>
+<li aria-current="step" style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: {{denim}}"><span style="width: 32px; height: 32px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 15px">3</span>推薦師傅</li>
+<li aria-hidden="true" style="width: 48px; height: 2px; background: #D8D2C4"></li>
+<li style="display: flex; align-items: center; gap: 10px; color: #62666F"><span style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #B9B3A6; display: flex; align-items: center; justify-content: center; font-size: 15px">4</span>確認與付款</li>
+</ol>
+</sc-if>
+<sc-if value="{{member}}" hint-placeholder-val="{{ false }}">
+<ol aria-label="求助步驟" style="margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: 16px; font-size: 16px">
+<li style="display: flex; align-items: center; gap: 10px; color: #245443"><span style="width: 32px; height: 32px; border-radius: 50%; background: #E4F0EA; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span>描述問題</li>
+<li aria-hidden="true" style="width: 64px; height: 2px; background: #D8D2C4"></li>
+<li aria-current="step" style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: {{denim}}"><span style="width: 32px; height: 32px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 15px">2</span>推薦師傅</li>
+<li aria-hidden="true" style="width: 64px; height: 2px; background: #D8D2C4"></li>
+<li style="display: flex; align-items: center; gap: 10px; color: #62666F"><span style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #B9B3A6; display: flex; align-items: center; justify-content: center; font-size: 15px">3</span>確認與付款</li>
+</ol>
+</sc-if>
+
+<div style="padding: 20px 24px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+<div style="display: flex; align-items: center; gap: 16px; font-size: 16px; color: #4E525C">
+<span style="padding: 4px 10px; border-radius: 6px; background: #E4EAF4; color: #26406E; font-size: 16px; font-weight: 700">你的求助</span>
+<span>冷氣 · 室內機滴水 · 先視訊看看 · 現在 · 2 個附件</span>
+</div>
+<a href="Request.dc.html" style="font-size: 16px">修改</a>
+</div>
+
+<div style="display: flex; align-items: flex-start; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">3 位師傅現在可以幫你</h1>
+<p style="margin: 0; font-size: 16px; color: #4E525C">依冷氣專長、在線狀態與回應速度推薦 · 全數通過實名審核，良民證和證照有就標示</p>
+</div>
+<a href="TechList.dc.html" style="font-size: 16px; margin-top: 18px; white-space: nowrap">看全部冷氣師傅 →</a>
+</div>
+</div>
+
+<div style="padding: 28px 80px 0; display: flex; flex-direction: column; gap: 16px">
+<sc-for list="{{techs}}" as="p" hint-placeholder-count="3">
+<div style="padding: 24px 28px; border-radius: 20px; background: #FFFFFF; border: {{p.border}}; display: grid; grid-template-columns: 96px minmax(0, 1fr) 190px 300px; gap: 24px; align-items: center">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div style="position: relative"><div style="width: 80px; height: 80px; border-radius: 50%; background: #E4EAF4; color: #26406E; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 900">{{p.i}}</div></div><span style="display: flex; flex-direction: column; align-items: center; line-height: 1.4; white-space: nowrap"><span style="font-size: 18px; font-weight: 900">[N.N]<span style="font-size: 14px; font-weight: 500; color: #62666F"> / 5</span></span><span style="font-size: 14px; color: #62666F">[N]&nbsp;則評價</span></span></div>
+<div style="min-width: 0; display: flex; flex-direction: column; gap: 10px"><span style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px"><span style="font-size: 22px; font-weight: 900">{{p.n}}</span><span style="padding: 2px 8px; border-radius: 999px; background: {{p.gBg}}; color: {{p.gFg}}; font-size: 14px; font-weight: 700; white-space: nowrap">{{p.g}}</span><span style="padding: 2px 8px; border-radius: 999px; background: #E4EAF4; color: #26406E; font-size: 14px; font-weight: 700; white-space: nowrap">[N]&nbsp;次服務</span><sc-if value="{{p.best}}" hint-placeholder-val="{{ true }}"><span style="padding: 2px 8px; border-radius: 6px; background: #F8DCD4; color: #8E2E1F; font-size: 14px; font-weight: 700; white-space: nowrap">最適合你</span></sc-if></span><span style="display: flex; flex-direction: column; line-height: 1.6"><span style="font-size: 16px; color: #23262E">{{p.s}}</span><span style="font-size: 15px; color: #62666F">{{p.ct}}</span></span><span style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{p.badges}}" as="bd" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 999px; background: #E4F0EA; color: #245443; font-size: 14px; font-weight: 700; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>{{bd}}</span></sc-for></span></div>
+<div style="align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 8px"><span style="align-self: flex-start; padding: 6px 14px; border-radius: 999px; font-size: 16px; font-weight: 700; white-space: nowrap; background: {{p.onBg}}; color: {{p.onFg}}">{{p.status}}</span><span style="font-size: 16px; color: #62666F">{{p.ra}}<strong style="color: #2F4F86">{{p.rn}}</strong>{{p.rb}}</span></div>
+<div style="align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 10px"><span style="font-size: 15px; color: #4E525C; text-align: right; white-space: nowrap">視訊診斷估價 NT$100 · 含 2 次視訊</span><div style="display: flex; gap: 10px; justify-content: flex-end; white-space: nowrap"><a href="Tech.dc.html" style="min-height: 48px; padding: 0 16px; display: flex; align-items: center; border-radius: 12px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700; text-decoration: none; font-size: 16px">看個人頁</a><a href="{{p.href}}" style="min-height: 48px; padding: 0 18px; display: flex; align-items: center; border-radius: 12px; background: {{p.ctaBg}}; color: {{p.ctaFg}}; border: {{p.ctaBorder}}; text-decoration: none; font-size: 16px; font-weight: 700">{{p.cta}}</a></div></div>
+</div>
+</sc-for>
+</div>
+
+<div style="margin: 24px 80px 64px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 18px; font-weight: 700; color: #26406E">沒有看到適合的師傅？還有兩個方法</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+<div style="padding: 24px 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 18px; font-weight: 700; color: #23262E">1. 公開求助</span>
+<span style="font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left">把求助公開給所有冷氣師傅，有空的師傅會主動回覆，你再決定要選誰。</span>
+</div>
+<a href="OpenRequest.dc.html" style="flex-shrink: 0; min-height: 50px; padding: 0 22px; display: flex; align-items: center; border-radius: 12px; text-decoration: none; font-size: 16px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700">公開我的求助</a>
+</div>
+<div style="padding: 24px 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 18px; font-weight: 700; color: #23262E">2. 看全部師傅，自己選</span>
+<span style="font-size: 16px; line-height: 1.7; color: #4E525C; text-align: left">依地區、性別、評分和證照篩選，看個人頁和評價再決定。</span>
+</div>
+<a href="TechList.dc.html" style="flex-shrink: 0; min-height: 50px; padding: 0 22px; display: flex; align-items: center; border-radius: 12px; text-decoration: none; font-size: 16px; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700">看全部師傅</a>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"flow":{"editor":"enum","options":["未登入","已登入"],"default":"未登入"},"$preview":{"width":1440,"height":1449}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accent ?? '#C8412C';
+    const denim = this.props.denim ?? '#3A5A94';
+    const online = { onBg: '#E4F0EA', onFg: '#245443' };
+    const later = { onBg: '#E4EAF4', onFg: '#26406E' };
+    const busy = { onBg: '#FDF3D7', onFg: '#6B4A00' };
+    const queue = { ctaBg: '#FFFFFF', ctaFg: accent, ctaBorder: '1.5px solid ' + accent, href: 'VideoWait.dc.html' };
+    const primary = { ctaBg: accent, ctaFg: '#FFFFFF', ctaBorder: 'none', href: 'Checkout.dc.html' };
+    const secondary = { ctaBg: '#FFFFFF', ctaFg: accent, ctaBorder: '1.5px solid ' + accent, href: 'Tech.dc.html' };
+    const fem = { g: '女師傅', gBg: '#9C3D6B', gFg: '#FFFFFF' };
+    const male = { g: '男師傅', gBg: '#3A5A94', gFg: '#FFFFFF' };
+    const guest = (this.props.flow ?? '未登入') === '未登入';
+    return {
+      accent: accent,
+      denim: denim,
+      guest: guest,
+      member: !guest,
+      techs: ([
+        Object.assign({ i: '林', n: '林師傅', s: '冷氣安裝、保養、漏水排除', ct: '冷凍空調技術士 [N] 年 · 另有 [N] 張證照', cert: '冷凍空調技術士', badges: ['身分驗證', '良民證', '證照'], status: '在線中', resp: '平均 2 分鐘回應', best: true, border: '2px solid ' + denim, cta: '立即視訊' }, online, primary, fem),
+        Object.assign({ i: '陳', n: '陳師傅', s: '水電、冷氣排水管、熱水器', ct: '冷凍空調技術士 [N] 年 · 另有 [N] 張證照', cert: '冷凍空調技術士', badges: ['身分驗證', '證照'], status: '在線中', resp: '平均 5 分鐘回應', best: false, border: '1px solid #E2DDD2', cta: '立即視訊' }, online, primary, fem),
+        Object.assign({ i: '周', n: '周師傅', s: '冷氣清洗、保養', ct: '冷凍空調技術士 [N] 年 · 另有 [N] 張證照', cert: '冷凍空調技術士', badges: ['身分驗證', '良民證'], status: '視訊中', resp: '約 [N] 分鐘後有空', best: false, border: '1px solid #E2DDD2', cta: '結束後通知我' }, busy, queue, fem),
+        Object.assign({ i: '王', n: '王師傅', s: '冷氣、家電維修', ct: '冷凍空調技術士 [N] 年 · 另有 [N] 張證照', cert: '冷凍空調技術士', badges: ['身分驗證', '良民證', '證照'], status: '可視訊：20:00 後', resp: '平均 10 分鐘回應', best: false, border: '1px solid #E2DDD2', cta: '預約視訊' }, later, secondary, male)
+      ]).map((t) => { const r = ((x) => { const k = String(x || '').split('[N]'); return k.length > 1 ? { a: k[0], n: '[N]', b: k.slice(1).join('[N]') } : { a: x || '', n: '', b: '' }; })(t.resp); return Object.assign({ ra: r.a, rn: r.n, rb: r.b }, t); })
+    };
+  }
+}
+</script>
+</body>
+</html>

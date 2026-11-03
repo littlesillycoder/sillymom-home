@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 了解到府流程</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1418px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<div style="display: flex; align-items: center; gap: 12px">
+<a href="Main.dc.html" style="padding: 12px 16px; font-size: 16px; color: #4E525C; text-decoration: none">回首頁</a>
+<a href="Login.dc.html" style="padding: 12px 20px; font-size: 16px; color: #23262E; text-decoration: none">登入</a>
+<a href="Login.dc.html" style="padding: 12px 24px; border-radius: 999px; border: 1.5px solid {{denim}}; color: {{denim}}; text-decoration: none; font-size: 16px; font-weight: 500">免費註冊</a>
+</div>
+</header>
+<section style="padding: 48px 80px 32px; display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center">
+<h1 style="margin: 0; font-size: 48px; font-weight: 900; letter-spacing: 0.02em; line-height: 1.3; color: {{denim}}">讓人進門前，<br>你已經知道是誰、何時到</h1>
+<p style="margin: 0; max-width: 720px; font-size: 18px; line-height: 1.8; color: #4E525C">建議先視訊診斷估價，認識師傅、拿到準確報價，再決定要不要請師傅到府。</p>
+</section>
+<div style="margin: 0 80px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px"><div style="padding: 26px 28px; border-radius: 20px; background: #FFFFFF; display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 20px; row-gap: 14px; align-items: center; align-content: start">
+<span style="width: 56px; height: 56px; border-radius: 14px; background: #E4F0EA; color: #245443; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h12v12H3zM15 10l6-3v10l-6-3z"></path></svg></span>
+<span style="font-size: 24px; font-weight: 900; line-height: 1.3">先視訊，或等師傅接受</span>
+<span style="align-self: start; justify-self: center; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; line-height: 1; color: {{accent}}">01</span>
+<span style="align-self: start; font-size: 16px; line-height: 1.8; color: #4E525C; text-align: left; margin-top: -2px">建議先視訊；沒視訊、直接預約到府，要等師傅接受才成立，師傅也可能請你先視訊。師傅都已通過平台審核。</span>
+</div><div style="padding: 26px 28px; border-radius: 20px; background: #FFFFFF; display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 20px; row-gap: 14px; align-items: center; align-content: start">
+<span style="width: 56px; height: 56px; border-radius: 14px; background: #E4F0EA; color: #245443; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 7.5a2.5 2.5 0 110 5 2.5 2.5 0 010-5"></path></svg></span>
+<span style="font-size: 24px; font-weight: 900; line-height: 1.3">出發通知與行程分享</span>
+<span style="align-self: start; justify-self: center; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; line-height: 1; color: {{accent}}">02</span>
+<span style="align-self: start; font-size: 16px; line-height: 1.8; color: #4E525C; text-align: left; margin-top: -2px">師傅出發時你會收到通知和照片，行程自動分享給你的緊急聯絡人。</span>
+</div><div style="padding: 26px 28px; border-radius: 20px; background: #FFFFFF; display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 20px; row-gap: 14px; align-items: center; align-content: start">
+<span style="width: 56px; height: 56px; border-radius: 14px; background: #E4F0EA; color: #245443; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11h14v10H5zM8 11V8a4 4 0 018 0v3"></path></svg></span>
+<span style="font-size: 24px; font-weight: 900; line-height: 1.3">門口核對碼</span>
+<span style="align-self: start; justify-self: center; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; line-height: 1; color: {{accent}}">03</span>
+<span style="align-self: start; font-size: 16px; line-height: 1.8; color: #4E525C; text-align: left; margin-top: -2px">抵達時雙方手機顯示同一組 4 位數號碼，請師傅念出，對了再開門。</span>
+</div><div style="padding: 26px 28px; border-radius: 20px; background: #FFFFFF; display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 20px; row-gap: 14px; align-items: center; align-content: start">
+<span style="width: 56px; height: 56px; border-radius: 14px; background: #E4F0EA; color: #245443; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12h6M9 16h6M6 3h9l4 4v14H6zM14 3v5h5"></path></svg></span>
+<span style="font-size: 24px; font-weight: 900; line-height: 1.3">照線上報價施工</span>
+<span style="align-self: start; justify-self: center; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; line-height: 1; color: {{accent}}">04</span>
+<span style="align-self: start; font-size: 16px; line-height: 1.8; color: #4E525C; text-align: left; margin-top: -2px">師傅照視訊時給你的報價施工。出車費是固定金額，現場決定不修只付出車費。</span>
+</div><div style="padding: 26px 28px; border-radius: 20px; background: #FFFFFF; display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 20px; row-gap: 14px; align-items: center; align-content: start">
+<span style="width: 56px; height: 56px; border-radius: 14px; background: #E4F0EA; color: #245443; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 110 18 9 9 0 010-18zM8 12l3 3 5-6"></path></svg></span>
+<span style="font-size: 24px; font-weight: 900; line-height: 1.3">加價要你同意</span>
+<span style="align-self: start; justify-self: center; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; line-height: 1; color: {{accent}}">05</span>
+<span style="align-self: start; font-size: 16px; line-height: 1.8; color: #4E525C; text-align: left; margin-top: -2px">現場要加價，師傅必須在平台上提出；你不同意，就照原本的報價。</span>
+</div><div style="padding: 26px 28px; border-radius: 20px; background: #FFFFFF; display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 20px; row-gap: 14px; align-items: center; align-content: start">
+<span style="width: 56px; height: 56px; border-radius: 14px; background: #E4F0EA; color: #245443; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3zM3 10h18M7 15h4"></path></svg></span>
+<span style="font-size: 24px; font-weight: 900; line-height: 1.3">付款與評價</span>
+<span style="align-self: start; justify-self: center; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; line-height: 1; color: {{accent}}">06</span>
+<span style="align-self: start; font-size: 16px; line-height: 1.8; color: #4E525C; text-align: left; margin-top: -2px">維修費直接付給師傅，在平台上按「我已付款」留下紀錄並評價。</span>
+</div></div>
+<section style="margin: 40px 80px 0; padding: 32px 36px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">費用</h2>
+<sc-for list="{{fees}}" as="f" hint-placeholder-count="3"><div style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>{{f}}</span></div></sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: {{denim}}">遇到狀況</h2>
+<sc-for list="{{sos}}" as="f" hint-placeholder-count="3"><div style="display: flex; gap: 8px; font-size: 16px; line-height: 1.6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>{{f}}</span></div></sc-for>
+</div>
+</section>
+<div style="padding: 40px 80px 64px; display: flex; gap: 14px; justify-content: center">
+<a href="RequestGuest.dc.html" style="min-height: 52px; padding: 0 24px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; border: none; font-family: inherit">找師傅幫忙</a>
+<a href="Help.dc.html" style="min-height: 52px; padding: 0 22px; display: flex; align-items: center; justify-content: center; border-radius: 12px; text-decoration: none; font-size: 16px; font-family: inherit; border: 1.5px solid {{denim}}; background: #FFFFFF; color: {{denim}}; font-weight: 700">看常見問題</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":1418}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      fees: ['出車費由師傅自訂（上限 NT$500），預約前就看得到', '先視訊再到府：不另收平台費', '直接預約到府：平台費（直接預約到府）NT$100，核對碼確認後才扣款', '急件（「12 小時內」到府）：另加平台費（急件）NT$100；預約成立「1 小時內」可以免費取消', '到府「前 12 小時內」取消：逾時費（臨時取消）NT$100', '到府「前 12 小時內」改期：逾時費（臨時改期）NT$50', '師傅到場等 15 分鐘沒人開門：逾時費（沒人開門）NT$100', '維修費由師傅報價，照線上報價施工，完成後直接付給師傅'],
+      sos: ['核對碼不對：不要開門，按「號碼不對」，可以免費取消並回報平台', '覺得不安：「把師傅資料傳給緊急聯絡人」會把師傅資料和目前進度傳給你的緊急聯絡人', '平台不提供緊急救援，遇到危險請直接撥 110 或 119']
+    };
+  }
+}
+</script>
+</body>
+</html>

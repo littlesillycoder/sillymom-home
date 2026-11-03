@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 維修紀錄</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 989px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<div style="display: flex; align-items: center; gap: 56px">
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<nav style="display: flex; gap: 36px; font-size: 18px"><a href="Dashboard.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">首頁</a><a href="TechList.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">找師傅</a><a href="Records.dc.html" aria-current="page" style="color: #23262E; text-decoration: none; font-weight: 700; padding-bottom: 6px; border-bottom: 3px solid {{accent}}">維修紀錄</a><a href="Safety.dc.html" style="color: #4E525C; text-decoration: none; padding-bottom: 6px">我的家</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 16px"><a href="Notifications.dc.html" aria-label="通知" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0"></path></svg><span style="position: absolute; top: 8px; right: 9px; width: 9px; height: 9px; border-radius: 50%; background: #C8412C"></span></a>
+
+<a href="Messages.dc.html" aria-label="訊息" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; color: #23262E; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg></a>
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700">林</span><span style="font-size: 16px; font-weight: 500">林小姐</span></a>
+</div>
+</header>
+<div style="padding: 40px 80px 0; display: flex; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">維修紀錄</h1><p style="margin: 0; font-size: 18px; color: #4E525C">每一次的問題、處理方式、錄影和費用都留在這裡。</p></div>
+<div style="display: flex; gap: 8px"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: {{t.border}}; background: {{t.bg}}; color: #23262E; font-family: inherit; font-size: 16px; font-weight: {{t.weight}}">{{t.t}}</button></sc-for></div>
+</div>
+<div style="flex-grow: 1; padding: 28px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: start">
+<div style="grid-column: span 5; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{records}}" as="r" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{r.pressed}}" onClick="{{r.pick}}" style="padding: 18px 20px; border-radius: 16px; border: {{r.border}}; background: #FFFFFF; font-family: inherit; color: #23262E; text-align: left; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 12px"><span style="font-size: 18px; font-weight: 700">{{r.t}}</span><span style="padding: 3px 10px; border-radius: 999px; background: {{r.tagBg}}; color: {{r.tagFg}}; font-size: 14px; font-weight: 700">{{r.kind}}</span></span>
+<span style="font-size: 16px; color: #62666F">{{r.b}}</span>
+</button>
+</sc-for>
+</div>
+<section style="grid-column: span 7; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 16px; color: #62666F">{{cur.date}} · {{cur.kind}}</span><h2 style="margin: 0; font-size: 24px; font-weight: 900; color: {{denim}}">{{cur.t}}</h2></div>
+<a href="Tech.dc.html" style="flex-shrink: 0; min-height: 44px; padding: 0 16px; display: flex; align-items: center; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700">再找{{cur.tech}}</a>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; background: #F6F3EC">
+<span style="width: 44px; height: 44px; border-radius: 50%; background: #E4EAF4; color: #26406E; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900">{{cur.i}}</span>
+<span style="display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 700">{{cur.tech}}</span><span style="font-size: 13px; color: #62666F">已通過平台審核</span></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="align-self: flex-start; padding: 4px 10px; border-radius: 6px; background: #E4EAF4; color: #26406E; font-size: 16px; font-weight: 700">師傅的診斷單</span>
+<sc-for list="{{cur.summary}}" as="s" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; padding-bottom: 10px; border-bottom: 1px solid #ECE7DC"><span style="font-size: 16px; font-weight: 700; color: #4E525C">{{s.k}}</span><span style="grid-column: span 5; font-size: 16px; line-height: 1.7">{{s.v}}</span></div>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<div style="padding: 16px; border-radius: 14px; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 16px; font-weight: 700">視訊錄影</span><span style="font-size: 16px; color: #4E525C">保存到 [日期]</span><span style="display: flex; gap: 12px; font-size: 16px"><a href="Recording.dc.html">播放</a><a href="Recording.dc.html">診斷單</a><a href="Recording.dc.html">刪除</a></span></div>
+<div style="padding: 16px; border-radius: 14px; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 16px; font-weight: 700">費用</span><sc-for list="{{cur.fees}}" as="x" hint-placeholder-count="3"><span style="display: flex; justify-content: space-between; gap: 10px; font-size: 16px; color: #4E525C"><span>{{x.k}}</span><span style="font-weight: 700; color: #23262E">{{x.v}}</span></span></sc-for><a href="Recording.dc.html" style="align-self: flex-end; font-size: 16px">電子發票</a></div>
+</div>
+<div style="padding: 14px 16px; border-radius: 14px; background: #E4F0EA; color: #245443; font-size: 16px; line-height: 1.7; display: flex; justify-content: space-between; align-items: center; gap: 16px"><span>保養提醒：建議 [N] 個月後清洗濾網，到時候會通知你。</span><a href="Account.dc.html" style="flex-shrink: 0; color: #245443; font-weight: 700">修改提醒</a></div>
+<div style="display: flex; justify-content: flex-end; gap: 10px"><a href="Report.dc.html" style="min-height: 44px; padding: 0 18px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #EEEAE1; color: #23262E; text-decoration: none; font-size: 16px; font-weight: 700">回報給平台</a><a href="Favorites.dc.html" style="min-height: 44px; padding: 0 18px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #EEEAE1; color: #23262E; text-decoration: none; font-size: 16px; font-weight: 700">封鎖這位師傅</a></div>
+</section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"$preview":{"width":1440,"height":989}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 0, sel: 0 }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const on = '2px solid ' + denim; const off = '1px solid #D8D2C4';
+    const tabs = (names, key) => names.map((t, i) => ({ t: t, pressed: i === this.state[key] ? 'true' : 'false', border: i === this.state[key] ? on : off, bg: i === this.state[key] ? '#E4EAF4' : '#FFFFFF', weight: i === this.state[key] ? '700' : '400', pick: () => this.setState({ [key]: i }) }));
+    const all = [
+      { t: '冷氣室內機滴水', kind: '視訊診斷估價', tech: '林師傅', i: '林', date: '[日期]', b: '[日期] · 林師傅 · 視訊 [N] 分鐘', fees: [{ k: '平台費（求助）', v: 'NT$100' }], summary: [{ k: '原因', v: '排水口附近積灰，造成排水不順。' }, { k: '建議', v: '依說明書清洗濾網即可。' }, { k: '保固與提醒', v: '若清洗後仍滴水，可能是排水管破損，再預約到府。' }] },
+      { t: '洗衣機排水異常', kind: '視訊診斷估價＋到府維修', tech: '黃師傅', i: '黃', date: '[日期]', b: '[日期] · 黃師傅 · 到府', fees: [{ k: '平台費（求助）', v: 'NT$100' }, { k: '出車費（付給師傅）', v: '[NT$XXX]' }, { k: '維修費（付給師傅）', v: '[NT$XXX]' }], summary: [{ k: '原因', v: '排水馬達卡異物。' }, { k: '處理', v: '到府拆下馬達清除異物，測試正常。' }, { k: '保固與提醒', v: '黃師傅提供保固 [N] 天。' }] },
+      { t: '浴室水龍頭滴水', kind: '視訊診斷估價', tech: '陳師傅', i: '陳', date: '[日期]', b: '[日期] · 陳師傅 · 視訊 [N] 分鐘', fees: [{ k: '平台費（求助）', v: 'NT$100' }], summary: [{ k: '原因', v: '水龍頭內墊片老化。' }, { k: '建議', v: '建議到府更換墊片，報價 [NT$XXX]。' }, { k: '保固與提醒', v: '你決定暫時不預約。' }] },
+      { t: '客廳燈具更換', kind: '直接預約到府', tech: '張師傅', i: '張', date: '[日期]', b: '[日期] · 張師傅 · 到府', fees: [{ k: '平台費（直接預約到府）', v: 'NT$100' }, { k: '逾時費（臨時改期）', v: 'NT$50' }, { k: '出車費（付給師傅）', v: '[NT$XXX]' }, { k: '維修費（付給師傅）', v: '[NT$XXX]' }], summary: [{ k: '原因', v: '舊燈具故障。' }, { k: '處理', v: '更換新燈具並檢查線路。' }, { k: '保固與提醒', v: '張師傅提供保固 [N] 天。' }] }
+    ];
+    const list = this.state.tab === 1 ? all.filter((r) => r.kind.indexOf('視訊') >= 0) : this.state.tab === 2 ? all.filter((r) => r.kind.indexOf('到府') >= 0) : all;
+    const sel = Math.min(this.state.sel, list.length - 1);
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      tabs: tabs(['全部', '視訊', '到府'], 'tab'),
+      records: list.map((r, i) => Object.assign({}, r, { pressed: i === sel ? 'true' : 'false', border: i === sel ? on : '1px solid #E2DDD2', tagBg: r.kind.indexOf('到府') >= 0 ? '#F8DCD4' : '#E4F0EA', tagFg: r.kind.indexOf('到府') >= 0 ? '#8E2E1F' : '#245443', pick: () => this.setState({ sel: i }) })),
+      cur: list[sel]
+    };
+  }
+}
+</script>
+</body>
+</html>

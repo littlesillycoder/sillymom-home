@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 客戶條款規則</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 10-31：電腦版夠寬，詞不從中間斷開（在標點、空白處換行）；「·」跟著前面的字 */
+body{word-break:keep-all;overflow-wrap:break-word}
+p{word-break:normal}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 988px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 84px; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #23262E">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 20px; font-weight: 900">傻媽萬事通</span>
+</a>
+<div style="display: flex; align-items: center; gap: 12px">
+<a href="Main.dc.html" style="padding: 12px 16px; font-size: 16px; color: #4E525C; text-decoration: none">回首頁</a>
+<a href="Login.dc.html" style="padding: 12px 20px; font-size: 16px; color: #23262E; text-decoration: none">登入</a>
+<a href="Login.dc.html" style="padding: 12px 24px; border-radius: 999px; border: 1.5px solid {{denim}}; color: {{denim}}; text-decoration: none; font-size: 16px; font-weight: 500">免費註冊</a>
+</div>
+</header>
+<div style="padding: 40px 80px 0; display: flex; flex-direction: column; gap: 8px"><h1 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">客戶條款規則</h1><p style="margin: 0; font-size: 18px; color: #4E525C">最後更新：[日期]。正式內容上線前請由律師審閱。</p></div>
+<div style="flex-grow: 1; padding: 28px 80px 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: start">
+<nav aria-label="條款分類" style="grid-column: span 3; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{docs}}" as="d" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{d.pressed}}" onClick="{{d.pick}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: none; background: {{d.bg}}; color: #23262E; font-family: inherit; font-size: 16px; font-weight: {{d.weight}}; text-align: left">{{d.t}}</button>
+</sc-for>
+</nav>
+<article style="grid-column: span 9; padding: 28px 32px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; padding: 36px 44px; display: flex; flex-direction: column; gap: 22px">
+<h2 style="margin: 0; font-size: 24px; font-weight: 900; color: {{denim}}">{{cur.t}}</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.9; color: #4E525C">{{cur.lead}}</p>
+<sc-if value="{{hasSub}}" hint-placeholder-val="{{ true }}"><div role="tablist" aria-label="扣款與取消規則分類" style="display: flex; gap: 8px; flex-wrap: wrap"><sc-for list="{{subs}}" as="t" hint-placeholder-count="4"><button type="button" role="tab" aria-selected="{{t.pressed}}" onClick="{{t.pick}}" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: {{t.border}}; background: {{t.bg}}; color: #23262E; font-family: inherit; font-size: 16px; font-weight: {{t.weight}}">{{t.t}}</button></sc-for></div></sc-if>
+<sc-for list="{{cur.secs}}" as="s" hint-placeholder-count="4">
+<section style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 1px solid #ECE7DC">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700">{{s.h}}</h3>
+<sc-for list="{{s.items}}" as="i" hint-placeholder-count="3">
+<div style="display: flex; gap: 10px; font-size: 16px; line-height: 1.8"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#245443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px"><path d="M5 12l5 5L20 7"></path></svg><span>{{i.pre}}<sc-if value="{{i.has}}" hint-placeholder-val="{{ false }}"><a href="{{i.href}}">{{i.link}}</a></sc-if>{{i.post}}</span></div>
+</sc-for>
+</section>
+</sc-for>
+<div style="padding: 14px 18px; border-radius: 14px; background: #E4EAF4; color: #26406E; font-size: 16px; line-height: 1.7">還有疑問？到 <a href="Help.dc.html">客服中心</a> 找答案，或直接傳訊息給客服。</div>
+</article>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C8412C","options":["#C8412C","#D9573B","#B5362A","#E0663F"]},"denim":{"editor":"color","default":"#3A5A94","options":["#3A5A94","#4A6BA8","#2F4F86","#26406E"]},"tab":{"editor":"enum","options":["扣款與取消規則","服務條款","隱私政策","錄影與資料保存"],"default":"扣款與取消規則"},"$preview":{"width":1440,"height":988}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { doc: null, sub: 0 }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const L = (s) => { const m = String(s).match(/^(.*?)\[\[(.+?)\|(.+?)\]\](.*)$/); return m ? { pre: m[1], has: true, link: m[2], href: m[3] + '.dc.html', post: m[4] } : { pre: s, has: false, link: '', href: '#', post: '' }; };
+    const names = ['扣款與取消規則', '服務條款', '隱私政策', '錄影與資料保存'];
+    const SUBS = { 0: [['收費總覽', [0]], ['視訊診斷', [1, 2]], ['到府維修', [3, 4]], ['退款補償', [5]]], 1: [['平台的角色與責任', [0, 3]], ['會員義務', [1]], ['師傅義務與身分', [2, 4]], ['評價與爭議', [5, 6]]] };
+    const SUB = SUBS[0];
+    const fromProp = names.indexOf(this.props.tab ?? '扣款與取消規則');
+    const sel = this.state.doc === null ? (fromProp < 0 ? 0 : fromProp) : this.state.doc;
+    const all = [
+      { t: '扣款與取消規則', lead: '平台只收平台費；出車費和維修費由師傅報價，直接付給師傅。付款只收信用卡，退款一律退回原信用卡。', secs: [
+        { h: '收費總覽', items: ['平台費（求助）NT$100：含 2 次視訊診斷估價，第 1 次視訊後「24 小時」內有效', '平台費（直接預約到府）NT$100：沒有先視訊，核對碼確認後才扣款', '平台費（急件）NT$100：「12 小時內」到府，核對碼確認時扣款', '逾時費（臨時取消）NT$100：到府「前 12 小時內」取消；急件在預約成立「1 小時後」取消', '逾時費（臨時改期）NT$50：到府「前 12 小時內」改期', '逾時費（沒人開門）NT$100：師傅到場等「15 分鐘」沒人開門', '出車費（師傅自訂，上限 NT$500）和維修費（含材料）：直接付給師傅', '平台費由平台開立電子發票，可以填統一編號或載具；出車費和維修費的發票或收據請向師傅索取'] },
+        { h: '視訊診斷估價', items: ['視訊只做診斷與報價。師傅可能提醒說明書上的一般操作，但不會指導你拆裝或碰觸電線、瓦斯', '預約前先綁定信用卡，綁定時不扣款', '雙方都上線後才開始計時，每次「10 分鐘」，剩「2 分鐘」時提醒', '視訊滿「3 分鐘」才算一次；不滿「3 分鐘」結束，不收費也不算次數', '第 2 次可以找同一位師傅，也可以換一位師傅', '第 2 次視訊到期前「2 小時」，會用 LINE 或簡訊提醒你', '扣款時間：第 2 次視訊結束、你選擇「不用了」，或第 1 次視訊後滿「24 小時」，以先到者為準'] },
+        { h: '視訊的取消與遲到', items: ['預約前「2 小時」以上取消或改期，不收費', '你在「2 小時」內取消，或遲到超過「5 分鐘」：這次視訊取消，扣平台費（求助）NT$100，第 2 次視訊仍可使用', '師傅在「2 小時」內取消，或遲到超過「5 分鐘」：你不用付費，這次不算次數，有效期限延長「24 小時」', '師傅視訊後「30 分鐘」內沒送出報價：這次不算次數，你可以直接找其他師傅'] },
+        { h: '到府維修', items: ['先視訊再預約到府，不另收平台費', '直接預約到府要師傅接受才成立，師傅也可以請你先視訊', '急件：師傅會在「30 分鐘」內回覆，沒回覆就自動取消、不收費；師傅接受後，保證「12 小時內」到府', '師傅要照線上報價施工；報價單分成出車費與維修費，並寫明預計維修所需時間和保固天數', '預約後，預計維修所需時間會一起保留在師傅的排班', '現場要加價，必須在平台上取得你的同意；你不同意，就照原本的報價', '保固天數由師傅在報價單上提供，平台負責記錄'] },
+        { h: '到府的取消、遲到與沒人開門', items: ['到府「前 12 小時以上」取消或改期，不收費', '到府「前 12 小時內」取消，收逾時費（臨時取消）NT$100；改期，收逾時費（臨時改期）NT$50', '急件：預約成立「1 小時內」取消，不收費；預約成立「1 小時後」取消，收逾時費（臨時取消）NT$100', '師傅到場、等候「15 分鐘」沒人開門（師傅需打卡定位並拍門牌照片），收逾時費（沒人開門）NT$100', '現場決定不修，只付出車費', '師傅在到府「前 2 小時以上」事先通知會晚到，你也確認同意新的時間：出車費和維修費照報價付', '師傅沒事先通知、晚到「超過 30 分鐘」，你決定取消：出車費、維修費都不用付', '師傅沒事先通知、晚到「超過 30 分鐘」，你決定繼續等：出車費減半，平台會自動從應付金額扣除', '核對碼不一致：請不要開門，案件暫停，你可以免費取消，平台會調查', '先視訊再到府的平台費（求助），不會因為到府取消而退還；申訴成立時例外'] },
+        { h: '退款與補償', items: ['退款一律退回原本的信用卡', '申訴成立，平台會依案件情況退還費用', '天災等不可抗力造成無法到府，雙方都不收費', '開始前「24 小時」，以及免費取消期限前，會用 LINE 或簡訊提醒你'] }
+      ] },
+      { t: '服務條款', lead: '[服務條款前言：說明傻媽萬事通是媒合平台，維修服務由師傅提供。]', secs: [
+        { h: '平台的角色', items: ['[平台提供媒合、視訊、預約與安全機制]', '[維修服務契約存在於客戶與師傅之間]'] },
+        { h: '會員義務', items: ['[需以本人手機號碼註冊，一支手機一個帳號；違規紀錄會保留]', '[平台外的私下交易，不在錄影、評價與申訴的保障範圍內]', '[視訊中不得交換 LINE 或電話；視訊中要求交換屬違規，第一次警告、再犯停權]'] },
+        { h: '師傅義務', items: ['[維持證照有效；良民證為選填，發證一年內有效，逾期移除標章]', '[簽署切結書，聲明所附文件真實]', '[出車費自訂，上限 NT$500；保固天數由師傅在報價單上自行提供並負責]', '[發現瓦斯、電線等危險時，先請客戶斷電斷氣並撥打 119]'] },
+        { h: '平台的責任範圍', items: ['[平台不承擔施工本身的責任，但提供申訴、協商與停權機制]', '[拒絕出席協商的師傅，平台會暫停其接案]', '[平台不提供緊急救援服務，遇到危險請直接撥打 110 或 119]'] },
+        { h: '師傅的身分', items: ['[師傅為獨立接案者，自行決定接案時間與報價]'] },
+        { h: '評價', items: ['[評價在雙方都評價後或「7 天」後公開，只顯示部分稱呼]', '[師傅不能刪除評價，平台只移除違反規範的內容]'] },
+        { h: '爭議處理', items: ['[雙方可透過「[[回報與申訴|Report]]」提出，平台調閱報價紀錄與錄影後邀請雙方協商]'] }
+      ] },
+      { t: '隱私政策', lead: '[隱私政策前言：說明蒐集哪些資料、用途與保存期間。]', secs: [
+        { h: '我們蒐集的資料', items: ['[手機號碼、稱呼、付款方式（由金流服務商保存卡號）]', '[照片和影片只用於這次維修和你的維修紀錄]', '[到府時的地址，只在預約成立後提供給該位師傅]'] },
+        { h: '誰看得到', items: ['[師傅只看得到行政區，預約成立後才看到完整地址]', '[緊急聯絡人只在到府期間看得到行程]'] },
+        { h: '你的權利', items: ['[隨時查詢、更正或刪除你的資料]'] }
+      ] },
+      { t: '錄影與資料保存', lead: '視訊全程錄影，是為了雙方的安全，以及有爭議時可以調閱。', secs: [
+        { h: '誰看得到錄影', items: ['只有你和這次的師傅看得到（申訴調閱或依法要求時除外）', '視訊開始前，雙方都要同意錄影', '有申訴時，平台客服經你同意後調閱'] },
+        { h: '保存多久', items: ['錄影保存 [N] 天後自動刪除', '你可以隨時在「[[維修紀錄|Records]]」裡提早刪除', '有申訴進行中的錄影，會保留到申訴結束'] },
+        { h: '診斷單', items: ['診斷內容由師傅填寫，存在你的維修紀錄', '錄影不會交給 AI 或其他第三方分析'] }
+      ] }
+    ];
+    return {
+      accent: this.props.accent ?? '#C8412C', denim: this.props.denim ?? '#3A5A94',
+      docs: names.map((t, i) => ({ t: ['扣款取消', '服務條款', '隱私政策', '錄影資料'][i], pressed: i === sel ? 'true' : 'false', bg: i === sel ? '#E4EAF4' : '#FFFFFF', weight: i === sel ? '700' : '400', pick: () => this.setState({ doc: i, sub: 0 }) })),
+      hasSub: !!SUBS[sel],
+      subs: (SUBS[sel] || []).map((g, i) => ({ t: g[0], pressed: i === this.state.sub ? 'true' : 'false', border: i === this.state.sub ? '2px solid ' + denim : '1px solid #D8D2C4', bg: i === this.state.sub ? '#E4EAF4' : '#FFFFFF', weight: i === this.state.sub ? '700' : '400', pick: () => this.setState({ sub: i }) })),
+      cur: Object.assign({}, all[sel], { secs: (SUBS[sel] ? SUBS[sel][this.state.sub][1].map((k) => all[sel].secs[k]) : all[sel].secs).map((x) => ({ h: x.h, items: x.items.map(L) })) })
+    };
+  }
+}
+</script>
+</body>
+</html>

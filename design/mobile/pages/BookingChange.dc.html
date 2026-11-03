@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>傻媽萬事通 改期或取消（手機）</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- m-fixed -->
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0;font-family:"Noto Sans TC",sans-serif;background:#F6F3EC;color:#23262E}
+a{color:#2F4F86}p,li,span,div,a,label,h1,h2,h3,summary,button{text-wrap:pretty}a:hover{color:#26406E}
+
+/* 手機版共用規則（每個畫板在自己的頁面裡顯示，所以不用加前綴）
+   1. 一般橫排可換行；開頭是圖示或頭像的橫排，圖示和文字固定同一行，第三個以後的元素換到下一行
+   2. 按鈕、標籤、日期這類短文字不斷開；段落裡的連結整段一起換行 */
+*{box-sizing:border-box}
+[style*="display: flex"]:not([style*="flex-direction: column"]){flex-wrap:wrap}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(2){flex:1 1 180px;min-width:0}
+[style*="display: flex"]:not([style*="flex-direction: column"]):is(:has(> svg:first-child),:has(> :first-child:not(button):not(a)[style*="flex-shrink: 0"]),:has(> :first-child:not(button):not(a)[style*="border-radius: 50%"])) > :nth-child(n+3){margin-left:auto}
+header,header *,[data-mbar] *{flex-wrap:nowrap!important}
+button,a[style*="display: flex"],a[style*="display: inline-flex"],[style*="border-radius: 999px"],[style*="border-radius: 6px"],[role="tab"]{white-space:nowrap}
+a:not([style*="display"]){display:inline-block}
+img,video{max-width:100%}
+/* 10-27：不可以左右滑；打勾一律綠色；勾選框旁的文字不跑到下面；按鈕文字置中、15px、不超出 */
+html,body{overflow-x:hidden}
+/* 10-27 第 3 輪：格狀排版不把多出的高度分給每一塊（避免內容中間出現空白）；區塊最後的文字連結靠左；區塊標題統一 18px */
+[style*="display: grid"]{align-content:start}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([style*="align-self"]){align-self:flex-start}
+h2{font-size:18px!important;line-height:1.4}
+/* 不斷行的文字裡面的小段落也不斷行（text-wrap 規則會讓裡面的 span 自己斷行） */
+[style*="white-space: nowrap"] *{white-space:nowrap}
+#dc-root > div,x-dc > div{max-width:100%}
+svg:not([data-keep]):has(> path[d="M5 12l5 5L20 7"]){stroke:#2E7D5B}
+label:has(> input[type="checkbox"]),label:has(> input[type="radio"]){flex-wrap:nowrap!important}
+label > input[type="checkbox"],label > input[type="radio"]{flex-shrink:0}
+:is(a,button)[style*="min-height: 4"][style*="border-radius: 1"],[data-mbar] :is(a,button){justify-content:center;text-align:center;font-size:15px!important;white-space:nowrap;min-width:0;padding-left:10px!important;padding-right:10px!important}
+table{width:100%}
+/* 固定在底部的按鈕區：依狀態出現的按鈕一律直排、滿版 */
+[data-mrow] > div{flex-direction:column!important;gap:8px!important;flex-wrap:nowrap!important}
+[data-mrow] a,[data-mrow] button{width:100%;min-height:48px!important;justify-content:center}
+
+/* 10-28 第 5 輪定案的標準
+   按鈕：大 48px（底部固定、頁面主要動作）／中 44px（卡片裡）／小 36px（列表裡），字一律 15px 粗體
+   輸入框 44px、字 16px（驗證碼 48px、搜尋 40px）；標籤 14px 粗體、上下 2px、左右 10px
+   卡片：開頭或結尾是文字的卡片內距 16px；行距 8px；資料列最後一列下面不留空 */
+:is(a,button)[style*="min-height: 52px"],:is(a,button)[style*="min-height: 56px"]{min-height:48px!important;font-size:15px!important}
+input:not([type="checkbox"]):not([type="radio"]):not([type="search"]),select{min-height:44px!important;height:44px!important;font-size:16px!important}
+input[type="search"]{min-height:40px!important;height:40px!important;font-size:16px!important}
+input[style*="text-align: center"][style*="font-size: 24px"],input[style*="text-align: center"][style*="font-weight: 900"]{min-height:48px!important;height:48px!important;font-size:22px!important}
+span[style*="border-radius: 999px"]:is([style*="padding: 3px 10px"],[style*="padding: 6px 12px"],[style*="padding: 2px 8px"],[style*="padding: 4px 12px"],[style*="padding: 3px 10px 3px 10px"],[style*="padding: 6px 12px 6px 12px"],[style*="padding: 2px 8px 2px 8px"]):not(header *){padding:2px 10px!important;font-size:14px!important;font-weight:700!important}
+[style*="padding: 20px 16px 20px 16px"][style*="border-radius: 2"]:not(section[style*="background: #E4EAF4"]):not([data-keep-pad]){padding:16px!important}
+[style*="border-top: 1px solid #ECE7DC"]:last-child{padding-bottom:0!important}
+span:empty[style*="border-radius: 999px"],b:empty,span:empty[data-avail]{display:none}
+[style*="flex-direction: column"] > a:not([style*="display"]):not([data-back]):not([style*="align-self"]){align-self:flex-end;text-align:right}
+a[data-back]{align-self:flex-start}
+
+/* 10-28 第 6 輪：空的狀態標籤不顯示；巢狀的滿版區塊第一塊上面、最後一塊下面不再多留空 */
+span:empty[style*="max-width: 96px"]{display:none}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):first-child{padding-top:0!important}
+section > section:is([style*="margin: 0 -16px"],[style*="margin: 0px -16px"]):last-child{padding-bottom:0!important}
+
+/* 10-29 第 7 輪：設計稿裡不顯示捲軸（手機的捲軸不佔位置，卡片才會置中） */
+html,body,[data-mscroll]{scrollbar-width:none}
+::-webkit-scrollbar{display:none}
+
+/* 10-28 第 6 輪：卡片上下動態內距 */
+[data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"][data-vt="10"]{padding-top:10px!important}
+[data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"][data-vt="11"]{padding-top:11px!important}
+[data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"][data-vb="8"]{padding-bottom:8px!important}
+[data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"][data-vb="15"]{padding-bottom:15px!important}
+
+/* 11-01：圓角統一：卡片 16、卡片裡的小框 12（圖示、頭像這類固定大小的不改） */
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:16px!important}
+:is(div,section,aside,form,details,article,li):is([style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]) :is(div,section,aside,form,details,article,li,label):is([style*="border-radius: 10px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 24px"]):not([style*="; height: "]:not([style*="width: 100%"])){border-radius:12px!important}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; overflow: hidden; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F3EC; font-family: 'Noto Sans TC', sans-serif; color: #23262E">
+<header style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 16px 0 16px; display: flex; align-items: center; justify-content: space-between; background: #E4EAF4; border-bottom: 1px solid #E2DDD2">
+<a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #23262E"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{denim}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"></path></svg></span><span style="font-size: 18px; font-weight: 900">傻媽萬事通</span></a>
+<span style="display: flex; align-items: center; gap: 8px"><a href="Notifications.dc.html" aria-label="通知" style="width: 44px; height: 44px; color: #23262E; display: flex; align-items: center; justify-content: center; position: relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0"></path></svg><span style="position: absolute; top: 8px; right: 9px; width: 9px; height: 9px; border-radius: 50%; background: #C8412C"></span></a><a href="Menu.dc.html" aria-label="選單" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #23262E"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></a></span>
+</header>
+<div data-mscroll style="flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
+<div style="padding: 20px 16px 0 16px; display: flex; flex-direction: column; gap: 8px"><a data-back href="HomeTrack.dc.html" style="font-size: 16px; text-decoration: none">← 回到府行程</a><div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><h1 style="margin: 0; font-size: 24px; font-weight: 900; letter-spacing: 0.02em; color: {{denim}}">{{heading}}</h1><span style="padding: 2px 10px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; background: {{dlBg}}; color: {{dlFg}}">{{tagT}}</span></div><span style="font-size: 15px; line-height: 1.6; color: #4E525C"><sc-if value="{{isLate}}" hint-placeholder-val="{{ false }}">已在到府前 12 小時內</sc-if><sc-if value="{{notLate}}" hint-placeholder-val="{{ true }}">免費期限還有 <strong style="font-size: 18px; color: #2F4F86">[N]</strong> 小時 <strong style="font-size: 18px; color: #2F4F86">[N]</strong> 分（到府前 12 小時）</sc-if></span></div>
+<div style="flex-grow: 1; padding: 20px 16px 20px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start">
+<div style="grid-column: auto; display: flex; flex-direction: column; gap: 16px">
+<sc-if value="{{resched}}" hint-placeholder-val="{{ true }}">
+<section style="padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 16px"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">選新的時間</h2>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="5"><button type="button" aria-pressed="{{d.pressed}}" onClick="{{d.pick}}" style="min-height: 48px; padding: 0; border-radius: 10px; border: {{d.border}}; background: {{d.bg}}; color: #23262E; font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px"><span style="font-size: 12px; color: #62666F; white-space: nowrap">{{d.w}}</span><span style="font-size: 14px; font-weight: 700; white-space: nowrap">[日期]</span></button></sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="4"><button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}" style="min-height: 36px; padding: 0; border-radius: 8px; border: {{s.border}}; background: {{s.bg}}; color: #23262E; font-family: inherit; font-size: 14px; font-weight: {{s.weight}}">{{s.t}}</button></sc-for>
+</div>
+<span style="font-size: 16px; color: #62666F">只顯示林師傅有空的時段。送出後要等林師傅確認，確認前原本的時間仍然有效。</span>
+</section>
+</sc-if>
+<sc-if value="{{cancel}}" hint-placeholder-val="{{ false }}">
+<section data-vt="11" data-vb="15" style="padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E2DDD2; display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">取消的原因</h2>
+<sc-for list="{{reasons}}" as="r" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{r.pressed}}" onClick="{{r.pick}}" style="min-height: 52px; padding: 0 16px 0 16px; border-radius: 12px; border: {{r.border}}; background: {{r.bg}}; color: #23262E; font-family: inherit; font-size: 16px; text-align: left; font-weight: {{r.weight}}">{{r.t}}</button></sc-for>
+<label for="note" style="font-size: 16px; color: #4E525C">想補充的話（選填，林師傅看得到）</label>
+<input id="note" type="text" style="min-height: 50px; box-sizing: border-box; padding: 0 14px 0 14px; border-radius: 12px; border: 1px solid #D8D2C4; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #23262E; font-weight: 400">
+</section>
+</sc-if>
+</div>
+<aside data-vt="10" data-vb="8" style="grid-column: auto; order: {{asideOrder}}; padding: 20px 16px 20px 16px; border-radius: 24px; background: #FFFFFF; border: 2px solid {{denim}}; display: flex; flex-direction: column; gap: 16px"><h2 style="margin: 0; font-size: 18px; font-weight: 900; color: {{denim}}">原本的預約</h2>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 16px">
+<div style="display: flex; justify-content: space-between"><span style="color: #4E525C">服務</span><span style="font-weight: 700">到府 · 冷氣滴水</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #4E525C">師傅</span><span style="font-weight: 700">林師傅</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #4E525C">時間</span><span style="font-weight: 700">明天 14:00–15:00</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #4E525C">已付</span><span style="font-weight: 700">平台費（求助）<strong style="white-space: nowrap">NT$100</strong></span></div>
+<span style="margin-top: -6px; font-size: 13px; line-height: 1.6; color: #62666F">視訊時已付，{{verb}}不會退還</span>
+<div style="padding-top: 12px; border-top: 1px solid #E2DDD2; display: flex; justify-content: space-between"><span style="color: #4E525C">這次要付</span><span style="font-weight: 900; font-size: 18px; color: {{feeColor}}">{{feeShow}}</span></div>
+</div>
+
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}"><div style="padding: 14px 16px 14px 16px; border-radius: 12px; background: #E4F0EA; color: #245443; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 16px; font-weight: 700">{{sentT}}</span><span style="font-size: 16px; line-height: 1.6">{{sentB}}</span><a href="HomeTrack.dc.html" style="font-size: 16px; color: #245443; font-weight: 700">回到府行程 →</a></div></sc-if>
+<a href="Legal.dc.html" style="font-size: 16px">扣款與取消規則</a>
+</aside>
+</div>
+</div>
+<div data-mbar style="flex-shrink: 0; padding: 12px 16px 24px; background: #FFFFFF; box-shadow: 0 -4px 16px rgba(35,38,46,0.10); display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; font-size: 15px; color: #4E525C"><span>這次要付</span><strong style="color: {{feeColor}}">{{feeShow}}</strong></div>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{send}}" style="width: 100%; min-height: 48px; border-radius: 12px; border: none; font-family: inherit; font-size: 16px; font-weight: 700; color: #FFFFFF; background: {{ctaBg}}">{{cta}}</button></sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C8412C&quot;,&quot;options&quot;:[&quot;#C8412C&quot;,&quot;#D9573B&quot;,&quot;#B5362A&quot;,&quot;#E0663F&quot;]},&quot;denim&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3A5A94&quot;,&quot;options&quot;:[&quot;#3A5A94&quot;,&quot;#4A6BA8&quot;,&quot;#2F4F86&quot;,&quot;#26406E&quot;]},&quot;action&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;改期&quot;,&quot;取消&quot;],&quot;default&quot;:&quot;取消&quot;},&quot;timing&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;12 小時以上&quot;,&quot;不到 12 小時&quot;],&quot;default&quot;:&quot;12 小時以上&quot;},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { day: 2, slot: 1, reason: 0, sent: false }; }
+  renderVals() {
+    const denim = this.props.denim ?? '#3A5A94';
+    const accent = this.props.accent ?? '#C8412C';
+    const resched = (this.props.action ?? '改期') === '改期';
+    const late = (this.props.timing ?? '12 小時以上') === '不到 12 小時';
+    const on = '2px solid ' + denim; const off = '1px solid #D8D2C4';
+    const pick = (list, key, extra) => list.map((x, i) => Object.assign({ pressed: i === this.state[key] ? 'true' : 'false', border: i === this.state[key] ? on : off, bg: i === this.state[key] ? '#E4EAF4' : '#FFFFFF', weight: i === this.state[key] ? '700' : '400', pick: () => this.setState({ [key]: i }) }, typeof x === 'string' ? { t: x } : x));
+    return {
+      isLate: late, notLate: !late, asideOrder: resched ? 0 : -1,
+      tagT: late ? ((this.props.action ?? '改期') === '改期' ? '臨時改期收 NT$50' : '臨時取消收 NT$100') : ((this.props.action ?? '改期') === '改期' ? '現在改期免費' : '現在取消免費'), tagD: late ? '已在到府前 12 小時內' : '免費期限還有 [N] 小時 [N] 分（到府前 12 小時）',
+      accent: accent, denim: denim,
+      resched: resched, cancel: !resched,
+      heading: resched ? '改期' : '取消預約',
+      early: !late, late: late, verb: resched ? '改期' : '取消',
+      sent: this.state.sent, notSent: !this.state.sent, send: () => this.setState({ sent: true }),
+      sentT: resched ? '改期申請已送出' : '已取消預約',
+      sentB: resched ? '等林師傅確認新時間；確認前，原本的時間仍然有效。' : '林師傅會收到通知。' + (late ? '逾時費會從你的信用卡扣款。' : '這次不收費。'),
+      feeColor: late ? '#23262E' : '#B42318',
+      feeShow: late ? (resched ? '逾時費（臨時改期）NT$50' : '逾時費（臨時取消）NT$100') : '免費',
+      dlBg: late ? '#F8DCD4' : '#E4F0EA', dlFg: late ? '#8E2E1F' : '#245443',
+      feeLabel: resched ? '改期費用' : '取消費用',
+      fee: resched ? '逾時費（臨時改期）NT$50' : '逾時費（臨時取消）NT$100',
+      cta: resched ? '送出改期申請' : '確認取消',
+      ctaBg: resched ? accent : '#B42318',
+      days: pick([{ w: '今天' }, { w: '明天' }, { w: '[週六]' }, { w: '[週日]' }, { w: '[週一]' }], 'day'),
+      slots: pick(['09:00–10:00', '09:30–10:30', '14:00–15:00', '19:30–20:30'], 'slot'),
+      reasons: pick(['問題已經自己解決了', '時間臨時不方便', '想換其他師傅', '其他原因'], 'reason')
+    };
+  }
+}
+</script>
+</body>
+</html>
