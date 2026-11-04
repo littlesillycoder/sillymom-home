@@ -27,6 +27,7 @@
 4. **寫驗證步驟**：程式完成後，在 issue 另外留一則**新的** comment，標題「驗證步驟」，寫清楚使用者要怎麼一步一步檢查（網址、帳號、要點哪裡、應該看到什麼）。
 5. **貼回驗證結果**：使用者照「驗證步驟」檢查時，每通過一步（或發現問題），Claude Code 都要在 issue 留一則「驗證結果」comment，逐步列出結果（通過／不通過、實際看到什麼、驗證時發現的修正）。不要只留在對話裡。
 6. **等使用者驗證**：使用者驗證完成後，會在 issue 加上 `Verified` label。**沒有 `Verified` label 的 issue 不能關閉**，Claude Code 也不能自己加這個 label。
+7. **合併並關閉**：使用者請 Claude Code 合併 PR 時，合併後**一起關閉對應的 issue**，前提是 issue 已經有 `Verified` label（合併前先確認；沒有就只合併、不關閉，並告訴使用者）。關閉時留言「PR #號碼 已合併，驗證通過（Verified）」。
 
 ### GitHub Project 狀態（Project「SillyMom-Home」的 Status 欄位）
 
