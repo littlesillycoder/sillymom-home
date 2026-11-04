@@ -1,7 +1,7 @@
 /*
  * 頁首（設計稿 Main、Dashboard、TechHome；寬度 docs/電腦版自動調整寬度規則.md）
  * - 767 以下：手機頁首 56 高、淺藍底（Logo、免費註冊或通知、選單按鈕）
- * - 768–1099：電腦版高度和顏色，導覽收進選單按鈕（設計稿沒畫，避免橫向捲動）
+ * - 768–1099：電腦版高度和顏色，導覽收進 ≡ 選單按鈕，右邊其他東西保留（設計補充第 4 節）
  * - 1100 以上：完整電腦版頁首
  */
 .header {
@@ -99,7 +99,7 @@
   gap: var(--space-2);
 }
 
-/* 只在某些寬度出現的元素 */
+/* 768 以上才出現的元素（語言切換、登入、訊息、頭像） */
 .wide,
 .desktop {
   display: none;
@@ -205,16 +205,12 @@
     display: block;
   }
 
-  /* 「師傅」標籤只在手機頁首（電腦版設計稿 TechHome 沒有） */
-  .techTag {
-    display: none;
-  }
-
   .actions {
     gap: var(--space-4);
   }
 
-  .desktop {
+  .desktop,
+  .wide {
     display: inline-flex;
   }
 
@@ -263,10 +259,6 @@
   /* 未登入：Logo、導覽、右邊按鈕三塊平均分開（導覽在中間，照設計稿） */
   .header[data-variant="guest"] .left {
     display: contents;
-  }
-
-  .wide {
-    display: inline-flex;
   }
 
   .narrowOnly {

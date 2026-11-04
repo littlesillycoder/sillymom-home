@@ -1,5 +1,6 @@
 import { cacheLife } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { SITE } from "@/shared/config/site";
 import { Link } from "@/shared/i18n/navigation";
 import { type FooterMode, routeHref } from "@/shared/navigation/routes";
 import { Container } from "./Container";
@@ -18,92 +19,80 @@ type Props = {
   audience?: "member" | "tech";
 };
 
-/** 頁尾三種模式（docs/設計補充/設計補充.md 第 2 節）：full、compact、none。 */
+type FooterLink = { href: string; label: string };
+
+/**
+ * 頁尾三種模式（docs/設計補充/設計補充.md 第 2 節）：
+ * - full：公開頁。電腦一行版（服務項目・安全機制與審核標準・成為師傅 ｜ 客服中心・服務條款・隱私政策）；手機照設計稿深色三行。
+ * - compact：會員、師傅頁。電腦一行版（客戶條款規則或師傅條款・隱私權政策・客服中心）；手機不放。
+ * - none：求助流程、視訊、行程追蹤、後台。
+ * 公司名稱在 src/shared/config/site.ts。
+ */
 export async function SiteFooter({ mode, audience = "member" }: Props) {
   if (mode === "none") return null;
   const t = await getTranslations("layout.footer");
-
-  if (mode === "compact") {
-    // 只在 768 以上顯示（手機的選單裡已有條款和客服）
-    return (
-      <footer className={styles.compact} aria-label={t("label")} data-footer="compact">
-        <Container>
-          {audience === "tech" ? (
-            <Link href={routeHref("techTerms")}>{t("techTerms")}</Link>
-          ) : (
-            <Link href={routeHref("terms")}>{t("customerTerms")}</Link>
-          )}
-          {" ・ "}
-          <Link href={routeHref("privacy")}>{t("privacyPolicy")}</Link>
-          {" ・ "}
-          <Link href={routeHref("help")}>{t("help")}</Link>
-          {" ・ "}
-          <span>{t("brandShort")}</span>
-        </Container>
-      </footer>
-    );
-  }
-
   const brand = (await getTranslations("layout"))("brand");
-  const copyright = t("copyright", { year: await currentYear(), company: t("company") });
-  const columns = [
-    {
-      title: t("services"),
-      links: [
-        { href: routeHref("serviceCategory", { category: "plumbing" }), label: t("plumbing") },
-        { href: routeHref("serviceCategory", { category: "aircon" }), label: t("aircon") },
-        { href: routeHref("serviceCategory", { category: "appliance" }), label: t("appliance") },
-      ],
-    },
-    {
-      title: t("about"),
-      links: [
-        { href: routeHref("safety"), label: t("safety") },
-        { href: `${routeHref("safety")}#standards`, label: t("standards") },
-        { href: routeHref("join"), label: t("join") },
-      ],
-    },
-    {
-      title: t("support"),
-      links: [
-        { href: routeHref("help"), label: t("help") },
-        { href: routeHref("terms"), label: t("terms") },
-        { href: routeHref("privacy"), label: t("privacy") },
-      ],
-    },
-  ];
+  const copyright = t("copyright", { year: await currentYear(), company: SITE.companyLegalName });
+
+  const groups: FooterLink[][] =
+    mode === "full"
+      ? [
+          [
+            { href: routeHref("services"), label: t("services") },
+            { href: routeHref("safety"), label: t("safety") },
+            { href: routeHref("join"), label: t("join") },
+          ],
+          [
+            { href: routeHref("help"), label: t("help") },
+            { href: routeHref("terms"), label: t("terms") },
+            { href: routeHref("privacy"), label: t("privacy") },
+          ],
+        ]
+      : [
+          [
+            audience === "tech"
+              ? { href: routeHref("techTerms"), label: t("techTerms") }
+              : { href: routeHref("terms"), label: t("customerTerms") },
+            { href: routeHref("privacy"), label: t("privacyPolicy") },
+            { href: routeHref("help"), label: t("help") },
+          ],
+        ];
 
   return (
-    <footer className={styles.full} aria-label={t("label")} data-footer="full">
-      <div className={styles.fullMobile}>
-        <span className={styles.mobileBrand}>{brand}</span>
-        <span>
-          <Link href={routeHref("help")}>{t("help")}</Link>
-          {" · "}
-          <Link href={routeHref("terms")}>{t("customerTerms")}</Link>
-          {" · "}
-          <Link href={routeHref("privacy")}>{t("privacy")}</Link>
-        </span>
-        <span>{copyright}</span>
-      </div>
-      <Container className={styles.fullDesktop}>
-        <div className={styles.desktopBrand}>
-          <span className={styles.desktopBrandName}>{brand}</span>
+    <footer aria-label={t("label")} data-footer={mode}>
+      {mode === "full" && (
+        <div className={styles.mobile}>
+          <span className={styles.mobileBrand}>{brand}</span>
+          <span>
+            <Link href={routeHref("help")}>{t("help")}</Link>
+            {" · "}
+            <Link href={routeHref("terms")}>{t("customerTerms")}</Link>
+            {" · "}
+            <Link href={routeHref("privacy")}>{t("privacy")}</Link>
+          </span>
           <span>{copyright}</span>
         </div>
-        <div className={styles.columns}>
-          {columns.map((column) => (
-            <div key={column.title} className={styles.column}>
-              <span className={styles.columnTitle}>{column.title}</span>
-              {column.links.map((link) => (
-                <Link key={link.label} href={link.href}>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          ))}
-        </div>
-      </Container>
+      )}
+      <div className={styles.desktop}>
+        <Container className={styles.row}>
+          <span className={styles.brand}>
+            <span className={styles.brandName}>{brand}</span>
+            <span className={styles.copyright}>{copyright}</span>
+          </span>
+          <nav aria-label={t("label")} className={styles.links}>
+            {groups.map((group, i) => (
+              <span key={i} className={styles.links}>
+                {i > 0 && <span className={styles.divider} aria-hidden="true" />}
+                {group.map((link) => (
+                  <Link key={link.label} href={link.href}>
+                    {link.label}
+                  </Link>
+                ))}
+              </span>
+            ))}
+          </nav>
+        </Container>
+      </div>
     </footer>
   );
 }

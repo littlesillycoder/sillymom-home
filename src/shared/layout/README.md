@@ -6,8 +6,8 @@
 |---|---|
 | `PageShell` | 一般頁面外框：`header`（guest／member／tech）＋內容＋`footer`（full／compact／none） |
 | `AdminShell` | 後台：1100 以上 240 寬文字選單；1099 以下 72 寬圖示選單 |
-| `SiteHeader` | 頁首；767 以下手機頁首，768–1099 導覽收進選單按鈕，1100 以上完整導覽 |
-| `SiteFooter` | 頁尾三種模式（`docs/設計補充/設計補充.md` 第 2 節） |
+| `SiteHeader` | 頁首；767 以下手機頁首，768–1099 導覽收進 ≡、右邊其他保留（設計補充第 4 節），1100 以上完整導覽；師傅頁首有「師傅」標籤（第 5 節） |
+| `SiteFooter` | 頁尾三種模式（`docs/設計補充/設計補充.md` 第 2 節）：電腦一行版；手機公開頁深色三行。公司名稱在 `src/shared/config/site.ts` |
 | `Container` | 內容左右留白（手機 16px、電腦 5.556%）、2560 以上最寬 2240 |
 | `ComingSoon` | 「建置中」 |
 
