@@ -1,0 +1,58 @@
+/* 手機：從下方滑出的面板（上方圓角 20）；電腦：置中的卡片 */
+.dialog {
+  width: 100%;
+  max-width: 100%;
+  max-height: 85vh;
+  margin: auto 0 0;
+  padding: var(--space-6) var(--space-4) var(--space-4);
+  border: none;
+  border-radius: 20px 20px 0 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.dialog::backdrop {
+  background: rgb(35 38 46 / 0.55);
+}
+
+@media (min-width: 768px) {
+  .dialog {
+    max-width: 480px;
+    margin: auto;
+    border-radius: var(--radius-card);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* 對話框標題：深色、20px（設計稿「服務條款重點」） */
+.title {
+  font-size: var(--text-xl);
+  color: var(--color-text);
+}
+
+.close {
+  flex-shrink: 0;
+  width: var(--size-button-md);
+  height: var(--size-button-md);
+  margin: -10px -10px 0 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}

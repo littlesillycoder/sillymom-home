@@ -1,0 +1,104 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: 0 var(--space-4);
+  border: none;
+  border-radius: var(--radius-control);
+  font-size: var(--text-button);
+  font-weight: var(--weight-bold);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button:hover {
+  filter: brightness(0.94);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: none;
+}
+
+/* 尺寸：大 48（底部固定、頁面主要動作）／中 44（卡片裡）／小 36（列表裡） */
+.lg {
+  min-height: var(--size-button-lg);
+}
+.md {
+  min-height: var(--size-button-md);
+}
+.sm {
+  min-height: var(--size-button-sm);
+  padding: 0 var(--space-3);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* 主要：主要紅底白字 */
+.primary,
+.primary:hover {
+  background: var(--color-accent);
+  color: var(--color-text-on-color);
+}
+
+/* 主要（藍）：牛仔藍底白字（送出審核、號碼正確） */
+.primaryBlue,
+.primaryBlue:hover {
+  background: var(--color-denim);
+  color: var(--color-text-on-color);
+}
+
+/* 次要：白底、牛仔藍字和框 */
+.secondary,
+.secondary:hover {
+  background: var(--color-surface);
+  color: var(--color-denim);
+  box-shadow: inset 0 0 0 1.5px var(--color-denim);
+}
+
+/* 預約：白底、主要紅字和框 */
+.book,
+.book:hover {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 1.5px var(--color-accent);
+}
+
+/* 框線：白底、一般字、細灰框（取消通知、回報平台） */
+.outline,
+.outline:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--color-border-input);
+}
+
+/* 低調：米灰底（略過、取消預約） */
+.quiet,
+.quiet:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+/* 危險：紅底白字（刪除帳號） */
+.danger,
+.danger:hover {
+  background: var(--color-danger);
+  color: var(--color-text-on-color);
+}
+
+/* 危險次要：白底紅字紅框（不同意、號碼不對） */
+.dangerSecondary,
+.dangerSecondary:hover {
+  background: var(--color-surface);
+  color: var(--color-danger);
+  box-shadow: inset 0 0 0 1.5px var(--color-danger);
+}

@@ -1,0 +1,40 @@
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: var(--size-button-md);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-md);
+  text-align: left;
+  cursor: pointer;
+}
+
+/* 開關：46 × 28，開啟牛仔藍、關閉灰；圓點 22 */
+.track {
+  flex-shrink: 0;
+  width: 46px;
+  height: 28px;
+  padding: 3px;
+  border-radius: 14px;
+  background: var(--color-switch-off);
+  display: flex;
+  justify-content: flex-start;
+  transition: background 0.15s;
+}
+
+.row[aria-checked="true"] .track {
+  background: var(--color-denim);
+  justify-content: flex-end;
+}
+
+.knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-surface);
+}

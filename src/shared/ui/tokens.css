@@ -1,0 +1,81 @@
+/*
+ * 設計規範（以 design/ 的設計稿為準，2026-11-02 定稿）。
+ * 元件和頁面一律用這些變數，不直接寫色碼或尺寸。
+ */
+:root {
+  /* 品牌色 */
+  --color-accent: #c8412c; /* 主要紅：主要按鈕 */
+  --color-accent-soft: #f8dcd4; /* 淺紅底 */
+  --color-accent-strong: #8e2e1f; /* 淺紅底上的文字 */
+  --color-denim: #3a5a94; /* 牛仔藍：次要按鈕、標題 */
+  --color-denim-soft: #e4eaf4; /* 淺藍底 */
+  --color-denim-strong: #26406e; /* 淺藍底上的文字、連結滑過 */
+  --color-link: #2f4f86;
+  --color-link-hover: #26406e;
+
+  /* 底色、框線 */
+  --color-bg: #f6f3ec; /* 頁面背景、卡片裡的小框 */
+  --color-surface: #ffffff; /* 卡片 */
+  --color-surface-muted: #eeeae1; /* 低調按鈕、中性標籤 */
+  --color-border: #e2ddd2; /* 卡片框線 */
+  --color-border-input: #d8d2c4; /* 輸入框、勾選框框線 */
+  --color-divider: #ece7dc; /* 分隔線 */
+  --color-switch-off: #c9ccd3;
+
+  /* 文字 */
+  --color-text: #23262e;
+  --color-text-secondary: #4e525c;
+  --color-text-muted: #62666f;
+  --color-text-on-color: #ffffff;
+
+  /* 狀態色 */
+  --color-success: #245443; /* 綠：驗證、完成 */
+  --color-success-soft: #e4f0ea;
+  --color-check: #2e7d5b; /* 打勾一律綠色 */
+  --color-warning: #6b4a00;
+  --color-warning-soft: #fdf3d7;
+  --color-attention: #f5c542; /* 黃色醒目標籤 */
+  --color-danger: #b42318;
+  --color-gender-female: #9c3d6b;
+  --color-gender-male: #3a5a94;
+
+  /* 字型、字級 */
+  --font-sans: var(--font-noto-sans-tc), "Noto Sans TC", sans-serif;
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-button: 15px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+  --weight-black: 900;
+
+  /* 間距 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* 圓角：卡片 16、卡片裡的小框 12、標籤 999 */
+  --radius-card: 16px;
+  --radius-inner: 12px;
+  --radius-control: 12px;
+  --radius-pill: 999px;
+
+  /* 尺寸：按鈕 大 48／中 44／小 36；輸入框 44（驗證碼 48、搜尋 40） */
+  --size-button-lg: 48px;
+  --size-button-md: 44px;
+  --size-button-sm: 36px;
+  --size-input: 44px;
+  --size-input-code: 48px;
+  --size-input-search: 40px;
+
+  /* 版面：767 以下手機版，768 以上電腦版 */
+  --page-gutter: 16px;
+}
