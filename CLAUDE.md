@@ -43,6 +43,7 @@
 
 ## 一定要遵守
 
+0. **能用現成服務就用，盡量不要自己寫，特別是資安相關的功能**（驗證碼、兩步驟驗證、加密、限流、錯誤監控、語音轉文字等）。例如：驗證碼用 Supabase Auth；兩步驟驗證用 Supabase Auth MFA；加密用 Google Cloud KMS；限流用 Cloudflare 限流規則和 Supabase Auth 內建限制；錯誤監控用 Sentry 等現成服務。如果認為現成服務做不到，先跟使用者說明原因再決定。
 1. **模組化**：程式放在 `src/modules/<模組>/`；跨模組只能 import `modules/<模組>/index.ts`，或用事件。不能直接讀寫別的模組的資料表。
    - `shared/` 不能 import 任何模組；`app/` 只能 import 模組的 `index.ts` 和 `shared/`。`pnpm lint` 會自動檢查（`eslint-plugin-boundaries`）。
    - `shared/supabase/admin.ts`（略過 RLS 的連線）只有模組的 `server/`、`shared/events/`、`shared/health/` 可以 import。畫面元件和頁面不能用。
