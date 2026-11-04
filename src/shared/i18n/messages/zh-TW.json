@@ -128,7 +128,20 @@
     "icons": "圖示",
     "languageSwitcher": "語言切換",
     "languageDesktop": "電腦版（放在頁首右邊）",
-    "languageMobile": "手機版（放在選單最上面）"
+    "languageMobile": "手機版（放在選單最上面）",
+    "techCards": "師傅卡",
+    "simple": "簡易卡（首頁、服務分類）",
+    "simpleBook": "簡易卡＋預約（登入後首頁「我信任的師傅」）",
+    "detailed": "詳細卡（師傅列表、推薦師傅）",
+    "favorite": "我信任的師傅卡",
+    "summary": "預約摘要的師傅列（確認與付款、預約到府、行程追蹤）",
+    "specialtiesA": "冷氣安裝、保養、漏水排除",
+    "specialtiesB": "水電、冷氣排水管、熱水器",
+    "specialtiesC": "冷氣、家電維修",
+    "licenseName": "冷凍空調技術士",
+    "nameA": "林師傅",
+    "nameB": "陳師傅",
+    "nameC": "王師傅"
   },
   "layout": {
     "brand": "傻媽萬事通",
@@ -251,5 +264,49 @@
     "sampleTechStatus": "審核有效 · 在線中",
     "sampleAdmin": "[管理員名稱] · 審核員",
     "back": "回上一頁"
+  },
+  "technician": {
+    "gender": {
+      "female": "女師傅",
+      "male": "男師傅"
+    },
+    "credential": {
+      "identity": "身分驗證",
+      "policeRecord": "良民證",
+      "license": "證照"
+    },
+    "language": {
+      "mandarin": "國語",
+      "taiwanese": "台語",
+      "hakka": "客語",
+      "english": "英文"
+    },
+    "status": {
+      "online": "在線中",
+      "inCall": "視訊中",
+      "laterToday": "可視訊：今天 {time} 後",
+      "laterTomorrow": "可視訊：明天 {time}",
+      "laterDate": "可視訊：{date}{time}"
+    },
+    "ratingOutOf": "/ 5",
+    "noRating": "新師傅",
+    "reviews": "{count} 則評價",
+    "ratingLine": "★ {rating} · {count} 則評價",
+    "services": "{count} 次服務",
+    "license": "{name} {years} 年 · 另有 {count} 張證照",
+    "licenseOnly": "{name} {years} 年",
+    "response": "平均 <b>{minutes}</b> 分鐘回應",
+    "responsePlain": "平均 {minutes} 分鐘回應",
+    "recentlyCalled": "剛剛視訊的師傅",
+    "collaborations": "合作 {count} 次",
+    "viewProfile": "看個人頁",
+    "viewProfileArrow": "看個人頁 →",
+    "videoNow": "立即視訊",
+    "notifyWhenDone": "結束後通知我",
+    "bookVideo": "預約視訊",
+    "book": "預約",
+    "message": "傳訊息",
+    "remove": "移除",
+    "online": "在線中"
   }
 }
