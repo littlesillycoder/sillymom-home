@@ -1,0 +1,98 @@
+.avatar {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-denim-soft);
+  color: var(--color-denim-strong);
+  display: grid;
+  place-items: center;
+  font-weight: var(--weight-black);
+  text-decoration: none;
+}
+
+.avatar:hover {
+  color: var(--color-denim-strong);
+}
+
+/* 在線中的小綠點（詳細卡電腦版） */
+.onlineDot {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2f8a5f;
+  border: 3px solid var(--color-surface);
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.ratingValue {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-black);
+}
+
+.ratingOutOf,
+.reviews {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+}
+
+/* 狀態：綠、黃、藍 */
+.status {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  white-space: nowrap;
+}
+
+.online {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.inCall {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.later {
+  background: var(--color-denim-soft);
+  color: var(--color-denim-strong);
+}
+
+/* 手機版卡片上方的狀態列 */
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  white-space: nowrap;
+}
+
+.barLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.barDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+}

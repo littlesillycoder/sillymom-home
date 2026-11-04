@@ -1,0 +1,395 @@
+/* 師傅卡（設計稿 Main、ServiceAircon、Dashboard、TechList、Match、Favorites、Checkout） */
+
+.card {
+  min-width: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+a.card:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-input);
+}
+
+/* 只在手機／只在 768 以上顯示。
+   用 !important：這兩個類別會和卡片本身的 display（flex、grid）放在同一個元素上，
+   不加的話，寫在後面的卡片樣式會蓋掉隱藏規則，兩個版本會同時出現。 */
+@media (max-width: 767px) {
+  .desktopOnly {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobileOnly {
+    display: none !important;
+  }
+}
+
+.name {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-black);
+  white-space: nowrap;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.push {
+  margin-left: auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+.specialties {
+  font-size: var(--text-md);
+}
+
+.license {
+  font-size: var(--text-button);
+  color: var(--color-text-muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ── 簡易卡 ── */
+.simple {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.simpleTop {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.simpleLeft {
+  flex-shrink: 0;
+  width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.simpleMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.simpleFoot {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--color-link);
+  white-space: nowrap;
+}
+
+.servicesRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+/* 預約按鈕（白底紅框；電腦 40 高、手機 32 高） */
+.bookButton {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1.5px var(--color-accent);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+.bookButton:hover {
+  color: var(--color-accent);
+  filter: brightness(0.96);
+}
+
+/* 簡易卡＋預約的手機版（設計稿 mobile/Dashboard） */
+.compact {
+  padding: var(--space-2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compactBar {
+  border-radius: 10px;
+  padding: 6px var(--space-3);
+}
+
+.compactRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.compactMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compactLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.compactName {
+  font-size: 17px;
+  font-weight: var(--weight-black);
+  white-space: nowrap;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.ellipsis {
+  min-width: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.compact .bookButton {
+  min-height: 32px;
+  padding: 0 14px;
+  font-size: var(--text-button);
+}
+
+/* ── 詳細卡 ── */
+/* 手機（767 以下）：上方狀態列、分隔線、按鈕兩欄 */
+.detailedMobile {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.detailedMobileBody {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.mobileHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.mobileHeadMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobileName {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-black);
+  white-space: nowrap;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.divider {
+  height: 1px;
+  margin: var(--space-1) 0;
+  background: var(--color-divider);
+}
+
+.mobileText {
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: 1.6;
+}
+
+.mobileMuted {
+  color: var(--color-text-muted);
+}
+
+.actionsTwo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  padding-top: var(--space-1);
+}
+
+/* 768 以上 */
+.detailed {
+  padding: var(--space-6) 28px;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  grid-template-areas:
+    "left main"
+    "actions actions";
+  gap: var(--space-5) var(--space-6);
+  align-items: center;
+}
+
+.detailedLeft {
+  grid-area: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.detailedMain {
+  grid-area: main;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detailedName {
+  font-size: 22px;
+}
+
+.detailedStatus {
+  grid-area: status;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-2);
+  align-self: stretch;
+}
+
+.bigStatus {
+  align-self: flex-start;
+  padding: 6px 14px;
+  font-size: var(--text-md);
+}
+
+.response {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+.response b {
+  color: var(--color-link);
+}
+
+.detailedActions {
+  grid-area: actions;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+/* 768–1099：狀態在名字那一排右邊（.inlineStatus），按鈕在卡片下方靠右 */
+.inlineStatus {
+  margin-left: auto;
+}
+
+/* 1100 以上：四區橫排；狀態獨立一欄 */
+@media (min-width: 1100px) {
+  .detailed {
+    grid-template-columns: 96px minmax(0, 1fr) 190px 250px;
+    grid-template-areas: "left main status actions";
+  }
+
+  .detailedStatus {
+    display: flex;
+  }
+
+  .inlineStatus {
+    display: none;
+  }
+
+  .detailedActions {
+    align-self: stretch;
+    align-items: center;
+  }
+}
+
+/* ── 我信任的師傅卡 ── */
+.favorite {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.favoriteBody {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.actionsThree {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--space-2);
+}
+
+/* ── 預約摘要的師傅列 ── */
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.summaryMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 768 以上（desktop/Checkout） */
+.summaryDesktop {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.summaryName {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-black);
+  white-space: nowrap;
+}

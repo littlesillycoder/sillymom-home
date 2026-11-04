@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { initRequestLocale } from "@/shared/i18n/request-locale";
 import { connection } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { isDevToolsEnabled } from "@/shared/config/env";
@@ -21,6 +22,7 @@ import {
   type ButtonSize,
 } from "@/shared/ui";
 import { Interactive } from "./Interactive";
+import { TechCardsDemo } from "./TechCardsDemo";
 import styles from "./page.module.css";
 
 // 開發用頁面：每次請求才判斷環境（不預先產生）。
@@ -57,6 +59,7 @@ const SIZES: ButtonSize[] = ["lg", "md", "sm"];
 /** 元件展示頁。只在開發和 PR 預覽環境開啟，展示和正式環境回 404。 */
 export default async function DevUiPage() {
   await connection();
+  await initRequestLocale();
   if (!isDevToolsEnabled()) notFound();
   const t = await getTranslations("devUi");
 
@@ -197,6 +200,8 @@ export default async function DevUiPage() {
         <h2>{t("links")}</h2>
         <EndLink href="/dev/i18n">{t("endLink")}</EndLink>
       </section>
+
+      <TechCardsDemo now={new Date()} />
 
       <section className={styles.section}>
         <h2>{t("icons")}</h2>

@@ -6,6 +6,8 @@ type Case = {
   path: string;
   footer?: "full" | "compact" | "none";
   admin?: boolean;
+  /** 開發用展示頁：沒有頁首頁尾，只檢查橫向捲動和開發模式 Issue */
+  bare?: boolean;
 };
 
 const CASES: Case[] = [
@@ -27,6 +29,7 @@ const CASES: Case[] = [
   { name: "建置中（求助流程）", path: "/zh-TW/request", footer: "none" },
   { name: "後台版面", path: "/zh-TW/dev/layout/admin", admin: true },
   { name: "建置中（後台）", path: "/zh-TW/admin", admin: true },
+  { name: "元件展示（含師傅卡）", path: "/zh-TW/dev/ui", bare: true },
 ];
 
 for (const c of CASES) {
@@ -36,6 +39,7 @@ for (const c of CASES) {
         await page.setViewportSize({ width, height: 900 });
         await page.goto(c.path);
         await expectNoHorizontalScroll(page);
+        if (c.bare) return;
 
         if (c.admin) {
           const sidebar = page.getByTestId("admin-sidebar");
