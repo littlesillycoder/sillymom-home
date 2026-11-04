@@ -48,3 +48,19 @@ jobs:
         run: pnpm exec vitest run tests/db --no-file-parallelism
       - if: always()
         run: pnpm exec supabase stop --no-backup
+
+  e2e:
+    name: 版面自動檢查（Playwright，11 種寬度）
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: development
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: corepack enable pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: 下載測試用瀏覽器（只在 GitHub Actions）
+        run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
