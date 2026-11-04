@@ -1,0 +1,43 @@
+.controls {
+  padding-block: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.label {
+  min-width: 48px;
+  font-weight: var(--weight-bold);
+}
+
+.option {
+  padding: 6px 14px;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.option[aria-current="true"] {
+  border: 1.5px solid var(--color-denim);
+  background: var(--color-denim-soft);
+  font-weight: var(--weight-bold);
+}
+
+.placeholder {
+  min-height: 360px;
+  margin-bottom: var(--space-8);
+  border: 1px dashed var(--color-border-input);
+  border-radius: var(--radius-card);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-muted);
+}

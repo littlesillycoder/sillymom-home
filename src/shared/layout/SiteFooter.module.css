@@ -1,0 +1,111 @@
+/* ── 完整頁尾（公開頁面）── */
+/* 767 以下：深色、一行連結（設計稿 mobile/Main） */
+.full {
+  padding: 20px var(--page-gutter) 28px;
+  background: var(--color-ink);
+  color: var(--color-ink-text);
+  font-size: var(--text-sm);
+}
+
+.fullMobile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fullMobile a {
+  color: var(--color-ink-text);
+}
+
+.mobileBrand {
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-on-color);
+}
+
+.fullDesktop {
+  display: none;
+}
+
+.columns {
+  display: flex;
+  gap: 72px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.columnTitle {
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+.column a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.column a:hover {
+  color: var(--color-text);
+}
+
+.desktopBrand {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.desktopBrandName {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-black);
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+}
+
+/* ── 簡短頁尾（會員、師傅頁的電腦版）── */
+.compact {
+  display: none;
+}
+
+/* 768 以上：完整頁尾照電腦版設計稿；簡短頁尾一行置中 */
+@media (min-width: 768px) {
+  .full {
+    padding: 56px 0;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: var(--text-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .fullMobile {
+    display: none;
+  }
+
+  .fullDesktop {
+    display: flex;
+    justify-content: space-between;
+    gap: 48px;
+  }
+
+  .compact {
+    display: block;
+    padding: 20px 0;
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  .compact a {
+    color: var(--color-text-muted);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1099px) {
+  .columns {
+    gap: 40px;
+  }
+}
