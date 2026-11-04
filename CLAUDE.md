@@ -63,6 +63,7 @@
    - 金鑰只放環境變數，`.env*` 不進 git。
    - 錄影、證件用短效連結；不在 log 裡印出個資（手機、地址、證件號碼）。
    - 禁止 `dangerouslySetInnerHTML`（lint 會擋）；需要粗體、連結的文字用 next-intl 的 `t.rich()`。
+   - **會改資料的動作一律用 POST**（表單或 Server Action），並在伺服器端確認是本人、有權限；不能用連結（GET）。例如登出、移除我信任的師傅、封鎖、訂閱通知、取消預約。避免別的網站用一個連結就替使用者操作（CSRF）。
    - 開發用頁面（`/health`、`/[語言]/dev/...`）只在 development、preview 開啟（`isDevToolsEnabled()`）。
 6. **設計**：顏色、字級、間距、圓角照設計稿；共用樣式做成 `src/shared/ui` 的元件，不逐頁複製 CSS。
    - 樣式寫法：**CSS 變數 + CSS Modules**（不用 Tailwind）。設計規範在 `src/shared/ui/tokens.css`，元件和頁面一律用 `var(--...)`，不直接寫色碼；全站規則在 `src/shared/ui/base.css`。
