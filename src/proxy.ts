@@ -1,17 +1,20 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest } from "next/server";
+import { localeFromAcceptLanguage } from "@/shared/i18n/accept-language";
 import { routing } from "@/shared/i18n/routing";
 
 const intl = createMiddleware(routing);
 
 /**
- * 語言轉址：沒有語言的網址轉到使用者選過的語言（cookie），沒選過就用繁中。
- * 先拿掉 Accept-Language，不照瀏覽器語言自動切換（英文目前只是占位）。
- * 不在語言網址列表的路徑（例如 /xx/...）會被當成沒有語言，轉到 /zh-TW/xx/... 再顯示 404。
+ * 語言轉址（docs/設計補充/設計補充.md 第 1 節）：
+ * - 自己切換過語言（cookie）→ 用 cookie。
+ * - 第一次進網站 → 看瀏覽器語言：中文用繁中，其他用英文；沒送用繁中。
+ * Accept-Language 先由程式自己整理成 zh-TW 或 en，再交給 next-intl（資安：不讓超長或亂寫的標頭進去）。
+ * 不在語言網址列表的路徑（例如 /xx/...）會被當成沒有語言，轉到 /<語言>/xx/... 再顯示 404。
  */
 export default function proxy(request: NextRequest) {
   const headers = new Headers(request.headers);
-  headers.delete("accept-language");
+  headers.set("accept-language", localeFromAcceptLanguage(request.headers.get("accept-language")));
   return intl(new NextRequest(request, { headers }));
 }
 

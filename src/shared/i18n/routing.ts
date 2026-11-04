@@ -5,8 +5,7 @@ const region = getRegion();
 
 /**
  * 語言路由：網址一律帶語言（/zh-TW/...、/en/...）。
- * 使用者手動切換後用 cookie 記住（只存語言代碼，不含個資）。
- * 不照瀏覽器語言自動切換：src/proxy.ts 會先拿掉 Accept-Language。
+ * 第一次進網站照瀏覽器語言（src/proxy.ts）；使用者切換後用 cookie 記住（只存語言代碼，不含個資）。
  */
 export const routing = defineRouting({
   locales: region.locales,
