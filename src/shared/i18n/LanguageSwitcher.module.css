@@ -1,0 +1,30 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* 電腦版：地球 + English／中文，15px、次要文字色、不加外框 */
+.desktop {
+  min-height: var(--size-button-md);
+  font-size: var(--text-button);
+  color: var(--color-text-secondary);
+}
+
+.desktop:hover {
+  color: var(--color-text);
+}
+
+/* 手機版：地球 + EN／中，高 32、左右 10、膠囊、1.5px 框、白底、13px 粗體 */
+.mobile {
+  height: 32px;
+  padding: 0 10px;
+  border: 1.5px solid var(--color-border-input);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+}

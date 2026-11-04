@@ -13,8 +13,32 @@ function location(res: Response) {
 }
 
 describe("語言轉址", () => {
-  it("打開 / 一律用繁中，不照瀏覽器語言", async () => {
-    const res = await get("/", { "accept-language": "en-US,en;q=0.9" });
+  it.each([
+    ["en-US,en;q=0.9", "/en"],
+    ["ja", "/en"],
+    ["zh-TW,zh;q=0.9", "/zh-TW"],
+    ["zh-CN", "/zh-TW"],
+  ])("第一次進網站照瀏覽器語言：%s → %s", async (acceptLanguage, expected) => {
+    const res = await get("/", { "accept-language": acceptLanguage });
+    expect(location(res)?.pathname).toBe(expected);
+  });
+
+  it("瀏覽器沒有送語言 → 繁中", async () => {
+    expect(location(await get("/"))?.pathname).toBe("/zh-TW");
+  });
+
+  it("切換過語言（cookie）就照 cookie，不看瀏覽器語言", async () => {
+    const res = await get("/", { "accept-language": "en-US", cookie: "NEXT_LOCALE=zh-TW" });
+    expect(location(res)?.pathname).toBe("/zh-TW");
+  });
+
+  it("cookie 的值不合法就照瀏覽器語言", async () => {
+    const res = await get("/", { "accept-language": "en-US", cookie: "NEXT_LOCALE=fr" });
+    expect(location(res)?.pathname).toBe("/en");
+  });
+
+  it("資安：超長、亂寫的瀏覽器語言不會出錯，當成沒送", async () => {
+    const res = await get("/", { "accept-language": "<script>".repeat(500) });
     expect(location(res)?.pathname).toBe("/zh-TW");
   });
 

@@ -3,9 +3,18 @@
     "siteName": "傻媽萬事通"
   },
   "languageSwitcher": {
-    "label": "Language",
-    "zh-TW": "繁體中文",
-    "en": "English"
+    "desktop": {
+      "zh-TW": "中文",
+      "en": "English"
+    },
+    "mobile": {
+      "zh-TW": "中",
+      "en": "EN"
+    },
+    "aria": {
+      "zh-TW": "切換成中文",
+      "en": "Switch to English"
+    }
   },
   "notFound": {
     "title": "找不到這個頁面",
@@ -116,6 +125,9 @@
     "links": "文字連結",
     "backLink": "回我的家與安全設定",
     "endLink": "看完整條款",
-    "icons": "圖示"
+    "icons": "圖示",
+    "languageSwitcher": "語言切換",
+    "languageDesktop": "電腦版（放在頁首右邊）",
+    "languageMobile": "手機版（放在選單最上面）"
   }
 }

@@ -40,7 +40,7 @@ export default async function DevI18nPage({ params }: PageProps<"/[locale]/dev/i
 
   return (
     <main style={{ maxWidth: 720, margin: "0 auto", padding: 16 }}>
-      <LanguageSwitcher />
+      <LanguageSwitcher variant="desktop" />
       <h1>{t("title")}</h1>
       <p>{t("description")}</p>
 

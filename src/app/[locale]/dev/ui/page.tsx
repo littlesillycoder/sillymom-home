@@ -62,7 +62,6 @@ export default async function DevUiPage() {
 
   return (
     <main className={styles.page}>
-      <LanguageSwitcher />
       <BackLink href="/dev/i18n">{t("backLink")}</BackLink>
       <h1>{t("title")}</h1>
       <p className={styles.lead}>{t("description")}</p>
@@ -179,6 +178,18 @@ export default async function DevUiPage() {
           <Alert tone="danger" title={t("alertDangerTitle")}>
             {t("alertDanger")}
           </Alert>
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <h2>{t("languageSwitcher")}</h2>
+        <div className={styles.row}>
+          <span>{t("languageDesktop")}</span>
+          <LanguageSwitcher variant="desktop" />
+        </div>
+        <div className={styles.row}>
+          <span>{t("languageMobile")}</span>
+          <LanguageSwitcher variant="mobile" />
         </div>
       </section>
 
