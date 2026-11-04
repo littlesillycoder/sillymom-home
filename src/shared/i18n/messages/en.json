@@ -313,5 +313,22 @@
     "message": "傳訊息",
     "remove": "移除",
     "online": "在線中"
+  },
+  "providerTemplates": {
+    "verificationCode": {
+      "text": "[SillyMom Home] Your verification code is {code}. Do not share it with anyone."
+    },
+    "bookingAccepted": {
+      "title": "Your booking was accepted",
+      "text": "The technician accepted your booking (case {caseId}). Check the time and what to prepare on the website."
+    },
+    "videoStartingSoon": {
+      "title": "Your video call starts soon",
+      "text": "Your video call starts at {time} (case {caseId}). Please have the area ready to show the technician."
+    },
+    "homeVisitOnTheWay": {
+      "title": "The technician is on the way",
+      "text": "The technician is on the way to your home (case {caseId}). Check the trip and verification code on the website."
+    }
   }
 }

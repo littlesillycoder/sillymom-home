@@ -313,5 +313,22 @@
     "message": "傳訊息",
     "remove": "移除",
     "online": "在線中"
+  },
+  "providerTemplates": {
+    "verificationCode": {
+      "text": "【傻媽萬事通】你的驗證碼是 {code}，請勿提供給任何人。"
+    },
+    "bookingAccepted": {
+      "title": "師傅已接受你的預約",
+      "text": "師傅已接受你的預約（案件 {caseId}）。請到網站查看時間和準備事項。"
+    },
+    "videoStartingSoon": {
+      "title": "視訊快開始了",
+      "text": "你的視訊將在 {time} 開始（案件 {caseId}）。請準備好要給師傅看的地方。"
+    },
+    "homeVisitOnTheWay": {
+      "title": "師傅出發了",
+      "text": "師傅已出發前往你家（案件 {caseId}）。請到網站查看行程和核對碼。"
+    }
   }
 }
