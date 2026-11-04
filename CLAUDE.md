@@ -28,6 +28,18 @@
 5. **貼回驗證結果**：使用者照「驗證步驟」檢查時，每通過一步（或發現問題），Claude Code 都要在 issue 留一則「驗證結果」comment，逐步列出結果（通過／不通過、實際看到什麼、驗證時發現的修正）。不要只留在對話裡。
 6. **等使用者驗證**：使用者驗證完成後，會在 issue 加上 `Verified` label。**沒有 `Verified` label 的 issue 不能關閉**，Claude Code 也不能自己加這個 label。
 
+### GitHub Project 狀態（Project「SillyMom-Home」的 Status 欄位）
+
+| 狀態 | 什麼時候 | 誰來改 |
+|---|---|---|
+| Todo | 還沒開始 | — |
+| In progress | 開始討論方向（流程第 1 步） | Claude Code |
+| Verifying | PR 開好、「驗證步驟」寫好（流程第 4 步） | Claude Code |
+| Done | issue 關閉 | GitHub 自動（Project 的 Workflows） |
+
+- 用 `gh project item-edit` 改狀態；新開的 issue 要確認有加進 Project（`gh project item-add`）。
+- 驗證時發現問題、要改程式：維持 Verifying，修好後在 issue 補「驗證步驟（補充）」。
+
 ## 一定要遵守
 
 1. **模組化**：程式放在 `src/modules/<模組>/`；跨模組只能 import `modules/<模組>/index.ts`，或用事件。不能直接讀寫別的模組的資料表。
