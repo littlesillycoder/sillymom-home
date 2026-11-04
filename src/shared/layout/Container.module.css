@@ -1,0 +1,7 @@
+/* 內容區：左右留白照寬度規則；2560 以上內容最寬 2240、置中。背景由外層負責（滿版）。 */
+.container {
+  width: 100%;
+  max-width: calc(var(--content-max) + 2 * var(--page-gutter));
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}

@@ -5,3 +5,5 @@ pnpm-lock.yaml
 .next/
 supabase/.temp/
 *.md
+test-results/
+playwright-report/

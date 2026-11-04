@@ -40,6 +40,14 @@ const PATHS = {
   question:
     "M12 21a9 9 0 110-18 9 9 0 010 18zM9.5 9.5a2.5 2.5 0 115 .5c0 1.5-2.5 2-2.5 3.5M12 17v.5",
   phone: "M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2",
+  // 後台選單收合用（docs/設計補充/設計補充.md 第 3 節）
+  adminHome: "M4 11l8-7 8 7v9h-5v-6H9v6H4z",
+  adminReview: "M9 11a4 4 0 100-8 4 4 0 000 8zM2 21c0-4 3-6 7-6 1.6 0 3 .3 4.1 1M15 18l2 2 4-4",
+  adminDisputes: "M12 3l9 16H3zM12 10v4M12 17v.5",
+  adminMembers:
+    "M9 11a4 4 0 100-8 4 4 0 000 8zM2 21c0-4 3-6 7-6s7 2 7 6M16 3.6a4 4 0 010 7M22 21c0-3-1.4-5-4-5.8",
+  adminFinance: "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h4",
+  adminSettings: "M4 7h9M17 7h3M4 17h3M11 17h9M15 5v4M9 15v4",
 } as const;
 
 export type IconName = keyof typeof PATHS;

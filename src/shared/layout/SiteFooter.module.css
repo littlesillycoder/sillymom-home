@@ -1,0 +1,97 @@
+/*
+ * 頁尾（docs/設計補充/設計補充.md 第 2 節）
+ * - 767 以下：公開頁照設計稿（深色、三行）；會員、師傅頁不放
+ * - 768 以上：一行版（左邊品牌＋版權、右邊連結）；一行放不下時連結換到下一行、靠左
+ */
+
+/* ── 手機（公開頁）── */
+.mobile {
+  padding: 20px var(--page-gutter) 28px;
+  background: var(--color-ink);
+  color: var(--color-ink-text);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobile a {
+  color: var(--color-ink-text);
+}
+
+.mobileBrand {
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-on-color);
+}
+
+/* ── 電腦一行版 ── */
+.desktop {
+  display: none;
+}
+
+.row {
+  min-height: 71px;
+  padding-block: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-8);
+  row-gap: var(--space-3);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  white-space: nowrap;
+}
+
+.brandName {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-black);
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+}
+
+.copyright {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  font-size: var(--text-button);
+}
+
+.links a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.links a:hover {
+  color: var(--color-text);
+}
+
+/* 分組的淺色直線 */
+.divider {
+  width: 1px;
+  height: 14px;
+  background: var(--color-border-input);
+}
+
+@media (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+
+  .desktop {
+    display: block;
+    border-top: 1px solid var(--color-border);
+  }
+}

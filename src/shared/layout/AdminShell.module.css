@@ -1,0 +1,199 @@
+/* 後台：左側深色選單 + 內容（設計稿 AdminHome；收合照 docs/設計補充/設計補充.md 第 3 節） */
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  background: var(--color-bg);
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  width: 72px;
+  height: 100dvh;
+  padding: var(--space-6) 12px;
+  background: var(--color-ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 0 20px;
+  color: var(--color-text-on-color);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--color-text-on-color);
+}
+
+.logo {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--color-denim);
+  display: grid;
+  place-items: center;
+}
+
+.brandText {
+  display: none;
+  flex-direction: column;
+}
+
+.brandName {
+  font-size: var(--text-md);
+  font-weight: var(--weight-black);
+}
+
+.brandSub {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+}
+
+.item {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: var(--color-ink-text);
+  text-decoration: none;
+}
+
+.item:hover {
+  color: var(--color-text-on-color);
+}
+
+.item[aria-current="page"] {
+  background: var(--color-ink-raised);
+  color: var(--color-text-on-color);
+}
+
+.label {
+  display: none;
+}
+
+/* 收合時：待處理件數是圖示右上角的紅色小圓 */
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-text-on-color);
+  font-size: 12px;
+  font-weight: var(--weight-bold);
+  line-height: 18px;
+  text-align: center;
+}
+
+/* 收合時：滑鼠移上去或鍵盤 focus 顯示全名 */
+.tooltip {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: var(--color-ink);
+  color: var(--color-text-on-color);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+
+.item:hover .tooltip,
+.item:focus-visible .tooltip {
+  opacity: 1;
+}
+
+.icon {
+  display: grid;
+}
+
+.footer {
+  display: none;
+  margin-top: auto;
+  padding: 12px 8px 0;
+  border-top: 1px solid var(--color-ink-raised);
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 36px 40px;
+}
+
+@media (max-width: 767px) {
+  .main {
+    padding: var(--space-5) var(--space-4) var(--space-8);
+  }
+}
+
+/* 1100 以上：240 寬文字選單（文字左邊不加圖示） */
+@media (min-width: 1100px) {
+  .sidebar {
+    width: 240px;
+    padding: var(--space-6) var(--space-4);
+    align-items: stretch;
+  }
+
+  .brand {
+    padding: 0 8px 20px;
+  }
+
+  .brandText {
+    display: flex;
+  }
+
+  .item {
+    width: auto;
+    height: auto;
+    min-height: var(--size-button-md);
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--text-md);
+  }
+
+  .item[aria-current="page"] {
+    font-weight: var(--weight-bold);
+  }
+
+  .icon,
+  .tooltip {
+    display: none;
+  }
+
+  .label {
+    display: inline;
+  }
+
+  .badge {
+    position: static;
+    padding: 1px 8px;
+    height: auto;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  .footer {
+    display: block;
+  }
+}

@@ -21,6 +21,13 @@
   --color-border-input: #d8d2c4; /* 輸入框、勾選框框線 */
   --color-divider: #ece7dc; /* 分隔線 */
   --color-switch-off: #c9ccd3;
+  --color-chevron: #a8abb3; /* 選單項目的箭頭 */
+
+  /* 深色（後台選單、手機頁尾） */
+  --color-ink: #23262e;
+  --color-ink-raised: #3a3e48; /* 目前頁面 */
+  --color-ink-text: #c9ccd3;
+  --color-ink-muted: #a8abb3;
 
   /* 文字 */
   --color-text: #23262e;
@@ -76,6 +83,16 @@
   --size-input-code: 48px;
   --size-input-search: 40px;
 
-  /* 版面：767 以下手機版，768 以上電腦版 */
+  /* 版面：767 以下手機版，768 以上電腦版（docs/電腦版自動調整寬度規則.md）
+     左右留白：手機 16px；電腦 螢幕寬度 5.556%（1440 寬時 80px）；內容最寬 2240 */
   --page-gutter: 16px;
+  --content-max: 2240px;
+  --header-height: 56px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-gutter: 5.556vw;
+    --header-height: 84px;
+  }
 }

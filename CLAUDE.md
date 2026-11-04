@@ -52,6 +52,7 @@
    - 接收者要寫成「執行兩次結果一樣」，在 `src/event-handlers.ts` 註冊。
 3. **外部服務**：金流、發票、簡訊、通知只能透過 `src/shared/providers/` 的介面呼叫，不能直接呼叫綠界、EVERY8D、LINE 的程式。
 4. **不寫死**：
+   - 每個用到翻譯的 layout、page 開頭先 `await initRequestLocale()`（`@/shared/i18n/request-locale`），頁面才能預先產生。
    - 畫面文字放在語言檔 `src/shared/i18n/messages/`（繁中、英文，兩邊項目要一樣）。`.tsx` 裡直接寫中文，lint 會擋下。站內連結用 `@/shared/i18n` 的 `Link`（自動帶語言）。
    - **金額**：資料庫存 `numeric(12,2)`（例如 `150.50`）＋另一欄幣別代碼（`TWD`、`EUR`）。程式裡用 `Money` 型別，加減、比較只能用 `@/shared/i18n` 的 `addMoney`、`subtractMoney`、`compareMoney` 等工具，**不能直接對金額做 `+`、`-`**；顯示用 `formatMoney`。台幣不能有小數。
    - **時間**：存 UTC（`timestamptz`），顯示用 `formatDate`、`formatTime`、`formatDateTime`，時區照 `src/shared/config/regions.ts`，24 小時制。沒有時區的時間文字會被擋下。
@@ -67,6 +68,8 @@
    - 先用 `@/shared/ui` 現有的元件（按鈕、標籤、卡片、輸入框、勾選框、開關、分頁籤、對話框、步驟列、提示框、圖示、文字連結），展示在 `/[語言]/dev/ui`。不裝元件庫、圖示套件。
    - 圖示只用設計稿有的（`Icon`），新圖示先跟設計確認。
    - 字型 Noto Sans TC 用 `next/font`（使用者瀏覽時不連到 Google）。
+   - 頁面外框用 `@/shared/layout`：一般頁面 `PageShell`（頁首 guest／member／tech，頁尾 full／compact／none，照 `docs/設計補充/設計補充.md` 第 2 節），後台 `AdminShell`。內容用 `Container` 縮排。
+   - 網址一律用 `@/shared/navigation/routes` 的 `routeHref()`，新頁面先加進清單（`built: false` 會顯示「建置中」，做完改成 `true`）。網址不放個資；`[id]` 一律用 UUID。
    - 提示內容、說明文字這類段落用 `word-break: normal`（正常換行），標題、按鈕、標籤不斷詞。
    - 卡片圓角 16、卡片裡的小框 12。
    - 單獨一行的文字連結靠右；「← 回…」返回連結靠左上。
@@ -85,6 +88,7 @@
 - 本機開發：`cp .env.example .env.local` 並填入值，然後 `pnpm dev`，打開 http://localhost:3000
 - 測試：`pnpm test`（需要資料庫的測試在本機沒有 Docker 時會自動略過，GitHub Actions 會跑）
 - 檢查（lint、格式、型別、測試）：`pnpm check`；自動排版：`pnpm format`
+- 版面自動檢查（Playwright，11 種寬度）：`pnpm test:e2e`（會自己開開發伺服器；已經在跑 `pnpm dev` 的話用 `E2E_BASE_URL=http://localhost:3000 pnpm test:e2e`）
 - 資料庫：新增 migration `pnpm db:new <名稱>`；推到雲端開發專案 `pnpm db:push`（第一次要先 `pnpm exec supabase login` 和 `pnpm exec supabase link`）
 - 工程檢查：開發和 PR 預覽環境打開 `/health`，會回傳資料庫讀寫狀態（JSON）
 - 部署：（#83 補上）
