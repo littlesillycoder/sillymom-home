@@ -6,7 +6,6 @@ import { Tag } from "@/shared/ui/Tag";
 import type { TechCardData } from "../types";
 import {
   CredentialTags,
-  CredentialText,
   GenderTag,
   licenseText,
   profileHref,
@@ -291,21 +290,62 @@ export async function FavoriteTechCard({ tech, now }: CardProps) {
   );
 }
 
-/** 預約摘要的師傅列（確認與付款、預約到府、行程追蹤）：證件用灰色文字。 */
-export async function TechSummaryRow({ tech }: { tech: TechCardData }) {
+/**
+ * 預約摘要的師傅列（確認與付款、預約到府、行程追蹤）。
+ * 證件一律用綠色打勾標籤（docs/設計補充/設計補充.md 第 7 節），手機、電腦都一樣。
+ * - 768 以上照 desktop/Checkout：頭像＋評分｜名字、性別、次數、專長、證照、證件｜右邊狀態（有傳 status 才顯示）
+ * - 767 以下照 mobile/Checkout：頭像、名字、性別、右邊次數；下一行證件
+ * status：這筆預約的狀態或時間，例如視訊時間（{ kind: "later", at }）。
+ */
+export async function TechSummaryRow({
+  tech,
+  status,
+  now,
+}: {
+  tech: TechCardData;
+  status?: TechCardData["status"];
+  now?: Date;
+}) {
+  const license = await licenseText(tech);
   return (
-    <div className={styles.summary}>
-      <TechAvatar tech={tech} size={48} />
-      <span className={styles.summaryMain}>
-        <span className={styles.compactLine}>
-          <span className={styles.nameRow}>
-            <span className={styles.summaryName}>{tech.displayName}</span>
-            <GenderTag gender={tech.gender} />
+    <>
+      <div className={cx(styles.mobileOnly, styles.summary)}>
+        <TechAvatar tech={tech} size={48} />
+        <span className={styles.summaryMain}>
+          <span className={styles.compactLine}>
+            <span className={styles.nameRow}>
+              <span className={styles.summaryName}>{tech.displayName}</span>
+              <GenderTag gender={tech.gender} />
+            </span>
+            <ServicesTag count={tech.serviceCount} />
           </span>
-          <ServicesTag count={tech.serviceCount} />
+          <span className={styles.tags}>
+            <CredentialTags credentials={tech.credentials} />
+          </span>
         </span>
-        <CredentialText credentials={tech.credentials} />
-      </span>
-    </div>
+      </div>
+
+      <div className={cx(styles.desktopOnly, styles.summaryDesktop)}>
+        <span className={styles.simpleLeft}>
+          <TechAvatar tech={tech} size={64} />
+          <RatingBlock tech={tech} />
+        </span>
+        <span className={styles.simpleMain}>
+          <span className={styles.nameRow}>
+            <span className={styles.name}>{tech.displayName}</span>
+            <GenderTag gender={tech.gender} />
+            <ServicesTag count={tech.serviceCount} />
+          </span>
+          <span className={styles.text}>
+            <span className={styles.specialties}>{tech.specialties}</span>
+            {license && <span className={styles.license}>{license}</span>}
+          </span>
+          <span className={styles.tags}>
+            <CredentialTags credentials={tech.credentials} />
+          </span>
+        </span>
+        {status && now && <StatusPill status={status} now={now} className={styles.bigStatus} />}
+      </div>
+    </>
   );
 }

@@ -150,16 +150,6 @@ export async function CredentialTags({
   );
 }
 
-/** 灰色證件文字（預約摘要）：「身分驗證 · 良民證 · 證照」。 */
-export async function CredentialText({ credentials }: { credentials: Credential[] }) {
-  const t = await getTranslations("technician");
-  return (
-    <span className={styles.credentialText}>
-      {credentials.map((c) => t(`credential.${c}`)).join(" · ")}
-    </span>
-  );
-}
-
 /** 「冷凍空調技術士 8 年 · 另有 2 張證照」。 */
 export async function licenseText(tech: TechCardData): Promise<string | null> {
   if (!tech.license) return null;

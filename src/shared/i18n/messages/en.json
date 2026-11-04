@@ -134,14 +134,19 @@
     "simpleBook": "簡易卡＋預約（登入後首頁「我信任的師傅」）",
     "detailed": "詳細卡（師傅列表、推薦師傅）",
     "favorite": "我信任的師傅卡",
-    "summary": "預約摘要的師傅列（確認與付款、預約到府、行程追蹤）",
+    "summary": "預約摘要的師傅列（確認與付款、預約到府、行程追蹤；證件用綠色標籤）",
     "specialtiesA": "冷氣安裝、保養、漏水排除",
     "specialtiesB": "水電、冷氣排水管、熱水器",
     "specialtiesC": "冷氣、家電維修",
     "licenseName": "冷凍空調技術士",
     "nameA": "林師傅",
     "nameB": "陳師傅",
-    "nameC": "王師傅"
+    "nameC": "王師傅",
+    "versionNow": "目前顯示：",
+    "versionMobile": "手機版（767 以下）",
+    "versionTablet": "768–1099 版",
+    "versionDesktop": "電腦版（1100 以上）",
+    "versionHint": "拉窄或拉寬視窗，可以看到其他版本。"
   },
   "layout": {
     "brand": "傻媽萬事通",

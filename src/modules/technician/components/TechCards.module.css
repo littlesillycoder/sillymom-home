@@ -381,6 +381,13 @@ a.card:hover {
   gap: 2px;
 }
 
+/* 768 以上（desktop/Checkout） */
+.summaryDesktop {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
 .summaryName {
   font-size: var(--text-lg);
   font-weight: var(--weight-black);

@@ -96,14 +96,3 @@
   border-radius: 50%;
   background: currentColor;
 }
-
-/* 預約摘要用的灰色證件文字：一行、超出用「…」 */
-.credentialText {
-  display: block;
-  min-width: 0;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}

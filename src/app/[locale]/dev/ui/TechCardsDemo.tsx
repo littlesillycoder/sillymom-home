@@ -22,6 +22,19 @@ function taipeiAt(now: Date, addDays: number, hour: number): string {
   return new Date(Date.UTC(y, m - 1, d + addDays, hour - 8)).toISOString();
 }
 
+/** 標示目前看到的是哪一個版本（依視窗寬度切換）。 */
+async function VersionBadge() {
+  const t = await getTranslations("devUi");
+  return (
+    <span className={styles.version}>
+      {t("versionNow")}
+      <span className={styles.vMobile}>{t("versionMobile")}</span>
+      <span className={styles.vTablet}>{t("versionTablet")}</span>
+      <span className={styles.vDesktop}>{t("versionDesktop")}</span>
+    </span>
+  );
+}
+
 /** 元件展示：五種師傅卡 × 三種狀態（假資料）。 */
 export async function TechCardsDemo({ now }: { now: Date }) {
   const t = await getTranslations("devUi");
@@ -79,39 +92,58 @@ export async function TechCardsDemo({ now }: { now: Date }) {
 
   return (
     <section className={styles.section}>
-      <h2>{t("techCards")}</h2>
+      <h2>
+        {t("techCards")}
+        <VersionBadge />
+      </h2>
+      <p className={styles.hint}>{t("versionHint")}</p>
 
-      <h3 className={styles.subTitle}>{t("simple")}</h3>
+      <h3 className={styles.subTitle}>
+        {t("simple")}
+        <VersionBadge />
+      </h3>
       <div className={styles.cardGrid}>
         {techs.map((tech) => (
           <SimpleTechCard key={tech.id} tech={tech} now={now} />
         ))}
       </div>
 
-      <h3 className={styles.subTitle}>{t("simpleBook")}</h3>
+      <h3 className={styles.subTitle}>
+        {t("simpleBook")}
+        <VersionBadge />
+      </h3>
       <div className={styles.cardGrid}>
         <SimpleTechCardWithBooking tech={techs[0]} now={now} />
         <SimpleTechCardWithBooking tech={tomorrow} now={now} />
         <SimpleTechCardWithBooking tech={later} now={now} />
       </div>
 
-      <h3 className={styles.subTitle}>{t("detailed")}</h3>
+      <h3 className={styles.subTitle}>
+        {t("detailed")}
+        <VersionBadge />
+      </h3>
       <div className={styles.stack}>
         {techs.map((tech) => (
           <DetailedTechCard key={tech.id} tech={tech} now={now} />
         ))}
       </div>
 
-      <h3 className={styles.subTitle}>{t("favorite")}</h3>
+      <h3 className={styles.subTitle}>
+        {t("favorite")}
+        <VersionBadge />
+      </h3>
       <div className={styles.cardGrid}>
         <FavoriteTechCard tech={techs[0]} now={now} />
         <FavoriteTechCard tech={tomorrow} now={now} />
         <FavoriteTechCard tech={later} now={now} />
       </div>
 
-      <h3 className={styles.subTitle}>{t("summary")}</h3>
+      <h3 className={styles.subTitle}>
+        {t("summary")}
+        <VersionBadge />
+      </h3>
       <Card>
-        <TechSummaryRow tech={techs[0]} />
+        <TechSummaryRow tech={techs[0]} status={tomorrow.status} now={now} />
       </Card>
     </section>
   );
