@@ -7,7 +7,10 @@
 目前沒有。
 
 ## 資料表
-目前沒有。資料表只能由本模組的 `server/` 讀寫，別的模組要資料請透過公開介面或事件。
+資料表只能由本模組的 `server/` 讀寫，別的模組要資料請透過公開介面或事件。權限測試在 `tests/db/schema.rls.test.ts`。
+
+- `user_roles`：使用者角色（customer、technician、owner、reviewer、support）。一般使用者只能讀自己的，不能新增或修改。權限檢查用 `has_role()`、`has_any_role()`。
+  - migration：`supabase/migrations/20261105120000_auth_user_roles.sql`
 
 ## 發出的事件（`events.ts`）
 目前沒有。

@@ -332,5 +332,19 @@
       "title": "師傅出發了",
       "text": "師傅已出發前往你家（案件 {caseId}）。請到網站查看行程和核對碼。"
     }
+  },
+  "serviceCategories": {
+    "plumbing": "水電與漏水",
+    "aircon": "冷氣",
+    "appliance": "家電",
+    "lighting": "燈具與插座",
+    "lock": "門鎖",
+    "network": "3C 與網路",
+    "smart_home": "智慧家電與監視器",
+    "painting": "油漆與小裝修",
+    "pest": "除蟲",
+    "furniture": "家具組裝",
+    "handyman": "居家小修繕",
+    "unsure": "不確定是哪一類"
   }
 }

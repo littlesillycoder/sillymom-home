@@ -332,5 +332,19 @@
       "title": "The technician is on the way",
       "text": "The technician is on the way to your home (case {caseId}). Check the trip and verification code on the website."
     }
+  },
+  "serviceCategories": {
+    "plumbing": "Plumbing & leaks",
+    "aircon": "Air conditioning",
+    "appliance": "Appliances",
+    "lighting": "Lights & outlets",
+    "lock": "Locks",
+    "network": "Electronics & network",
+    "smart_home": "Smart home & cameras",
+    "painting": "Painting & small repairs",
+    "pest": "Pest control",
+    "furniture": "Furniture assembly",
+    "handyman": "Handyman",
+    "unsure": "Not sure"
   }
 }
