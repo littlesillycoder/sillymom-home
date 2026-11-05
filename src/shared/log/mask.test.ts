@@ -63,10 +63,39 @@ describe("log 遮蔽：依欄位名稱", () => {
     "cardNumber",
     "accessToken",
     "password",
+    "authorization",
+    "Authorization",
+    "cookie",
+    "Set-Cookie",
+    "set_cookie",
+    "apiKey",
+    "api_key",
+    "x-api-key",
   ])("%s 整個值遮掉", (key) => {
     const out = maskValue({ [key]: "台北市信義區松仁路 100 號 王小美" }) as Record<string, unknown>;
     expect(out[key]).toBe(REDACTED);
   });
+
+  it("HTTP 標頭裡的登入資訊和 cookie 會遮掉，其他標頭保留", () => {
+    expect(
+      maskValue({
+        headers: {
+          Authorization: "Bearer secret-value",
+          Cookie: "sb-access-token=abc",
+          "content-type": "application/json",
+        },
+      }),
+    ).toEqual({
+      headers: { Authorization: REDACTED, Cookie: REDACTED, "content-type": "application/json" },
+    });
+  });
+
+  it.each(["apiVersion", "authorized", "authorId"])(
+    "名稱裡只是剛好有這些字的一般欄位不會被誤遮：%s",
+    (key) => {
+      expect((maskValue({ [key]: "x" }) as Record<string, unknown>)[key]).toBe("x");
+    },
+  );
 
   it("巢狀物件和陣列也會遮", () => {
     expect(

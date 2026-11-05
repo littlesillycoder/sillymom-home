@@ -3,7 +3,8 @@ import { isForbiddenKey } from "@/shared/events/pii";
 /**
  * log 的個資遮蔽（#6）。兩層：
  * 1. 依欄位名稱：和事件的個資規則相同（src/shared/events/pii.ts：手機、地址、email、姓名、
- *    證件號碼、LINE 使用者 ID、驗證碼、卡號、token、密碼…），整個值換成 [redacted]。
+ *    證件號碼、LINE 使用者 ID、驗證碼、卡號、token、密碼…），再加上 authorization、cookie、
+ *    API 金鑰（isSensitiveLogKey），整個值換成 [redacted]。
  * 2. 依文字內容：看起來像手機、email、身分證／居留證號、卡號、LINE 使用者 ID 的部分換掉。
  *
  * 地址、姓名沒辦法靠格式判斷，只能放在有名稱的欄位（例如 { address }），不能夾在一段文字裡。
@@ -11,6 +12,21 @@ import { isForbiddenKey } from "@/shared/events/pii";
  */
 
 export const REDACTED = "[redacted]";
+
+/**
+ * log 另外要遮的欄位（事件不會有這些，所以不放進事件的規則）：
+ * HTTP 的登入資訊、cookie、API 金鑰。
+ */
+const LOG_ONLY_SENSITIVE = /(^|_)(authorization|cookie|cookies|set_cookie|api_key|apikey)(_|$)/;
+
+export function isSensitiveLogKey(key: string): boolean {
+  if (isForbiddenKey(key)) return true;
+  const snake = key
+    .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
+    .replace(/-/g, "_")
+    .toLowerCase();
+  return LOG_ONLY_SENSITIVE.test(snake);
+}
 
 /** 文字裡的個資格式。順序有關係：email 先（裡面可能有數字），卡號在手機前。 */
 const PATTERNS: ReadonlyArray<{ label: string; re: RegExp; check?: (match: string) => boolean }> = [
@@ -65,7 +81,7 @@ export function maskValue(value: unknown, depth = 0): unknown {
   }
   const out: Record<string, unknown> = {};
   for (const [key, child] of Object.entries(value).slice(0, MAX_ITEMS)) {
-    out[key] = isForbiddenKey(key) ? REDACTED : maskValue(child, depth + 1);
+    out[key] = isSensitiveLogKey(key) ? REDACTED : maskValue(child, depth + 1);
   }
   return out;
 }
