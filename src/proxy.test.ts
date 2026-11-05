@@ -88,3 +88,33 @@ describe("哪些網址不經過語言轉址", () => {
     expect(matcher.test(path)).toBe(true);
   });
 });
+
+describe("CSP（每次請求產生 nonce）", () => {
+  function nonceOf(res: Response) {
+    const csp = res.headers.get("content-security-policy") ?? "";
+    return /'nonce-([^']+)'/.exec(csp)?.[1];
+  }
+
+  it("回應有 CSP，nonce 格式正確", async () => {
+    const res = await get("/zh-TW");
+    expect(nonceOf(res)).toMatch(/^[A-Za-z0-9+/]{22}==$/);
+  });
+
+  it("每次請求的 nonce 都不同", async () => {
+    const nonces = await Promise.all(
+      Array.from({ length: 20 }, async () => nonceOf(await get("/zh-TW"))),
+    );
+    expect(new Set(nonces).size).toBe(20);
+  });
+
+  it("帶 nonce 的回應不能被快取", async () => {
+    const res = await get("/zh-TW");
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
+  });
+
+  it("把 nonce 交給頁面（x-nonce），而且和回應的 CSP 是同一個", async () => {
+    const res = await get("/zh-TW");
+    const forwarded = res.headers.get("x-middleware-request-x-nonce");
+    expect(forwarded).toBe(nonceOf(res));
+  });
+});

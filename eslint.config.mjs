@@ -109,12 +109,32 @@ const i18nRules = {
   },
 };
 
+/**
+ * log（#6）：不能直接用 console，一律用 @/shared/log（會自動遮蔽個資）。
+ * 只有 log 工具本身和測試可以用 console。
+ */
+const logRules = {
+  files: ["src/**/*.{ts,tsx}"],
+  ignores: ["src/shared/log/**", "src/**/*.test.{ts,tsx}"],
+  rules: {
+    "no-restricted-globals": [
+      "error",
+      {
+        name: "console",
+        message:
+          "不能直接用 console，請用 @/shared/log 的 log.info／log.warn／log.error（會自動遮蔽個資）",
+      },
+    ],
+  },
+};
+
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   prettier,
   boundaryRules,
   i18nRules,
+  logRules,
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

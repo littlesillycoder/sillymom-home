@@ -1,5 +1,6 @@
 import "@/shared/ui/base.css";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { initRequestLocale } from "@/shared/i18n/request-locale";
@@ -20,7 +21,17 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("siteName") };
 }
 
+/**
+ * CSP nonce（#6）：每個頁面都要在請求時產生，Next.js 才能把這次的 nonce 加到 <script> 上。
+ * 事先產生好的頁面（靜態、部分預先產生）沒有請求，就沒有 nonce，會被 CSP 擋下。
+ * - connection()：告訴 Next.js 這裡要等請求進來才能產生。
+ * - instant = false：允許整個網站沒有事先產生的外框（Next.js 會檢查每頁都有外框，這裡刻意關掉）。
+ * 代價：頁面不能放在 CDN 快取，每次都由伺服器產生（使用者已同意，見 #6 執行方式 A）。
+ */
+export const instant = false;
+
 export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {
+  await connection();
   const locale = await initRequestLocale();
 
   return (

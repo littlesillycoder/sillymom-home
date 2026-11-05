@@ -4,6 +4,7 @@ import { connection } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { isDevToolsEnabled } from "@/shared/config/env";
 import { LanguageSwitcher } from "@/shared/i18n";
+import { TurnstileWidget } from "@/shared/security/turnstile-widget";
 import {
   Alert,
   BackLink,
@@ -194,6 +195,14 @@ export default async function DevUiPage() {
           <span>{t("languageMobile")}</span>
           <LanguageSwitcher variant="mobile" />
         </div>
+      </section>
+
+      <section className={styles.section}>
+        <h2>{t("turnstile")}</h2>
+        <p>{t("turnstileDesc")}</p>
+        <form>
+          <TurnstileWidget action="dev-ui-demo" />
+        </form>
       </section>
 
       <section className={styles.section}>

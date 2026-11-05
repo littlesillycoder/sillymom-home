@@ -23,6 +23,11 @@ describe("個資欄位檢查", () => {
     "card_number",
     "lat",
     "lng",
+    "otp",
+    "smsOtp",
+    "lineId",
+    "lineUserId",
+    "line_user_id",
   ])("擋下 %s", (key) => {
     expect(isForbiddenKey(key)).toBe(true);
   });
@@ -35,6 +40,9 @@ describe("個資欄位檢查", () => {
     "amount",
     "currency",
     "hotelId",
+    "lineItems",
+    "deadline",
+    "pipelineId",
   ])("允許 %s", (key) => {
     expect(isForbiddenKey(key)).toBe(false);
   });

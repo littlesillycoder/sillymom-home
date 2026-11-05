@@ -1,0 +1,40 @@
+# 套件更新檢查（#6）
+# - 每週一次，同類的更新合成一個 PR。
+# - 新版本發布後等 7 天才提出（cooldown），避免裝到剛被駭客竄改的版本。
+#   漏洞修補（security updates）不受 cooldown 影響，會馬上提出。
+# - 一律不自動合併：照一般流程跑 GitHub 檢查，由使用者決定。
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Taipei
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      next-react:
+        patterns:
+          ["next", "eslint-config-next", "react", "react-dom", "@types/react", "@types/react-dom"]
+      supabase:
+        patterns: ["@supabase/*", "supabase"]
+      test-tools:
+        patterns: ["vitest", "@playwright/test"]
+      lint-format:
+        patterns: ["eslint", "eslint-*", "prettier", "typescript"]
+    commit-message:
+      prefix: "套件更新"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Taipei
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "GitHub Actions 更新"

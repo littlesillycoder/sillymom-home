@@ -129,6 +129,8 @@
     "languageSwitcher": "語言切換",
     "languageDesktop": "電腦版（放在頁首右邊）",
     "languageMobile": "手機版（放在選單最上面）",
+    "turnstile": "防機器人驗證（Turnstile）",
+    "turnstileDesc": "放在登入、送驗證碼、申訴等表單裡。這裡用 Cloudflare 的測試金鑰，一定會通過；正式金鑰在部署時設定。",
     "techCards": "師傅卡",
     "simple": "簡易卡（首頁、服務分類）",
     "simpleBook": "簡易卡＋預約（登入後首頁「我信任的師傅」）",

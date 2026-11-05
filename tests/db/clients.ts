@@ -4,6 +4,9 @@ import { testDb } from "./supabase-test-env";
 
 const options = { auth: { persistSession: false, autoRefreshToken: false } };
 
+/** 測試資料庫開啟了 Turnstile（supabase/config.toml），登入要帶 Cloudflare 測試密鑰對應的測試 token */
+export const TEST_CAPTCHA_TOKEN = "XXXX.DUMMY.TOKEN.XXXX";
+
 export type TestClients = {
   /** secret key：伺服器端 */
   admin: SupabaseClient;
@@ -23,7 +26,11 @@ export async function createTestClients(): Promise<TestClients> {
   const password = `pw-${crypto.randomUUID()}`;
   const created = await admin.auth.admin.createUser({ email, password, email_confirm: true });
   expect(created.error).toBeNull();
-  const signIn = await signedIn.auth.signInWithPassword({ email, password });
+  const signIn = await signedIn.auth.signInWithPassword({
+    email,
+    password,
+    options: { captchaToken: TEST_CAPTCHA_TOKEN },
+  });
   expect(signIn.error).toBeNull();
 
   return {

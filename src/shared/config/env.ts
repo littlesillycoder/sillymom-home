@@ -1,3 +1,5 @@
+import { type CspMode, resolveCspMode } from "@/shared/security/csp";
+
 /**
  * 執行環境設定。所有環境變數都從這裡讀，其他地方不直接讀 process.env。
  *
@@ -59,4 +61,60 @@ export const MIN_CRON_SECRET_LENGTH = 32;
 export function getEventsCronSecret(): string | null {
   const value = process.env.EVENTS_CRON_SECRET;
   return value && value.length >= MIN_CRON_SECRET_LENGTH ? value : null;
+}
+
+/** CSP 要擋下還是只回報（src/shared/security/csp.ts）。正式環境設成 report-only 會報錯。 */
+export function getCspMode(): CspMode {
+  return resolveCspMode(getAppEnv(), process.env.CSP_MODE);
+}
+
+/**
+ * Cloudflare 官方的 Turnstile 測試金鑰（公開文件上的值，不是秘密）。
+ * https://developers.cloudflare.com/turnstile/troubleshooting/testing/
+ */
+export const TURNSTILE_TEST_KEYS = {
+  siteKey: {
+    alwaysPasses: "1x00000000000000000000AA",
+    alwaysBlocks: "2x00000000000000000000AB",
+  },
+  secretKey: {
+    alwaysPasses: "1x0000000000000000000000000000000AA",
+    alwaysFails: "2x0000000000000000000000000000000AA",
+    alreadySpent: "3x0000000000000000000000000000000AA",
+  },
+} as const;
+
+function isTurnstileTestKey(value: string): boolean {
+  return /^[123]x0+[A-F]{2}$/.test(value);
+}
+
+/**
+ * Turnstile（防機器人）的金鑰。
+ * - 正式環境：一定要設定，而且不能是測試金鑰（測試金鑰誰都能通過）。
+ * - 其他環境沒設定時用「一定通過」的測試金鑰。
+ * 密鑰（secret）只能在伺服器端使用。
+ */
+export function getTurnstileSiteKey(appEnv: AppEnv = getAppEnv()): string {
+  return turnstileKey(
+    "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+    TURNSTILE_TEST_KEYS.siteKey.alwaysPasses,
+    appEnv,
+  );
+}
+
+export function getTurnstileSecretKey(appEnv: AppEnv = getAppEnv()): string {
+  return turnstileKey(
+    "TURNSTILE_SECRET_KEY",
+    process.env.TURNSTILE_SECRET_KEY,
+    TURNSTILE_TEST_KEYS.secretKey.alwaysPasses,
+    appEnv,
+  );
+}
+
+function turnstileKey(name: string, value: string | undefined, testKey: string, appEnv: AppEnv) {
+  if (appEnv !== "production") return value || testKey;
+  const key = required(name, value);
+  if (isTurnstileTestKey(key)) throw new Error(`正式環境的 ${name} 不能是 Turnstile 測試金鑰`);
+  return key;
 }
