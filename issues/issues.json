@@ -745,6 +745,14 @@
         "基礎"
       ],
       "body": "### 背景\n網站出錯時要能馬上知道、查得到原因。照 `CLAUDE.md`「能用現成服務就用」，接一個現成的錯誤監控服務，不自己寫。\n\n### 要做\n- 接現成的錯誤監控服務（例如 **Sentry 免費方案**）：伺服器端和瀏覽器端的錯誤都要記到。\n- **先確認相容性**：網站跑在 Cloudflare Workers（OpenNext），Sentry 的 Next.js 套件在 Workers 上只支援一部分功能（可能要用 `@sentry/cloudflare`）。做不到的部分在 issue 留言說明。\n- **記錄錯誤時要遮掉個資**：\n  - 關閉自動送出個資（`sendDefaultPii: false`），不送 IP、Cookie、請求內容。\n  - 送出前用 `beforeSend` 遮掉手機、Email、地址、姓名、驗證碼、證件號碼（可沿用 `src/shared/providers/log/mask.ts` 的規則）。\n  - 在服務端也開啟資料遮罩（Sentry 的 Data Scrubbing）。\n- 依環境區分（development、preview、demo、production）；開發環境預設不送。\n- 金鑰（DSN 等）只放環境變數；寫進 `.env.example`。\n- 在 `docs/技術決定.md` 記錄用了哪個服務、資料存在哪個地區（隱私權政策要寫）。\n- 遮蔽個資用 #6 的 `src/shared/log` 同一套規則（欄位名稱＋文字格式），送出前先遮蔽；CSP 違規回報也送到這個服務。\n\n### 完成標準\n- [ ] 故意觸發一個伺服器端錯誤和一個瀏覽器端錯誤，都能在錯誤監控服務看到。\n- [ ] 有測試證明送出的錯誤內容裡沒有手機、Email、地址、姓名、驗證碼。\n- [ ] 正式、展示環境的錯誤分開。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 效能監控、使用者行為錄影（Session Replay）：涉及個資，之後另外討論。\n\n### 要先完成\n- {{dep:基礎｜部署到 Cloudflare：main 自動部署、PR 預覽網址}}\n\n參考：`CLAUDE.md`、`docs/技術決定.md`、`docs/架構說明.md`\n\n"
+    },
+    {
+      "title": "基礎｜正式版本不存在的網址要回 404",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n#6 用正式版本（`pnpm build` + `pnpm start`）測試時發現：**不存在的網址畫面顯示「找不到頁面」，但回給瀏覽器的狀態碼是 200，不是 404**。main 原本就這樣，不是 #6 造成的。\n\nGitHub 上的自動畫面檢查（Playwright）跑在開發模式，開發模式會正確回 404，所以一直沒發現。\n\n影響：\n- 搜尋引擎可能把不存在的網址當成正常頁面收錄。\n- 之後的監控（#93）分不出「頁面不存在」和「正常」。\n- 亂打網址的掃描工具會以為頁面存在。\n\n### 要做\n- 找出正式版本回 200 的原因（可能和 Next.js 的 cacheComponents、頁面串流有關），讓不存在的網址回 404。\n- 不在網址清單上、參數格式不對的網址（`src/shared/navigation/routes.ts` 的 `matchRoute`）都要回 404。\n- 自動畫面檢查加一組「用正式版本跑」的測試（至少 404 和資安標頭），之後才抓得到這類只在正式版本出現的問題。\n\n### 完成標準\n- [ ] 正式版本（`pnpm build` + `pnpm start`）：`tests/e2e/layout.spec.ts` 的「建置中與 404」全部通過。\n- [ ] GitHub Actions 有用正式版本跑的檢查，並包含 404 和 `tests/e2e/security.spec.ts`。\n- [ ] 部署到 Cloudflare 後（#83），在預覽網址確認不存在的網址回 404。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 錯誤頁的正式設計（在 #23）。\n\n### 要先完成\n- {{dep:基礎｜資安基本設定}}\n\n參考：`CLAUDE.md`、`docs/架構說明.md`\n"
     }
   ]
 }
