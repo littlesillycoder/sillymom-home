@@ -108,7 +108,8 @@ create policy technicians_select_admin on public.technicians
 -- 刻意用建立者的權限讀資料（沒有 security_invoker）：未登入的人沒有 technicians 的權限，
 -- 只能透過這個檢視表看到下面列出的欄位。Supabase 後台的安全檢查會對這種檢視表顯示提醒，
 -- 這是「只開放部分欄位」唯一的做法；新增欄位前要確認可以公開，tests/db/schema.rls.test.ts 會檢查欄位清單。
-create view public.public_technicians as
+-- security_barrier：先套用「已通過審核」的過濾，再套用查詢條件，避免用故意出錯的查詢推測出未通過審核的師傅資料。
+create view public.public_technicians with (security_barrier = true) as
   select
     t.user_id as id,
     t.display_name,

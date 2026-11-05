@@ -360,6 +360,24 @@ describe.skipIf(!hasTestDb)(hasTestDb ? title : `${title}（${skipReason}）`, (
         ).error,
       );
     });
+    it("停用的服務類別不能用在新的求助", async () => {
+      const off = await admin
+        .from("service_categories")
+        .update({ active: false })
+        .eq("code", "pest");
+      expect(off.error).toBeNull();
+      try {
+        denied(
+          (
+            await A.client
+              .from("help_requests")
+              .insert({ category_code: "pest", description: "x", district: "tw-taipei-xinyi" })
+          ).error,
+        );
+      } finally {
+        await admin.from("service_categories").update({ active: true }).eq("code", "pest");
+      }
+    });
   });
 
   describe("附件", () => {

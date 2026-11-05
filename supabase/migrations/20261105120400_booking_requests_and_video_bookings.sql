@@ -28,6 +28,30 @@ comment on table public.help_requests is '求助（問題描述、類別、行�
 
 create index help_requests_customer_idx on public.help_requests (customer_id);
 
+-- 只能選目前開放的服務類別（停用的類別不能用在新的求助或修改）
+create function public.help_requests_validate()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if not exists (
+    select 1 from public.service_categories c
+    where c.code = new.category_code and c.active
+  ) then
+    raise exception using errcode = 'check_violation',
+      message = 'help_requests: category is not active';
+  end if;
+  return new;
+end;
+$$;
+
+revoke all on function public.help_requests_validate() from public, anon, authenticated;
+
+create trigger help_requests_validate
+  before insert or update of category_code on public.help_requests
+  for each row execute function public.help_requests_validate();
+
 create trigger help_requests_set_updated_at
   before update on public.help_requests
   for each row execute function public.set_updated_at();
