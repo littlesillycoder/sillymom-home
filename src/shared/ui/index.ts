@@ -3,6 +3,7 @@ export { Button, ButtonLink, BUTTON_VARIANTS, type ButtonVariant, type ButtonSiz
 export { Card, CardInner } from "./Card";
 export { Checkbox } from "./Checkbox";
 export { Dialog } from "./Dialog";
+export { FlowSteps } from "./FlowSteps";
 export { Icon, ICON_NAMES, type IconName } from "./Icon";
 export { Stepper } from "./Stepper";
 export { Switch } from "./Switch";

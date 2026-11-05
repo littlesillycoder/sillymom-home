@@ -19,6 +19,8 @@ export type Region = {
   timeZone: string;
   /** 這個地區允許的外部服務實作；環境變數設成清單以外的值會直接報錯。 */
   providers: Record<ProviderService, readonly string[]>;
+  /** 手機登入（#11）：國碼和手機號碼（不含國碼、不含開頭 0）的格式 */
+  phone: { countryCode: string; mobilePattern: RegExp };
 };
 
 export const REGIONS = {
@@ -33,6 +35,8 @@ export const REGIONS = {
       sms: ["mock", "every8d"],
       notify: ["mock", "line"],
     },
+    // 台灣手機：09 開頭 10 碼，去掉 0 之後是 9 開頭 9 碼
+    phone: { countryCode: "886", mobilePattern: /^9\d{8}$/ },
   },
 } as const satisfies Record<string, Region>;
 

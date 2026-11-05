@@ -346,5 +346,84 @@
     "furniture": "家具組裝",
     "handyman": "居家小修繕",
     "unsure": "不確定是哪一類"
+  },
+  "auth": {
+    "loginTitle": "登入或註冊",
+    "loginLead": "輸入手機號碼就好。第一次使用會自動幫你建立帳號。",
+    "verifyStep": "手機驗證",
+    "verifyProgress": "步驟 2／4",
+    "verifyNext": "下一步：推薦師傅",
+    "verifyTitle": "驗證你的手機",
+    "verifyLead": "為了雙方安全，所有客戶都要先完成手機驗證，師傅才看得到你的求助，視訊也才能錄影存證。",
+    "verifyCardTitle": "手機號碼驗證",
+    "haveAccount": "已經有帳號？",
+    "loginInstead": "直接登入",
+    "phoneLabel": "手機號碼",
+    "phonePlaceholder": "912 345 678",
+    "send": "傳送驗證碼",
+    "sent": "已傳送",
+    "sending": "傳送中…",
+    "codeLabel": "輸入簡訊中的 6 位數驗證碼",
+    "resendIn": "沒收到？<b>{time}</b> 後可以重新傳送",
+    "resendPrompt": "沒收到？",
+    "resend": "重新傳送驗證碼",
+    "firstTimeOnly": "第一次使用才需要填",
+    "nameLabel": "師傅要怎麼稱呼你？",
+    "namePlaceholder": "例如：林小姐",
+    "nameHint": "只會顯示稱呼，不會顯示你的全名或電話",
+    "agree": "我同意 <terms>服務條款</terms> 與 <privacy>隱私政策</privacy>",
+    "submitLogin": "登入",
+    "submitVerify": "驗證並查看推薦師傅",
+    "submitting": "處理中…",
+    "completeLead": "第一次使用，請填寫稱呼並同意條款，就完成註冊了。",
+    "whyTitle": "為什麼要先註冊？",
+    "why": {
+      "record": {
+        "t": "視訊全程錄影存證",
+        "b": "只有你和師傅看得到（申訴調閱或依法要求時除外）。"
+      },
+      "verified": {
+        "t": "師傅看到的是驗證過的客戶",
+        "b": "所有客戶都經過手機驗證並綁定付款方式，彼此都更安心。"
+      },
+      "history": {
+        "t": "維修紀錄一次保存",
+        "b": "問題、處理方式、報價都留著，下次找師傅更快。"
+      },
+      "safety": {
+        "t": "設定你的安全偏好",
+        "b": "例如只要女師傅、到府時自動分享行程給家人。"
+      }
+    },
+    "afterTitle": "驗證之後",
+    "after": {
+      "match": "馬上看到為你推薦的師傅，也可以指定女師傅",
+      "privacy": "師傅只看得到你的稱呼和行政區",
+      "home": "沒有先視訊、直接預約到府時，要師傅接受才會成立"
+    },
+    "back": "回上一步",
+    "backHome": "回首頁",
+    "checking": "正在確認你不是機器人，請稍候再按一次。",
+    "errors": {
+      "phoneFormat": "請輸入 10 位數字的手機號碼",
+      "codeFormat": "請輸入 6 位數驗證碼",
+      "sendFirst": "請先傳送驗證碼",
+      "tooMany": "傳送太頻繁，請稍後再試。",
+      "captcha": "沒有通過機器人檢查，請重新整理頁面再試一次。",
+      "sendFailed": "驗證碼傳送失敗，請稍後再試。",
+      "codeInvalid": "驗證碼不正確或已過期，請再確認一次或重新傳送。",
+      "needProfile": "第一次使用，請填寫稱呼並勾選同意條款。",
+      "invalidName": "稱呼請填 1～20 個字。",
+      "failed": "系統忙碌中，請稍後再試。"
+    }
+  },
+  "requestFlow": {
+    "label": "求助步驟",
+    "steps": {
+      "describe": "描述問題",
+      "verify": "手機驗證",
+      "match": "推薦師傅",
+      "checkout": "確認與付款"
+    }
   }
 }

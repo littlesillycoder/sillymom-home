@@ -40,6 +40,8 @@ jobs:
           node-version: 24
       - run: corepack enable pnpm
       - run: pnpm install --frozen-lockfile
+      - name: 產生這次用的簡訊 Hook 密鑰（#11，不寫在檔案裡）
+        run: echo "SUPABASE_AUTH_SEND_SMS_HOOK_SECRET=v1,whsec_$(openssl rand -base64 32)" >> "$GITHUB_ENV"
       - name: 開暫時資料庫並套用 migration
         run: pnpm exec supabase start
       - name: 設定測試用連線
@@ -52,7 +54,9 @@ jobs:
             psql "$SUPABASE_TEST_DB_URL" -v ON_ERROR_STOP=1 -f "$f"
           done
       - name: 資料庫測試（一次跑一個檔案，避免互相干擾）
-        run: pnpm exec vitest run tests/db --no-file-parallelism
+        run: pnpm exec vitest run tests/db/ --no-file-parallelism
+      - name: Supabase Auth 次數限制實測（會用掉同一個 IP 的次數，最後才跑）
+        run: pnpm exec vitest run tests/db-limits/
       - name: 檢查型別和資料庫一致（不一致請下載 database-types，換掉 src/shared/supabase/database.types.ts）
         run: diff -u src/shared/supabase/database.types.ts "$RUNNER_TEMP/database.types.ts"
       - if: failure()

@@ -346,5 +346,84 @@
     "furniture": "Furniture assembly",
     "handyman": "Handyman",
     "unsure": "Not sure"
+  },
+  "auth": {
+    "loginTitle": "Log in or sign up",
+    "loginLead": "Just enter your mobile number. We'll create an account for you the first time.",
+    "verifyStep": "Phone verification",
+    "verifyProgress": "Step 2 of 4",
+    "verifyNext": "Next: recommended technicians",
+    "verifyTitle": "Verify your phone",
+    "verifyLead": "For everyone's safety, all customers verify their phone first. Only then can technicians see your request, and video calls can be recorded.",
+    "verifyCardTitle": "Phone number verification",
+    "haveAccount": "Already have an account?",
+    "loginInstead": "Log in",
+    "phoneLabel": "Mobile number",
+    "phonePlaceholder": "912 345 678",
+    "send": "Send code",
+    "sent": "Sent",
+    "sending": "Sending…",
+    "codeLabel": "Enter the 6-digit code from the text message",
+    "resendIn": "Didn't get it? You can resend in <b>{time}</b>",
+    "resendPrompt": "Didn't get it?",
+    "resend": "Resend code",
+    "firstTimeOnly": "Only needed the first time",
+    "nameLabel": "What should technicians call you?",
+    "namePlaceholder": "e.g. Ms. Lin",
+    "nameHint": "Only this name is shown, never your full name or phone number",
+    "agree": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>",
+    "submitLogin": "Log in",
+    "submitVerify": "Verify and see recommended technicians",
+    "submitting": "Working…",
+    "completeLead": "First time here? Add your name and agree to the terms to finish signing up.",
+    "whyTitle": "Why sign up first?",
+    "why": {
+      "record": {
+        "t": "Every video call is recorded",
+        "b": "Only you and the technician can see it (except for disputes or when required by law)."
+      },
+      "verified": {
+        "t": "Technicians see verified customers",
+        "b": "Every customer verifies their phone and adds a payment method, so everyone feels safer."
+      },
+      "history": {
+        "t": "Your repair history in one place",
+        "b": "Problems, fixes and quotes are kept, so finding a technician next time is faster."
+      },
+      "safety": {
+        "t": "Set your safety preferences",
+        "b": "For example, female technicians only, or share your visit with family automatically."
+      }
+    },
+    "afterTitle": "After verifying",
+    "after": {
+      "match": "See recommended technicians right away, or choose a female technician",
+      "privacy": "Technicians only see your name and district",
+      "home": "Home visits booked without a video call need the technician's acceptance"
+    },
+    "back": "Back",
+    "backHome": "Home",
+    "checking": "Checking that you're not a robot. Please wait a moment and try again.",
+    "errors": {
+      "phoneFormat": "Please enter a 10-digit mobile number",
+      "codeFormat": "Please enter the 6-digit code",
+      "sendFirst": "Please send the code first",
+      "tooMany": "Too many attempts. Please try again later.",
+      "captcha": "The robot check failed. Please refresh the page and try again.",
+      "sendFailed": "We couldn't send the code. Please try again later.",
+      "codeInvalid": "The code is wrong or has expired. Please check it or send a new one.",
+      "needProfile": "First time here? Please add your name and agree to the terms.",
+      "invalidName": "Please use 1–20 characters for your name.",
+      "failed": "Something went wrong. Please try again later."
+    }
+  },
+  "requestFlow": {
+    "label": "Request steps",
+    "steps": {
+      "describe": "Describe the problem",
+      "verify": "Verify phone",
+      "match": "Recommended technicians",
+      "checkout": "Confirm and pay"
+    }
   }
 }

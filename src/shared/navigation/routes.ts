@@ -9,7 +9,13 @@
 export type Area = "public" | "flow" | "member" | "tech" | "admin";
 export type FooterMode = "full" | "compact" | "none";
 
-type RouteDef = { pattern: string; area: Area; built: boolean };
+/**
+ * 誰可以進這一頁（#11）。沒寫的照區域：public、flow 不用登入；member 要登入；tech 要師傅角色；admin 要管理員角色。
+ * signedIn：登入就好（例如還不是師傅的人申請成為師傅）。
+ */
+export type Access = "anyone" | "signedIn" | "technician" | "admin";
+
+type RouteDef = { pattern: string; area: Area; built: boolean; access?: Access };
 
 export const ROUTES = {
   // 公開頁面
@@ -25,10 +31,10 @@ export const ROUTES = {
   terms: { pattern: "/terms", area: "public", built: false },
   privacy: { pattern: "/privacy", area: "public", built: false },
   join: { pattern: "/join", area: "public", built: false },
-  login: { pattern: "/login", area: "public", built: false },
+  login: { pattern: "/login", area: "public", built: true },
   // 求助流程（沒有頁尾）
   request: { pattern: "/request", area: "flow", built: false },
-  requestVerify: { pattern: "/request/verify", area: "flow", built: false },
+  requestVerify: { pattern: "/request/verify", area: "flow", built: true },
   requestMatch: { pattern: "/request/match", area: "flow", built: false },
   requestCheckout: { pattern: "/request/checkout", area: "flow", built: false },
   videoWait: { pattern: "/video/[id]/wait", area: "flow", built: false },
@@ -62,9 +68,14 @@ export const ROUTES = {
   techProfile: { pattern: "/tech/profile", area: "tech", built: false },
   techMessages: { pattern: "/tech/messages", area: "tech", built: false },
   techTerms: { pattern: "/tech/terms", area: "tech", built: false },
-  techApply: { pattern: "/tech/apply", area: "tech", built: false },
-  techApplyTerms: { pattern: "/tech/apply/terms", area: "tech", built: false },
-  techApplyStatus: { pattern: "/tech/apply/status", area: "tech", built: false },
+  techApply: { pattern: "/tech/apply", area: "tech", built: false, access: "signedIn" },
+  techApplyTerms: { pattern: "/tech/apply/terms", area: "tech", built: false, access: "signedIn" },
+  techApplyStatus: {
+    pattern: "/tech/apply/status",
+    area: "tech",
+    built: false,
+    access: "signedIn",
+  },
   // 後台
   admin: { pattern: "/admin", area: "admin", built: false },
   adminTechnicians: { pattern: "/admin/technicians", area: "admin", built: false },
@@ -84,6 +95,22 @@ const PARAM_PATTERNS: Record<string, RegExp> = {
 /** 頁尾模式（docs/設計補充/設計補充.md 第 2 節）：公開 full、會員和師傅 compact、流程和後台 none。 */
 export function footerModeFor(area: Area): FooterMode {
   return area === "public" ? "full" : area === "member" || area === "tech" ? "compact" : "none";
+}
+
+/** 這一頁需要的權限（見 Access）。 */
+export function accessFor(key: RouteKey): Access {
+  const def: RouteDef = ROUTES[key];
+  if (def.access) return def.access;
+  switch (def.area) {
+    case "member":
+      return "signedIn";
+    case "tech":
+      return "technician";
+    case "admin":
+      return "admin";
+    default:
+      return "anyone";
+  }
 }
 
 /** 依網址找到清單上的頁面；不在清單上或參數格式不對回傳 null。 */

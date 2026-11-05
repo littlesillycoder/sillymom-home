@@ -1,0 +1,101 @@
+/*
+ * 登入或註冊（設計稿 Login）
+ * - 767 以下：卡片、「為什麼要先註冊？」上下排；底部固定送出按鈕，下方留空間。
+ * - 768 以上：左邊表單卡片、右邊說明（約 730：510）。
+ */
+.page {
+  padding-top: var(--space-5);
+  padding-bottom: 120px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.card {
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
+  letter-spacing: 0.02em;
+  color: var(--color-denim);
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.aside {
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-denim-soft);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.asideTitle {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-black);
+  color: var(--color-denim);
+}
+
+.reason {
+  padding: var(--space-4);
+  border-radius: var(--radius-inner);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.reasonTitle {
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+}
+
+.reasonBody {
+  font-size: var(--text-md);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-top: 40px;
+    padding-bottom: 48px;
+    grid-template-columns: minmax(0, 1.43fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .card {
+    padding: 48px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .aside {
+    padding: 32px;
+  }
+}

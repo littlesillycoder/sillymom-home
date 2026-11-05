@@ -8,6 +8,8 @@ type Case = {
   admin?: boolean;
   /** 開發用展示頁：沒有頁首頁尾，只檢查橫向捲動和開發模式 Issue */
   bare?: boolean;
+  /** 簡單頁首（#11 登入、求助流程）：手機有選單按鈕、768 以上只有返回連結；沒有頁尾 */
+  simple?: boolean;
 };
 
 const CASES: Case[] = [
@@ -25,10 +27,11 @@ const CASES: Case[] = [
   { name: "未登入＋不放頁尾", path: "/zh-TW/dev/layout?header=guest&footer=none", footer: "none" },
   { name: "首頁", path: "/zh-TW", footer: "full" },
   { name: "建置中（公開）", path: "/zh-TW/services", footer: "full" },
-  { name: "建置中（會員）", path: "/zh-TW/dashboard", footer: "compact" },
+  // 會員、後台的建置中頁面要登入才看得到（#11），未登入的轉址測試在 auth.spec.ts
   { name: "建置中（求助流程）", path: "/zh-TW/request", footer: "none" },
   { name: "後台版面", path: "/zh-TW/dev/layout/admin", admin: true },
-  { name: "建置中（後台）", path: "/zh-TW/admin", admin: true },
+  { name: "登入或註冊", path: "/zh-TW/login", simple: true },
+  { name: "手機快速驗證（求助步驟 2）", path: "/zh-TW/request/verify", simple: true },
   { name: "元件展示（含師傅卡）", path: "/zh-TW/dev/ui", bare: true },
 ];
 
@@ -50,6 +53,15 @@ for (const c of CASES) {
 
         const header = page.locator("header").first();
         await expect(header).toBeVisible();
+
+        if (c.simple) {
+          const trigger = page.getByTestId("menu-trigger");
+          if (width >= 768) await expect(trigger, "768 以上沒有選單按鈕").toBeHidden();
+          else await expect(trigger, "手機有選單按鈕").toBeVisible();
+          await expect(page.locator("footer")).toHaveCount(0);
+          return;
+        }
+
         const nav = header.getByRole("navigation");
         const trigger = page.getByTestId("menu-trigger");
         if (width >= 1100) {

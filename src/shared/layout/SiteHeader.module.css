@@ -265,3 +265,36 @@
     display: none;
   }
 }
+
+/* ── 簡單頁首（#11 登入、求助流程）：電腦版只有返回連結，手機版只有選單 ── */
+.header[data-variant="simple"] {
+  background: var(--color-bg);
+}
+
+.header[data-variant="simple"][data-tone="flow"] {
+  background: var(--color-denim-soft);
+  border-bottom: none;
+}
+
+.backLink {
+  display: none;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-md);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .backLink {
+    display: inline-flex;
+  }
+
+  .mobileOnly {
+    display: none;
+  }
+}

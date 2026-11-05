@@ -12,6 +12,15 @@ import styles from "./SiteHeader.module.css";
 type Props =
   | { variant: "guest" }
   | {
+      /**
+       * 簡單頁首（#11 登入、求助流程，設計稿 Login、SignUp）：電腦版只有 Logo 和返回連結，
+       * 手機版保留選單。tone="flow" 是求助流程的藍色底。
+       */
+      variant: "simple";
+      back: { href: string; label: string; arrow?: boolean };
+      tone?: "plain" | "flow";
+    }
+  | {
       variant: "member";
       user?: HeaderUser;
       current?: MemberNavKey;
@@ -26,7 +35,13 @@ type Props =
       publicProfileId?: string;
     };
 
-async function Brand({ variant, withTagline }: { variant: HeaderVariant; withTagline: boolean }) {
+async function Brand({
+  variant,
+  withTagline,
+}: {
+  variant: HeaderVariant | "simple";
+  withTagline: boolean;
+}) {
   const t = await getTranslations("layout");
   const home =
     variant === "member"
@@ -54,6 +69,7 @@ async function Brand({ variant, withTagline }: { variant: HeaderVariant; withTag
  */
 export async function SiteHeader(props: Props) {
   const t = await getTranslations("layout");
+  if (props.variant === "simple") return <SimpleHeader {...props} />;
   const { variant } = props;
 
   const nav =
@@ -188,6 +204,37 @@ export async function SiteHeader(props: Props) {
           )}
 
           <span className={styles.narrowOnly}>{menu}</span>
+        </div>
+      </Container>
+    </header>
+  );
+}
+
+async function SimpleHeader({ back, tone = "plain" }: Extract<Props, { variant: "simple" }>) {
+  const t = await getTranslations("layout");
+  return (
+    <header className={styles.header} data-variant="simple" data-tone={tone}>
+      <Container className={styles.inner}>
+        <div className={styles.left}>
+          <Brand variant="simple" withTagline={false} />
+        </div>
+        <div className={styles.actions}>
+          <span className={styles.desktop}>
+            <LanguageSwitcher variant="desktop" />
+          </span>
+          <Link href={back.href} className={styles.backLink}>
+            {back.arrow && <Icon name="chevronLeft" size={18} />}
+            {back.label}
+          </Link>
+          <span className={styles.mobileOnly}>
+            <MenuDialog
+              brand={<Brand variant="simple" withTagline={false} />}
+              menuLabel={t("menu")}
+              closeLabel={t("closeMenu")}
+            >
+              <GuestMenu />
+            </MenuDialog>
+          </span>
         </div>
       </Container>
     </header>
