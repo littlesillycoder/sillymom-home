@@ -5,6 +5,8 @@ on:
   push:
     branches: [main]
 
+# GitHub Actions 一律指定到提交編號（#103）：就算對方的版本標籤被改指到別的程式，也不受影響。
+# Dependabot 會自動提出更新（註解裡的版本號一起改）。
 permissions:
   contents: read
 
@@ -13,8 +15,8 @@ jobs:
     name: lint、格式、型別、測試、建置
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
       - run: corepack enable pnpm
@@ -32,8 +34,8 @@ jobs:
       # 在這裡一定要有測試資料庫，缺少就讓測試失敗，而不是略過。
       REQUIRE_TEST_DB: "1"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
       - run: corepack enable pnpm
@@ -54,7 +56,7 @@ jobs:
       - name: 檢查型別和資料庫一致（不一致請下載 database-types，換掉 src/shared/supabase/database.types.ts）
         run: diff -u src/shared/supabase/database.types.ts "$RUNNER_TEMP/database.types.ts"
       - if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: database-types
           path: ${{ runner.temp }}/database.types.ts
@@ -67,8 +69,8 @@ jobs:
     env:
       APP_ENV: development
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
       - run: corepack enable pnpm
