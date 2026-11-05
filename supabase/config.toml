@@ -309,12 +309,14 @@ secrets = "env(SUPABASE_AUTH_SEND_SMS_HOOK_SECRET)"
 # uri = "pg-functions://<database>/<schema>/<hook_name>"
 
 # Configure one of the supported SMS providers: `twilio`, `twilio_verify`, `messagebird`, `textlocal`, `vonage`.
+# 佔位（#11）：本機的 Supabase CLI 沒看到任何簡訊服務就會關閉手機登入（就算有 Send SMS Hook）。
+# 這裡只是讓 CLI 開啟手機登入：Hook 開啟時 Supabase 改用 Hook 送簡訊，測試號碼也不會發簡訊，
+# 所以不會真的連到 Twilio。下面都是假的值，不是金鑰；雲端專案不經過這個檔案。
 [auth.sms.twilio]
-enabled = false
-account_sid = ""
-message_service_sid = ""
-# DO NOT commit your Twilio auth token to git. Use environment variable substitution instead:
-auth_token = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
+enabled = true
+account_sid = "AC00000000000000000000000000000000"
+message_service_sid = "MG00000000000000000000000000000000"
+auth_token = "placeholder-not-used"
 
 # Multi-factor-authentication is available to Supabase Pro plan.
 [auth.mfa]

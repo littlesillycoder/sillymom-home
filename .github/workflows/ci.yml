@@ -41,7 +41,10 @@ jobs:
       - run: corepack enable pnpm
       - run: pnpm install --frozen-lockfile
       - name: 產生這次用的簡訊 Hook 密鑰（#11，不寫在檔案裡）
-        run: echo "SUPABASE_AUTH_SEND_SMS_HOOK_SECRET=v1,whsec_$(openssl rand -base64 32)" >> "$GITHUB_ENV"
+        run: |
+          secret="v1,whsec_$(openssl rand -base64 32)"
+          echo "::add-mask::$secret"
+          echo "SUPABASE_AUTH_SEND_SMS_HOOK_SECRET=$secret" >> "$GITHUB_ENV"
       - name: 開暫時資料庫並套用 migration
         run: pnpm exec supabase start
       - name: 設定測試用連線

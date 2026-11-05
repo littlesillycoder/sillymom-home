@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useRouter } from "@/shared/i18n/navigation";
 import { routeHref } from "@/shared/navigation/routes";
 import {
@@ -75,7 +75,9 @@ export function PhoneOtpForm({
 }: Props) {
   const t = useTranslations("auth");
   const router = useRouter();
-  const supabase = useMemo(() => createClient(), []);
+  // 按下按鈕時才建立連線（沒有 Supabase 設定的環境，例如畫面測試，頁面照樣能顯示）
+  const supabaseRef = useRef<ReturnType<typeof createClient> | null>(null);
+  const supabase = () => (supabaseRef.current ??= createClient());
   const countryCode = getRegion().phone.countryCode;
 
   const [mode, setMode] = useState(initialMode);
@@ -110,10 +112,12 @@ export function PhoneOtpForm({
     if (!captchaToken) return setError({ field: "form", key: "captcha" });
 
     setBusy("send");
-    const { error: sendError } = await supabase.auth.signInWithOtp({
-      phone: e164,
-      options: { captchaToken, channel: "sms" },
-    });
+    // 包在 Promise 裡：建立連線失敗（沒有設定）也會走到 catch
+    const { error: sendError } = await Promise.resolve()
+      .then(() =>
+        supabase().auth.signInWithOtp({ phone: e164, options: { captchaToken, channel: "sms" } }),
+      )
+      .catch(() => ({ error: { status: 0, code: "unavailable", message: "" } }));
     setCaptchaToken(null);
     setCaptchaKey((k) => k + 1);
     setBusy(null);
@@ -135,11 +139,9 @@ export function PhoneOtpForm({
         return setError({ field: "code", key: "codeFormat" });
       }
       setBusy("submit");
-      const { error: verifyError } = await supabase.auth.verifyOtp({
-        phone: sentTo,
-        token: code,
-        type: "sms",
-      });
+      const { error: verifyError } = await Promise.resolve()
+        .then(() => supabase().auth.verifyOtp({ phone: sentTo, token: code, type: "sms" }))
+        .catch(() => ({ error: { message: "unavailable" } }));
       if (verifyError) {
         setBusy(null);
         return setError({ field: "code", key: "codeInvalid" });
