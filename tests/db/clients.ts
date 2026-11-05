@@ -42,3 +42,21 @@ export async function createTestClients(): Promise<TestClients> {
     },
   };
 }
+
+export type TestUser = { id: string; client: SupabaseClient };
+
+/** 建立一個已登入的測試使用者（資料庫會自動建立客戶資料和客戶角色）。刪除用 admin.auth.admin.deleteUser(id)。 */
+export async function createSignedInUser(admin: SupabaseClient, label: string): Promise<TestUser> {
+  const client = createClient(testDb.url!, testDb.publishableKey!, options);
+  const email = `${label}-${crypto.randomUUID()}@example.com`;
+  const password = `pw-${crypto.randomUUID()}`;
+  const created = await admin.auth.admin.createUser({ email, password, email_confirm: true });
+  expect(created.error).toBeNull();
+  const signIn = await client.auth.signInWithPassword({
+    email,
+    password,
+    options: { captchaToken: TEST_CAPTCHA_TOKEN },
+  });
+  expect(signIn.error).toBeNull();
+  return { id: created.data.user!.id, client };
+}

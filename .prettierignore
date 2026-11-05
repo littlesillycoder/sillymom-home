@@ -7,3 +7,5 @@ supabase/.temp/
 *.md
 test-results/
 playwright-report/
+# 由 supabase gen types 產生，不手動修改
+src/shared/supabase/database.types.ts

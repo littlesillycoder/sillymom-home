@@ -42,6 +42,8 @@ jobs:
         run: pnpm exec supabase start
       - name: 設定測試用連線
         run: pnpm exec supabase status -o json | node scripts/ci/supabase-test-env.mjs >> "$GITHUB_ENV"
+      - name: 產生資料庫型別（只用 migration，在建立測試資料表之前）
+        run: pnpm exec supabase gen types typescript --local --schema public > "$RUNNER_TEMP/database.types.ts"
       - name: 建立測試專用的資料表和函式（不在 migrations，不會推到雲端）
         run: |
           for f in tests/fixtures/sql/*.sql; do
@@ -49,6 +51,13 @@ jobs:
           done
       - name: 資料庫測試（一次跑一個檔案，避免互相干擾）
         run: pnpm exec vitest run tests/db --no-file-parallelism
+      - name: 檢查型別和資料庫一致（不一致請下載 database-types，換掉 src/shared/supabase/database.types.ts）
+        run: diff -u src/shared/supabase/database.types.ts "$RUNNER_TEMP/database.types.ts"
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: database-types
+          path: ${{ runner.temp }}/database.types.ts
       - if: always()
         run: pnpm exec supabase stop --no-backup
 

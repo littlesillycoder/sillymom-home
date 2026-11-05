@@ -11,7 +11,11 @@
 卡片只顯示稱呼、頭像字和公開資訊，不顯示全名、手機號碼；連結用 UUID。
 
 ## 資料表
-目前沒有。資料表只能由本模組的 `server/` 讀寫，別的模組要資料請透過公開介面或事件。
+資料表只能由本模組的 `server/` 讀寫，別的模組要資料請透過公開介面或事件。權限測試在 `tests/db/schema.rls.test.ts`。
+
+- `technicians`：師傅資料。師傅只能改稱呼、專長類別、技能、服務地區、語言；評分、審核狀態、徽章只有伺服器端能改。
+- `public_technicians`（檢視表）：公開資料，只有已通過審核的師傅和可以公開的欄位。未登入也能讀。新增欄位前要確認可以公開。
+  - migration：`supabase/migrations/20261105120300_technician_technicians.sql`
 
 ## 發出的事件（`events.ts`）
 目前沒有。
