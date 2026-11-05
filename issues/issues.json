@@ -753,6 +753,22 @@
         "基礎"
       ],
       "body": "### 背景\n#6 用正式版本（`pnpm build` + `pnpm start`）測試時發現：**不存在的網址畫面顯示「找不到頁面」，但回給瀏覽器的狀態碼是 200，不是 404**。main 原本就這樣，不是 #6 造成的。\n\nGitHub 上的自動畫面檢查（Playwright）跑在開發模式，開發模式會正確回 404，所以一直沒發現。\n\n影響：\n- 搜尋引擎可能把不存在的網址當成正常頁面收錄。\n- 之後的監控（#93）分不出「頁面不存在」和「正常」。\n- 亂打網址的掃描工具會以為頁面存在。\n\n### 要做\n- 找出正式版本回 200 的原因（可能和 Next.js 的 cacheComponents、頁面串流有關），讓不存在的網址回 404。\n- 不在網址清單上、參數格式不對的網址（`src/shared/navigation/routes.ts` 的 `matchRoute`）都要回 404。\n- 自動畫面檢查加一組「用正式版本跑」的測試（至少 404 和資安標頭），之後才抓得到這類只在正式版本出現的問題。\n\n### 完成標準\n- [ ] 正式版本（`pnpm build` + `pnpm start`）：`tests/e2e/layout.spec.ts` 的「建置中與 404」全部通過。\n- [ ] GitHub Actions 有用正式版本跑的檢查，並包含 404 和 `tests/e2e/security.spec.ts`。\n- [ ] 部署到 Cloudflare 後（#83），在預覽網址確認不存在的網址回 404。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- 錯誤頁的正式設計（在 #23）。\n\n### 要先完成\n- {{dep:基礎｜資安基本設定}}\n\n參考：`CLAUDE.md`、`docs/架構說明.md`\n"
+    },
+    {
+      "title": "基礎｜套件更新：處理第一批 Dependabot PR",
+      "milestone": "投資人展示版",
+      "labels": [
+        "基礎"
+      ],
+      "body": "### 背景\n#6 開啟 Dependabot 後，第一週提出 5 個套件更新 PR（#97～#101）。在做 #11（登入）之前先處理，讓登入建立在最新、已修補的版本上。\n\n| PR | 內容 | GitHub 檢查 |\n|---|---|---|\n| #97 | GitHub Actions `actions/checkout` 4 → 7 | 通過 |\n| #98 | GitHub Actions `actions/setup-node` 4 → 7 | 通過 |\n| #99 | `react`、`react-dom` 19.3.0 → 19.3.1 | 通過 |\n| #100 | `eslint` 9 → 10、`typescript` 5 → 7 | 失敗（typescript-eslint 還不支援 TypeScript 7） |\n| #101 | `@types/node` 24 → 26 | 通過（但專案用 Node 24） |\n\n### 要做\n- 逐一看每個 PR 的改動說明和 GitHub 檢查，決定合併或關閉。\n- 依討論結果調整 `.github/dependabot.yml`（例如不提出不適用的大版本更新）。\n- 在 `docs/資安檢查清單.md` 補上套件更新 PR 的處理規則。\n\n### 完成標準\n- [ ] 5 個 PR 都已合併或關閉，關閉的有留言說明原因。\n- [ ] GitHub 檢查全部通過。\n- [ ] 處理規則寫進文件。\n\n### 共通完成標準\n- [ ] 遵守 `CLAUDE.md` 的規則：模組化、語言檔、外部服務替換介面、不寫死金額與時間。\n- [ ] lint、型別檢查、模組邊界檢查、測試全部通過。\n- [ ] 新增的資料表都有 Row Level Security，並有測試證明其他帳號讀不到。\n- [ ] PR 附上手機（390 寬）和電腦（1440 寬）的截圖，並對照設計稿截圖檢查。\n\n### 這次不做\n- eslint 10、TypeScript 7 的升級（等工具支援後另外評估）。\n\n### 要先完成\n- {{dep:基礎｜資安基本設定}}\n\n參考：`CLAUDE.md`、`docs/資安檢查清單.md`\n"
+    },
+    {
+      "title": "之後討論｜重新評估 TypeScript 7、ESLint 10",
+      "milestone": null,
+      "labels": [
+        "之後討論"
+      ],
+      "body": "### 說明\n#103 處理第一批 Dependabot PR 時，關閉了 #100（eslint 9 → 10、TypeScript 5 → 7）：typescript-eslint 還不支援 TypeScript 7，GitHub 檢查失敗。\n\n目前 `.github/dependabot.yml` 設定**不提出** `typescript`、`eslint` 的大版本更新（小版本、修補版照常提出；有漏洞時 Security 頁照樣會警示）。\n\n**什麼時候評估**：typescript-eslint 和 eslint-config-next（Next.js 的 lint 設定）都正式支援 TypeScript 7、ESLint 10 之後。\n\n**評估時要檢查**：\n- typescript-eslint、eslint-config-next、eslint-plugin-boundaries（模組邊界規則）是否都支援。\n- `pnpm check`、`pnpm build` 全部通過；模組邊界、禁止 console、禁止中文寫死等自訂 lint 規則照樣有效（用 #4、#6 驗證步驟裡的「故意寫錯」測試確認）。\n- 新版本發布滿 7 天（pnpm `minimumReleaseAge`）。\n- 升級後，移除 `.github/dependabot.yml` 裡對 `typescript`、`eslint` 的 `ignore`。\n\n這個 issue 先記錄想法，決定要做時再補上「要做」「完成標準」，並移到對應的 Milestone。\n"
     }
   ]
 }
