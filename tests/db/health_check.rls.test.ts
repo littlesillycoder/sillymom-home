@@ -1,5 +1,6 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { TEST_CAPTCHA_TOKEN } from "./clients";
 import { hasTestDb, skipReason, testDb } from "./supabase-test-env";
 
 const options = { auth: { persistSession: false, autoRefreshToken: false } };
@@ -28,7 +29,11 @@ describe.skipIf(!hasTestDb)(hasTestDb ? title : `${title}（${skipReason}）`, (
     expect(created.error).toBeNull();
     userId = created.data.user!.id;
 
-    const signIn = await signedIn.auth.signInWithPassword({ email, password });
+    const signIn = await signedIn.auth.signInWithPassword({
+      email,
+      password,
+      options: { captchaToken: TEST_CAPTCHA_TOKEN },
+    });
     expect(signIn.error).toBeNull();
   });
 
