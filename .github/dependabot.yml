@@ -2,7 +2,7 @@
 # - 每週一次，同類的更新合成一個 PR。
 # - 新版本發布後等 7 天才提出（cooldown），避免裝到剛被駭客竄改的版本。
 #   漏洞修補（security updates）不受 cooldown 影響，會馬上提出。
-# - 一律不自動合併：照一般流程跑 GitHub 檢查，由使用者決定。
+# - 一律不自動合併：照一般流程跑 GitHub 檢查，由使用者決定。處理規則見 docs/資安檢查清單.md。
 version: 2
 updates:
   - package-ecosystem: npm
@@ -15,6 +15,16 @@ updates:
     cooldown:
       default-days: 7
     open-pull-requests-limit: 5
+    # 不提出這幾個的大版本更新（#103），小版本和修補版照常提出；有漏洞時 Security 頁照樣會警示。
+    # - @types/node：跟著執行環境 Node 24。
+    # - typescript、eslint：等 typescript-eslint、eslint-config-next 支援後另外評估（#104）。
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
     groups:
       next-react:
         patterns:
