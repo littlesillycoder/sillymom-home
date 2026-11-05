@@ -118,3 +118,12 @@ function turnstileKey(name: string, value: string | undefined, testKey: string, 
   if (isTurnstileTestKey(key)) throw new Error(`正式環境的 ${name} 不能是 Turnstile 測試金鑰`);
   return key;
 }
+
+/**
+ * Supabase Send SMS Hook 的簽章密鑰（#11），格式 v1,whsec_<base64>（Supabase 後台產生）。
+ * 沒設定或格式不對回傳 null（/internal/auth/send-sms 會回 404）。
+ */
+export function getSendSmsHookSecret(): string | null {
+  const value = process.env.SUPABASE_SEND_SMS_HOOK_SECRET;
+  return value && /^v1,whsec_[A-Za-z0-9+/=]{24,}$/.test(value) ? value : null;
+}

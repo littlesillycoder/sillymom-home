@@ -6,11 +6,11 @@ import boundaries from "eslint-plugin-boundaries";
 
 /**
  * 模組邊界規則（docs/架構說明.md、CLAUDE.md）：
- * 1. 模組只能 import 別的模組的 index.ts（公開介面），同一個模組內不限制。
+ * 1. 模組只能 import 別的模組的 index.ts（公開介面）或 server.ts（伺服器端專用的公開介面），同一個模組內不限制。
  * 2. shared/ 不能 import 任何模組。
  * 3. app/（頁面、Route Handler）只能 import 模組的 index.ts 和 shared/。
  * 4. 資安：shared/supabase/admin.ts（略過 RLS 的連線）只有模組的 server/、
- *    shared/events/、shared/health/、shared/providers/、shared/maintenance/ 可以 import。
+ *    shared/events/、shared/health/、shared/providers/、shared/maintenance/、shared/settings/ 可以 import。
  * 5. 外部服務：只能 import shared/providers/<服務>/index.ts，不能 import impl/ 裡的實作（#4）。
  */
 const boundaryRules = {
@@ -27,12 +27,15 @@ const boundaryRules = {
     ],
     "boundaries/files": [
       { pattern: "src/modules/*/index.ts", category: "module-public" },
+      // 伺服器端專用的公開介面（#11）：頁面、Route Handler 可以 import
+      { pattern: "src/modules/*/server.ts", category: "module-public" },
       { pattern: "src/modules/*/server/**", category: "module-server" },
       { pattern: "src/shared/supabase/admin.ts", category: "admin-client" },
       { pattern: "src/shared/events/**", category: "admin-allowed" },
       { pattern: "src/shared/health/**", category: "admin-allowed" },
       { pattern: "src/shared/providers/**", category: "admin-allowed" },
       { pattern: "src/shared/maintenance/**", category: "admin-allowed" },
+      { pattern: "src/shared/settings/**", category: "admin-allowed" },
       { pattern: "src/shared/providers/*/impl/**", category: "provider-impl" },
       { pattern: "src/shared/providers/**", category: "providers-internal" },
     ],
@@ -66,7 +69,7 @@ const boundaryRules = {
           {
             disallow: { to: { file: { categories: "admin-client" } } },
             message:
-              "資安：shared/supabase/admin.ts 會略過 RLS，只有模組的 server/、shared/events/、shared/health/、shared/providers/、shared/maintenance/ 可以 import",
+              "資安：shared/supabase/admin.ts 會略過 RLS，只有模組的 server/、shared/events/、shared/health/、shared/providers/、shared/maintenance/、shared/settings/ 可以 import",
           },
           {
             from: { file: { categories: ["module-server", "admin-allowed"] } },

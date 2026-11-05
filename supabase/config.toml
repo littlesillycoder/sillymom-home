@@ -261,7 +261,8 @@ otp_expiry = 3600
 [auth.sms]
 # Allow/disallow the phone provider. When false, users can't sign up or sign in with SMS.
 # To block new signups only, set enable_signup = false under [auth] instead.
-enabled = false
+# 手機驗證碼登入（#11）。簡訊由 Send SMS Hook 交給我們的簡訊介面送出（下面的 [auth.hook.send_sms]）。
+enabled = true
 # If enabled, users need to confirm their phone number before signing in.
 enable_confirmations = false
 # Template for sending OTP to users
@@ -274,8 +275,14 @@ otp_expiry = 300
 
 # Use pre-defined map of phone number to OTP for testing.
 # Keys are the phone number with country code and without the + prefix.
-# [auth.sms.test_otp]
-# 14152127777 = "123456"
+# 測試手機號碼（#4、#11）：固定驗證碼 123456，不會真的發簡訊。只在本機和 GitHub 的暫時資料庫；
+# 雲端開發、展示專案在 Supabase 後台設定同樣的號碼（示範帳號 #12 用這些號碼）。
+[auth.sms.test_otp]
+886900000001 = "123456"
+886900000002 = "123456"
+886900000003 = "123456"
+886900000004 = "123456"
+886900000005 = "123456"
 
 # Configure logged in session timeouts.
 # [auth.sessions]
@@ -283,6 +290,13 @@ otp_expiry = 300
 # timebox = "24h"
 # Force log out if the user has been inactive longer than the specified duration.
 # inactivity_timeout = "8h"
+
+# 簡訊交給我們的網站送出（#11，/internal/auth/send-sms，會驗證簽章）。
+# 密鑰從環境變數讀（GitHub Actions 每次產生一個新的），不寫在這個檔案裡。
+[auth.hook.send_sms]
+enabled = true
+uri = "http://host.docker.internal:3000/internal/auth/send-sms"
+secrets = "env(SUPABASE_AUTH_SEND_SMS_HOOK_SECRET)"
 
 # This hook runs before a new user is created and allows developers to reject the request based on the incoming user object.
 # [auth.hook.before_user_created]
@@ -295,12 +309,14 @@ otp_expiry = 300
 # uri = "pg-functions://<database>/<schema>/<hook_name>"
 
 # Configure one of the supported SMS providers: `twilio`, `twilio_verify`, `messagebird`, `textlocal`, `vonage`.
+# 佔位（#11）：本機的 Supabase CLI 沒看到任何簡訊服務就會關閉手機登入（就算有 Send SMS Hook）。
+# 這裡只是讓 CLI 開啟手機登入：Hook 開啟時 Supabase 改用 Hook 送簡訊，測試號碼也不會發簡訊，
+# 所以不會真的連到 Twilio。下面都是假的值，不是金鑰；雲端專案不經過這個檔案。
 [auth.sms.twilio]
-enabled = false
-account_sid = ""
-message_service_sid = ""
-# DO NOT commit your Twilio auth token to git. Use environment variable substitution instead:
-auth_token = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
+enabled = true
+account_sid = "AC00000000000000000000000000000000"
+message_service_sid = "MG00000000000000000000000000000000"
+auth_token = "placeholder-not-used"
 
 # Multi-factor-authentication is available to Supabase Pro plan.
 [auth.mfa]

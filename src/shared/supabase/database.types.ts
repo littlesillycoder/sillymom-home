@@ -169,6 +169,20 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"terms_acceptances": {
+                  Row: {
+                    "accepted_at": string,"document": string,"id": string,"user_id": string,"version": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "accepted_at"?: string,"document": string,"id"?: string,"user_id"?: string,"version": string
+                  }
+                  Update: {
+                    "accepted_at"?: string,"document"?: string,"id"?: string,"user_id"?: string,"version"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"user_roles": {
                   Row: {
                     "granted_at": string,"role": string,"user_id": string
@@ -245,6 +259,9 @@ isOneToOne: false
 { Args: { "p_limit"?: number,"p_lock_seconds"?: number,"p_max_attempts"?: number }; Returns: {
               "attempts": number,"delivery_id": string,"event_created_at": string,"event_id": string,"event_type": string,"handler": string,"payload": Json
             }[]
+                           },
+"current_terms_version":
+{ Args: Record<PropertyKey, never>; Returns: string
                            },
 "emit_event":
 { Args: { "p_payload"?: Json,"p_source": string,"p_type": string }; Returns: string

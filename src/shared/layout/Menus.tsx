@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/shared/i18n/navigation";
 import { routeHref } from "@/shared/navigation/routes";
-import { ButtonLink } from "@/shared/ui/Button";
+import { signOut } from "@/shared/supabase/actions";
+import { Button, ButtonLink } from "@/shared/ui/Button";
 import { Icon } from "@/shared/ui/Icon";
 import type { HeaderUser } from "./types";
 import styles from "./Menus.module.css";
@@ -101,10 +102,12 @@ export async function MemberMenu({ user }: { user?: HeaderUser }) {
         <ButtonLink href={routeHref("request")} size="lg" fullWidth>
           {t("memberMenu.cta")}
         </ButtonLink>
-        {/* 登出：#11 做登入時改成 POST（避免被別的網站用連結強制登出） */}
-        <ButtonLink href={routeHref("home")} variant="secondary" fullWidth>
-          {t("logout")}
-        </ButtonLink>
+        {/* 登出一律用 POST（表單送 Server Action），避免被別的網站用連結強制登出（#11） */}
+        <form action={signOut}>
+          <Button type="submit" variant="secondary" fullWidth>
+            {t("logout")}
+          </Button>
+        </form>
       </div>
       <Emergency />
     </>
@@ -144,10 +147,12 @@ export async function TechMenu({
             {t("techMenu.publicProfile")}
           </ButtonLink>
         )}
-        {/* 登出：#11 做登入時改成 POST */}
-        <ButtonLink href={routeHref("home")} variant="quiet" size="lg" fullWidth>
-          {t("logout")}
-        </ButtonLink>
+        {/* 登出一律用 POST（#11） */}
+        <form action={signOut}>
+          <Button type="submit" variant="quiet" size="lg" fullWidth>
+            {t("logout")}
+          </Button>
+        </form>
       </div>
       <Emergency />
     </>

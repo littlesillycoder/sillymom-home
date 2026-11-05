@@ -22,6 +22,13 @@ export type TurnstileClientProps = {
   nonce: string | undefined;
   action: string;
   language: "zh-tw" | "en";
+  /**
+   * 拿到（或失效）驗證結果時呼叫。給「瀏覽器直接送給 Supabase」的表單用（#11）；
+   * 沒有的話，結果放在表單的隱藏欄位 cf-turnstile-response。
+   */
+  onToken?: (token: string | null) => void;
+  /** always：一直顯示框；interaction-only：平常不顯示，判斷可能是機器人時才出現（#11） */
+  appearance?: "always" | "interaction-only";
 };
 
 /**
@@ -29,9 +36,21 @@ export type TurnstileClientProps = {
  * 驗證通過後，Turnstile 會在所在的 <form> 裡放一個隱藏欄位 cf-turnstile-response，
  * 伺服器端用 verifyTurnstile() 或交給 Supabase Auth 驗證。
  */
-export function TurnstileClient({ siteKey, nonce, action, language }: TurnstileClientProps) {
+export function TurnstileClient({
+  siteKey,
+  nonce,
+  action,
+  language,
+  onToken,
+  appearance = "always",
+}: TurnstileClientProps) {
   const container = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
+  // 最新的 onToken（不讓它變動時重新畫 Turnstile）
+  const onTokenRef = useRef(onToken);
+  useEffect(() => {
+    onTokenRef.current = onToken;
+  }, [onToken]);
 
   useEffect(() => {
     const el = container.current;
@@ -42,12 +61,16 @@ export function TurnstileClient({ siteKey, nonce, action, language }: TurnstileC
       language,
       theme: "light",
       size: "flexible",
+      appearance,
       "response-field-name": TURNSTILE_FORM_FIELD,
+      callback: (token: string) => onTokenRef.current?.(token),
+      "expired-callback": () => onTokenRef.current?.(null),
+      "error-callback": () => onTokenRef.current?.(null),
     });
     return () => {
       if (id) window.turnstile?.remove(id);
     };
-  }, [ready, siteKey, action, language]);
+  }, [ready, siteKey, action, language, appearance]);
 
   return (
     <>
@@ -57,7 +80,11 @@ export function TurnstileClient({ siteKey, nonce, action, language }: TurnstileC
         strategy="afterInteractive"
         onReady={() => setReady(true)}
       />
-      <div ref={container} className={styles.widget} data-testid="turnstile" />
+      <div
+        ref={container}
+        className={appearance === "always" ? styles.widget : undefined}
+        data-testid="turnstile"
+      />
     </>
   );
 }

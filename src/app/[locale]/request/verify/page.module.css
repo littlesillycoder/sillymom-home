@@ -1,0 +1,153 @@
+/*
+ * 求助步驟 2：手機快速驗證（設計稿 SignUp）
+ * - 767 以下：步驟進度條、大標題、卡片；底部固定送出按鈕，下方留空間。
+ * - 768 以上：橫向步驟、左邊卡片（標題在卡片裡）、右邊「驗證之後」。
+ */
+.page {
+  padding-top: var(--space-5);
+  padding-bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.desktopSteps,
+.desktopOnly {
+  display: none;
+}
+
+.mobileTitle {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
+  color: var(--color-denim);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.card {
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-black);
+  color: var(--color-denim);
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.haveAccount {
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--color-text-secondary);
+}
+
+.haveAccount a {
+  font-weight: var(--weight-bold);
+}
+
+.aside {
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-denim-soft);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.asideTitle {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-black);
+  color: var(--color-denim);
+}
+
+.afterList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: var(--text-md);
+  line-height: 1.7;
+}
+
+.afterList li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.afterList svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--color-check);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-top: var(--space-8);
+    padding-bottom: 48px;
+    gap: 40px;
+  }
+
+  .mobileSteps,
+  .mobileTitle,
+  .mobileOnly {
+    display: none;
+  }
+
+  .desktopSteps {
+    display: block;
+  }
+
+  .desktopOnly {
+    display: block;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1.43fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .card {
+    padding: 48px;
+  }
+
+  .cardTitle {
+    font-size: 40px;
+  }
+
+  .centered {
+    text-align: center;
+  }
+
+  .aside {
+    padding: 28px;
+  }
+}
