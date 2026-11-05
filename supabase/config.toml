@@ -211,11 +211,13 @@ token_verifications = 30
 # Number of Web3 logins that can be made in a 5 minute interval per IP address.
 web3 = 30
 
-# Configure one of the supported captcha providers: `hcaptcha`, `turnstile`.
-# [auth.captcha]
-# enabled = true
-# provider = "hcaptcha"
-# secret = ""
+# 防機器人（#6）：登入、註冊、送驗證碼都要先通過 Cloudflare Turnstile，由 Supabase 驗證。
+# 這裡是本機和 GitHub Actions 的暫時資料庫：用 Cloudflare 官方「一定通過」的測試密鑰（公開文件上的值，不是秘密）。
+# 雲端專案在 Supabase 後台設定正式密鑰（#83），不經過這個檔案。
+[auth.captcha]
+enabled = true
+provider = "turnstile"
+secret = "1x0000000000000000000000000000000AA"
 
 [auth.email]
 # Allow/disallow the email provider. When false, users can't sign up or sign in with email.
@@ -265,7 +267,10 @@ enable_confirmations = false
 # Template for sending OTP to users
 template = "Your code is {{ .Code }}"
 # Controls the minimum amount of time that must pass before sending another sms otp.
-max_frequency = "5s"
+# 同一支手機 60 秒內只能送一次驗證碼（#6）。雲端專案在後台設定成一樣（docs/資安檢查清單.md）。
+max_frequency = "60s"
+# 驗證碼 5 分鐘後失效（#6）
+otp_expiry = 300
 
 # Use pre-defined map of phone number to OTP for testing.
 # Keys are the phone number with country code and without the + prefix.

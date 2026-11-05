@@ -1,0 +1,6 @@
+/* Turnstile 的框由 Cloudflare 畫（寬度自動、高度 65px），這裡只預留空間，避免載入時版面跳動 */
+.widget {
+  min-height: 65px;
+  width: 100%;
+  max-width: 400px;
+}

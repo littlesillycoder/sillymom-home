@@ -1,5 +1,6 @@
 import "server-only";
 import { after } from "next/server";
+import { log } from "@/shared/log";
 import { createAdminClient } from "@/shared/supabase/admin";
 import { insertEvent } from "./emit";
 import { processEvents, type ProcessSummary } from "./processor";
@@ -40,9 +41,9 @@ export function scheduleProcessing(): void {
     after(async () => {
       try {
         await processEvents({ store: defaultStore(), handlers });
-      } catch {
-        // 失敗不影響使用者；補處理會再試。不印出內容，避免個資進 log。
-        console.error("[events] processing after response failed");
+      } catch (error) {
+        // 失敗不影響使用者；補處理會再試。log 工具會遮蔽錯誤訊息裡的個資。
+        log.error("events.process_after_response_failed", error);
       }
     });
   } catch {

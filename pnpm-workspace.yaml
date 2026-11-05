@@ -6,6 +6,9 @@ allowBuilds:
   "@swc/core": false
   sharp: false
   unrs-resolver: false
+# 新版本發布未滿 7 天（10080 分鐘）不安裝（#6），避免裝到剛被駭客竄改的版本。
+# 下面的例外清單是確認過、需要比較新版本的套件（原因寫在對應的 PR）。
+minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - "@next/env@16.4.4"
   - "@next/eslint-plugin-next@16.4.4"

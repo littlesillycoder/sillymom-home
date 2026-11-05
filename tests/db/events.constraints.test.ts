@@ -31,6 +31,8 @@ describe.skipIf(!hasTestDb)(hasTestDb ? title : `${title}（${skipReason}）`, (
     [{ items: [{ ok: 1 }, { email: "amy@example.com" }] }, "amy@example.com", "email"],
     [{ fullName: "王小美" }, "王小美", "fullName"],
     [{ idNumber: "A123456789" }, "A123456789", "idNumber"],
+    [{ lineUserId: "U4af4980629ab" }, "U4af4980629ab", "lineUserId"],
+    [{ smsOtp: "482913" }, "482913", "smsOtp"],
   ])("有個資欄位的事件被擋下，錯誤只列欄位名稱、不列值：%j", async (payload, value, key) => {
     const { error } = await emit("constraint-check.created", "constraint-check", payload);
     expectNoLeak(error, value);
@@ -41,6 +43,7 @@ describe.skipIf(!hasTestDb)(hasTestDb ? title : `${title}（${skipReason}）`, (
     const { data, error } = await emit("constraint-check.created", "constraint-check", {
       bookingId: "b1",
       amount: 100,
+      lineItems: 2,
     });
     expect(error).toBeNull();
     await c.admin.from("events").delete().eq("id", data);

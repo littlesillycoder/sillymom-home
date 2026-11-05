@@ -129,6 +129,8 @@
     "languageSwitcher": "語言切換",
     "languageDesktop": "電腦版（放在頁首右邊）",
     "languageMobile": "手機版（放在選單最上面）",
+    "turnstile": "Bot protection (Turnstile)",
+    "turnstileDesc": "Used in sign-in, verification code, and appeal forms. This demo uses Cloudflare's test key and always passes; production keys are set at deployment.",
     "techCards": "師傅卡",
     "simple": "簡易卡（首頁、服務分類）",
     "simpleBook": "簡易卡＋預約（登入後首頁「我信任的師傅」）",

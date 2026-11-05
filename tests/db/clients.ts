@@ -23,7 +23,12 @@ export async function createTestClients(): Promise<TestClients> {
   const password = `pw-${crypto.randomUUID()}`;
   const created = await admin.auth.admin.createUser({ email, password, email_confirm: true });
   expect(created.error).toBeNull();
-  const signIn = await signedIn.auth.signInWithPassword({ email, password });
+  // 測試資料庫開啟了 Turnstile（supabase/config.toml），用 Cloudflare 測試密鑰對應的測試 token
+  const signIn = await signedIn.auth.signInWithPassword({
+    email,
+    password,
+    options: { captchaToken: "XXXX.DUMMY.TOKEN.XXXX" },
+  });
   expect(signIn.error).toBeNull();
 
   return {
