@@ -63,24 +63,26 @@ describe.skipIf(!hasTestDb)(hasTestDb ? title : `${title}（${skipReason}）`, (
     ]);
     expect(roles.error).toBeNull();
 
-    const techs = await admin.from("technicians").insert([
-      {
-        user_id: T1.id,
-        display_name: "林師傅",
-        gender: "female",
-        categories: ["aircon"],
-        skills: ["冷氣漏水"],
-        service_areas: ["tw-taipei-xinyi"],
-        languages: ["mandarin", "taiwanese"],
-        identity_verified_at: new Date().toISOString(),
-        status: "approved",
-        approved_at: new Date().toISOString(),
-        rating: 4.8,
-        review_count: 12,
-      },
-      { user_id: T2.id, display_name: "陳師傅", gender: "male", status: "pending" },
-    ]);
-    expect(techs.error).toBeNull();
+    // 分開新增：一次新增多筆時，沒填的欄位會變成 null 而不是預設值
+    const t1 = await admin.from("technicians").insert({
+      user_id: T1.id,
+      display_name: "林師傅",
+      gender: "female",
+      categories: ["aircon"],
+      skills: ["冷氣漏水"],
+      service_areas: ["tw-taipei-xinyi"],
+      languages: ["mandarin", "taiwanese"],
+      identity_verified_at: new Date().toISOString(),
+      status: "approved",
+      approved_at: new Date().toISOString(),
+      rating: 4.8,
+      review_count: 12,
+    });
+    expect(t1.error).toBeNull();
+    const t2 = await admin
+      .from("technicians")
+      .insert({ user_id: T2.id, display_name: "陳師傅", gender: "male", status: "pending" });
+    expect(t2.error).toBeNull();
 
     const ra = await A.client
       .from("help_requests")
