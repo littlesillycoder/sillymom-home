@@ -7,6 +7,12 @@ import { hasTestDb, skipReason, testDb } from "../db/supabase-test-env";
  * #11（從 #6 移過來）：Supabase Auth 的次數限制實測（supabase/config.toml）。
  * 這些測試會用掉同一個 IP 的次數，所以和其他資料庫測試分開、最後才跑（.github/workflows/ci.yml）。
  * 用測試手機號碼（不會真的發簡訊）。
+ *
+ * 本機（和 GitHub 的暫時資料庫）測不到的：
+ * - 同一個 IP 的次數上限（token_verifications、sign_in_sign_ups）：Supabase Auth 要靠前面代理伺服器加的
+ *   「使用者 IP」標頭（GOTRUE_RATE_LIMIT_HEADER）才會依 IP 限制；雲端有設定，本機的 Supabase CLI 沒有。
+ *   改在雲端開發專案實測（#11 驗證步驟）。
+ * - 驗證碼 5 分鐘後失效：測試號碼的驗證碼是固定的，不會過期；接上真的簡訊服務時實測（#53）。
  */
 const title = "Supabase Auth 次數限制（資料庫）";
 const options = { auth: { persistSession: false, autoRefreshToken: false } };
@@ -37,19 +43,5 @@ describe.skipIf(!hasTestDb)(hasTestDb ? title : `${title}（${skipReason}）`, (
     expect(second.error?.status).toBe(429);
   });
 
-  it("同一個 IP 驗證錯誤超過上限會被擋下（token_verifications：5 分鐘 30 次）", async () => {
-    const phone = "+886900000004";
-    const sent = await newClient().auth.signInWithOtp({
-      phone,
-      options: { captchaToken: TEST_CAPTCHA_TOKEN },
-    });
-    expect(sent.error).toBeNull();
-    const statuses: (number | undefined)[] = [];
-    for (let i = 0; i < 35; i++) {
-      const { error } = await newClient().auth.verifyOtp({ phone, token: "000000", type: "sms" });
-      statuses.push(error?.status);
-      if (error?.status === 429) break;
-    }
-    expect(statuses, "35 次以內應該出現 429").toContain(429);
-  });
+  it.skip("同一個 IP 驗證錯誤超過上限會被擋下（本機的 Supabase 不依 IP 限制，改在雲端開發專案實測）", () => {});
 });
